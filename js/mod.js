@@ -1,8 +1,8 @@
 let modInfo = {
-	name: "The BORIS Tree",
+	name: "Galactic Upgrade Tree",
 	id: "boriswashere",
 	author: "C00LB0R1S",
-	pointsName: "money",
+	pointsName: "Rocket Fuel",
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "COMING SOON",
@@ -14,7 +14,7 @@ let modInfo = {
 // Set your version in num and name
 let VERSION = {
 	num: "0.0.1",
-	name: "lol test",
+	name: "Alpha Release",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -22,7 +22,7 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added things.<br>
 		- Added stuff.`
 
-let winText = `Congratulations, you finished "The BORIS Tree"!`
+let winText = `Congratulations, you finished The Galactic Upgrade Tree!`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
