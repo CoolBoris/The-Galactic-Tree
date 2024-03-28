@@ -13,6 +13,7 @@ Upgrades are stored in the following format:
 ```js
 upgrades: {
     11: {
+        title: "Upgrade 1"
         description: "Blah",
         cost: new Decimal(100),
         etc
