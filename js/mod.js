@@ -1,15 +1,8 @@
 let modInfo = {
-<<<<<<< HEAD
-	name: "Galactic Upgrade Tree",
-	id: "boriswashere",
+	name: "The Galactic Tree",
+	id: "galactictree11",
 	author: "C00LB0R1S",
 	pointsName: "Rocket Fuel",
-=======
-	name: "The ??? Tree",
-	id: "mymod",
-	author: "nobody",
-	pointsName: "points",
->>>>>>> parent of 59c2a55 (0.0.1)
 	modFiles: ["layers.js", "tree.js"],
 
 	discordName: "",
@@ -20,25 +13,18 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-<<<<<<< HEAD
-	num: "0.0.1",
-	name: "Alpha Release",
-=======
-	num: "0.0",
-	name: "Literally nothing",
->>>>>>> parent of 59c2a55 (0.0.1)
+	num: "0.0.2",
+	name: "Early Alpha Release",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+	<h3>v0.0.2</h3><br>
+		- Added Rockets.<br>
+		- Added 4 Rocket Upgrades.<br>
+	<h3>v0.0.1</h3><br>
+		- Added Rocket fuel.<br>`
 
-<<<<<<< HEAD
-let winText = `Congratulations, you finished The Galactic Upgrade Tree!`
-=======
-let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
->>>>>>> parent of 59c2a55 (0.0.1)
+let winText = `Congratulations! You have beaten The Galactic Tree!`
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
@@ -53,13 +39,19 @@ function canGenPoints(){
 	return true
 }
 
+
+
 // Calculate points/sec!
 function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
-	let gain = new Decimal(1)
+	let gain = new Decimal(0)
+	if (hasUpgrade('r', 11)) gain = gain.add(1)
+	if (hasUpgrade('r', 12)) gain = gain.times(2)
+	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
 	return gain
+
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
@@ -74,6 +66,7 @@ var displayThings = [
 function isEndgame() {
 	return player.points.gte(new Decimal("e280000000"))
 }
+
 
 
 
