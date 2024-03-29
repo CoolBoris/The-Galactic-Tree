@@ -14,7 +14,7 @@ Achievements should be formatted like this:
 ```js
 achievements: {
     11: {
-        name: "test",
+        name: "Blah",
         more features
     },
     etc

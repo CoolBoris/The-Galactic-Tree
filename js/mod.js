@@ -1,20 +1,32 @@
 let modInfo = {
+<<<<<<< HEAD
 	name: "Galactic Upgrade Tree",
 	id: "boriswashere",
 	author: "C00LB0R1S",
 	pointsName: "Rocket Fuel",
+=======
+	name: "The ??? Tree",
+	id: "mymod",
+	author: "nobody",
+	pointsName: "points",
+>>>>>>> parent of 59c2a55 (0.0.1)
 	modFiles: ["layers.js", "tree.js"],
 
-	discordName: "COMING SOON",
+	discordName: "",
 	discordLink: "",
-	initialStartPoints: new Decimal (1), // Used for hard resets and new players
+	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
 
 // Set your version in num and name
 let VERSION = {
+<<<<<<< HEAD
 	num: "0.0.1",
 	name: "Alpha Release",
+=======
+	num: "0.0",
+	name: "Literally nothing",
+>>>>>>> parent of 59c2a55 (0.0.1)
 }
 
 let changelog = `<h1>Changelog:</h1><br>
@@ -22,7 +34,11 @@ let changelog = `<h1>Changelog:</h1><br>
 		- Added things.<br>
 		- Added stuff.`
 
+<<<<<<< HEAD
 let winText = `Congratulations, you finished The Galactic Upgrade Tree!`
+=======
+let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
+>>>>>>> parent of 59c2a55 (0.0.1)
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
