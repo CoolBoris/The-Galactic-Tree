@@ -32,7 +32,6 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
-	if (hasUpgrade('c', 11)) gain = gain.add(1000)
 	if (hasUpgrade('r', 11)) gain = gain.add(1)
 	if (hasUpgrade('r', 12)) gain = gain.times(2)
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
@@ -47,9 +46,6 @@ function getPointGen() {
 	if (hasMilestone('ro', 10)) gain = gain.times(2)
 	if (hasUpgrade('as', 11)) gain = gain.times(upgradeEffect('as', 11))
 	if (hasUpgrade('as', 12)) gain = gain.times(upgradeEffect('as', 12))
-	if (hasUpgrade('r', 11)) gain = gain.add(1)
-	if (hasUpgrade('r', 12)) gain = gain.times(2)
-	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
 	return gain
 
 }
@@ -61,7 +57,7 @@ function addedPlayerData() { return {
 // Display extra things at the top of the page
 var displayThings = [
 	"SPACE SIMULATOR 3000",
-	"Reach 1e999999 Money to beat the game!"
+	"discord coming soon"
 ]
 
 // Determines when the game "ends"
