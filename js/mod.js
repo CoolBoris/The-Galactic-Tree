@@ -90,12 +90,16 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.8",
+	num: "0.0.9",
 	name: "Early Alpha Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
+		<h2 style="color:Violet;">v0.0.9</h2><br>
+		- Balanced Astronaut stuff <br>
+		- Space Theme<br>
+	     Github is so annoying ong<br>
 		<h2 style="color:Violet;">v0.0.8</h2><br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
@@ -114,7 +118,6 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- Astronauts (nothing yet)<br>
 		- More achievements<br>
 		- ...<br>
-		4 new versions in 1 day yippee!<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.6</h2><br>
 		- Balanced everything<br>
@@ -125,8 +128,8 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- Balanced Rocket Fuel<br>
 		- Achievements<br>
 		- Rockets (nothing but it works)<br>
-		- finally understandig this shi<br>
-		- theme removed :(<br>
+		- space theme removed :(<br>
+	    finally understandig this stuff<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.4</h2><br>
 		- Balanced Rocket  Fuel<br>
