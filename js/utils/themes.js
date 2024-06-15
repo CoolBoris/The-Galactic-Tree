@@ -1,5 +1,5 @@
 // ************ Themes ************
-var themes = ["default", "aqua"]
+var themes = ["default", "space"]
 
 var colors = {
 	default: {
@@ -12,14 +12,14 @@ var colors = {
 		background: "#0f0f0f",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 	},
-	aqua: {
-		1: "#bfdfff",
-		2: "#8fa7bf",
-		3: "#5f6f7f",
-		color: "#bfdfff",
-		points: "#dfefff",
-		locked: "#c4a7b3",
-		background: "#001f3f",
+	space: {
+		1: "#C66EFF",
+		2: "#915D9C",
+		3: "#6C4A70",
+		color: "#C66EFF",
+		points: "#CFAEFF",
+		locked: "#BB9CB3",
+		background: "#24003F",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 	},
 }
