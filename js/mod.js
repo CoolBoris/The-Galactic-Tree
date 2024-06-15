@@ -3,7 +3,7 @@ let modInfo = {
 	id: "galactictree11",
 	author: "C00LB0R1S",
 	pointsName: "Money",
-	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js", "cheat.js"],
+	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",],
 	pointsName: "Money",
 	discordName: "COMING SOON",
 	discordLink: "www.discord.com/comingsoon",
