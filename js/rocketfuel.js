@@ -22,7 +22,7 @@ addLayer("r", {
     },
 
     color: "#97192E",
-    requires: new Decimal(1), // Can be a function that takes requirement increases into account
+    requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Rocket Fuel", // Name of prestige currency
     baseResource: "Money", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
