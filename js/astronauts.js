@@ -26,6 +26,9 @@ addLayer("as", {
         if (hasMilestone('ro', 10)) mult = mult.times(1.5)
         if (hasUpgrade('as', 13)) mult = mult.times(upgradeEffect('as', 13))
         if (hasMilestone('as', 2)) mult = mult.pow(-2.1)
+        if (hasMilestone('as', 3)) mult = mult.pow(-0.5)
+        if (hasMilestone('ro', 12)) mult = mult.times(2)
+        if (hasMilestone('ro', 13)) mult = mult.times(2)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -34,6 +37,24 @@ addLayer("as", {
     hotkeys: [
         {key: "A", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    tabFormat: {
+        "Upgrades": {
+            content: [
+            "main-display",
+            "prestige-button",
+            "blank",
+            "upgrades"
+         ],
+     },
+        "Milestones": {
+            content: [
+            "main-display",
+            "prestige-button",
+            "blank",
+            "milestones",
+        ],
+     },
+ },
     milestones: {
         1: {
             requirementDescription: "250 Astronauts",
@@ -43,10 +64,12 @@ addLayer("as", {
         2: {
             requirementDescription: "500,000 Astronauts",
             effectDescription: "Keep Rocket Fuel Upgrades on reset",
-            effect() {
-                return player.points.add(1)
-            },
             done() {return player.as.points.gte(500000)}
+        },
+        3: {
+            requirementDescription: "20,000,000 Astronauts",
+            effectDescription: "Unlock 1 Rockets Upgrade",
+            done() {return player.as.points.gte(20000000)}
         },
     },
     upgrades: {
@@ -70,7 +93,7 @@ addLayer("as", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
         13: {
-            title: "More Rocket men",
+            title: "Trained Astronauts",
             description: "Astronauts gain is increased based on Rockets & x2 Rocket Fuel",
             cost: new Decimal(50),
             unlocked() { return (hasUpgrade(this.layer, 12))},
@@ -86,6 +109,16 @@ addLayer("as", {
             unlocked() { return (hasUpgrade(this.layer, 13))},
             effect() {
                 return player.as.points.add(1).pow(0.22)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        15: {
+            title: "Rocket Astronauts",
+            description: "Rocket cost is decreased based on Astronauts [COMING SOON, BETTER SOFTCAP NEEDED]",
+            cost: new Decimal(1e999999999999999999),
+            unlocked() { return (hasUpgrade(this.layer, 14))},
+            effect() {
+                return player.as.points.add(1).pow(0.3)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },

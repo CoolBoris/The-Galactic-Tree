@@ -8,6 +8,7 @@ addLayer("r", {
 		points: new Decimal(0),
     }},
     passiveGeneration() {
+        if (hasMilestone('ro', 14)) return 2.5
         if (hasMilestone('as', 1)) return 1
         if (hasMilestone('ro', 7)) return 0.5
         if (hasMilestone('ro', 6)) return 0.2
@@ -30,7 +31,8 @@ addLayer("r", {
     exponent: 0.4, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
-        if (hasUpgrade('c', 12)) mult = mult.times(100000000)
+        if (hasUpgrade('c', 11)) mult = mult.times(100000)
+        if (hasUpgrade('c', 13)) mult = mult.times(100000000)
         if (hasUpgrade('r', 15)) mult = mult.times(upgradeEffect('r', 15))
         if (hasUpgrade('r', 14)) mult = mult.times(1.75)
         if (hasUpgrade('r', 21)) mult = mult.times(1.5)

@@ -32,6 +32,8 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
+	if (hasUpgrade('c', 11)) gain = gain.add(100000)
+	if (hasUpgrade('c', 12)) gain = gain.add(1000)
 	if (hasUpgrade('r', 11)) gain = gain.add(1)
 	if (hasUpgrade('r', 12)) gain = gain.times(2)
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
@@ -46,6 +48,7 @@ function getPointGen() {
 	if (hasMilestone('ro', 10)) gain = gain.times(2)
 	if (hasUpgrade('as', 11)) gain = gain.times(upgradeEffect('as', 11))
 	if (hasUpgrade('as', 12)) gain = gain.times(upgradeEffect('as', 12))
+	if (hasMilestone('ro', 11)) gain = gain.times(2)
 	return gain
 
 }
@@ -86,12 +89,28 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.9",
+	num: "0.0.10",
 	name: "Early Alpha Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
+		<h2 style="color:Violet;">v0.0.10</h2><br>
+		- Subtabs <br>
+		- More Rockets Milestones<br>
+	    - More Achievements<br>
+		- ...<br>
+		I HATE ASTRONAUTS<br
+		<h2 style="color:Violet;">v0.0.8</h2><br>
+		- Astronaut Upgrades <br>
+		- Astronaut Milestones<br>
+		- More Rocket Milestones<br>
+		- Balancing!!!!! (astronauts aren't yet)<br>
+		- **SOFTCAPPED**<br>
+		- 4 Achievements <br>
+		- ...<br>
+		4 new versions in 1 day yippee!<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.9</h2><br>
 		- Balanced Astronaut stuff <br>
 		- Space Theme<br>

@@ -31,6 +31,25 @@ addLayer("ro", {
     hotkeys: [
         {key: "r", description: "R: Press for Rocket Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
+    tabFormat: {
+        "Milestones": {
+            content: [
+            "main-display",
+            "prestige-button",
+            "blank",
+            "milestones",
+        ],
+        },
+        "Upgrades": {
+            content: [
+            "main-display",
+            "prestige-button",
+            "blank",
+            "upgrades"
+         ],
+         unlocked() { return (hasMilestone('ro', 4))}
+     },
+  },
     milestones: {
         1: {
             requirementDescription: "1 Rocket",
@@ -91,11 +110,41 @@ addLayer("ro", {
             unlocked() { return (hasMilestone(this.layer, 9))},
             done() {return player.ro.points.gte(10)}
         },
+        11: {
+            requirementDescription: "11 Rockets",
+            effectDescription: "x2 Money",
+            unlocked() { return (hasMilestone(this.layer, 10))},
+            done() {return player.ro.points.gte(11)}
+        },
+        12: {
+            requirementDescription: "12 Rockets",
+            effectDescription: "x2 Astronauts",
+            unlocked() { return (hasMilestone(this.layer, 11))},
+            done() {return player.ro.points.gte(12)}
+        },
+        13: {
+            requirementDescription: "13 Rockets",
+            effectDescription: "x2 Astronauts",
+            unlocked() { return (hasMilestone(this.layer, 12))},
+            done() {return player.ro.points.gte(13)}
+        },
+        14: {
+            requirementDescription: "14 Rockets",
+            effectDescription: "250% of Rocket Fuel/s",
+            unlocked() { return (hasMilestone(this.layer, 13))},
+            done() {return player.ro.points.gte(14)}
+        },
+        15: {
+            requirementDescription: "15 Rockets",
+            effectDescription: "Unlock something new",
+            unlocked() { return (hasMilestone(this.layer, 14))},
+            done() {return player.ro.points.gte(15)}
+        },
     },
     upgrades: {
         11: {
             title: "Rocket Tech+",
-            description: "Rocket Requirement is decreased based on money",
+            description: "Rockets cost is decreased based on money",
             cost: new Decimal(4),
             unlocked() { return (hasMilestone(this.layer, 4))},
             effect() {
@@ -130,6 +179,16 @@ addLayer("ro", {
             unlocked() { return (hasUpgrade(this.layer, 13)) && (hasMilestone("as", 1))},
             effect() {
                 return player.as.points.add(1).pow(0.13)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        15: {
+            title: "Rocket Market",
+            description: "Money gain is increased based on Rockets",
+            cost: new Decimal(9),
+            unlocked() { return (hasUpgrade(this.layer, 14)) && (hasMilestone("as", 3))},
+            effect() {
+                return player.ro.points.add(1).pow(3)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
