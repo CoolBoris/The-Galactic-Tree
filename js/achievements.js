@@ -52,9 +52,9 @@ addLayer("a", {
         },
         12: {
             name: "funni",
-            done() {return (hasUpgrade("r", 21))},
-            tooltip: "Rocket Fuel Upgrade 6",
-            goalTooltip: "Buy Rocket Fuel Upgrade 6", // Shows when achievement is not completed
+            done() {return (hasUpgrade("r", 22))},
+            tooltip: "Rocket Fuel Upgrade 7",
+            goalTooltip: "Buy Rocket Fuel Upgrade 7", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
         13: {
