@@ -13,7 +13,7 @@ addLayer("ro", {
      },
      canBuyMax(){
         let buyMaxRockets = false
-        if (hasMilestone("ro", 16)) buyMaxRockets = true
+        if (hasMilestone("ro", 19)) buyMaxRockets = true
        return buyMaxRockets
      },
  branches: ["r"], 
@@ -29,6 +29,13 @@ addLayer("ro", {
         let mult = new Decimal(1)
         if (hasUpgrade('ro', 11)) mult = mult.divide(upgradeEffect('ro', 11))
         if (hasUpgrade('as', 21)) mult = mult.divide(upgradeEffect('as', 21))
+        if (hasUpgrade('ro', 21)) mult = mult.divide(upgradeEffect('ro', 21))
+        if (hasUpgrade('as', 32)) mult = mult.divide(upgradeEffect('as', 32))
+        if (hasUpgrade('s', 12)) mult = mult.divide(3)
+        if (hasUpgrade('s', 22)) mult = mult.divide(5)
+        if (hasUpgrade('s', 32)) mult = mult.divide(10)
+        if (hasUpgrade('s', 41)) mult = mult.divide(25)
+        if (hasUpgrade('as', 35)) mult = mult.divide(upgradeEffect('as', 35))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -142,37 +149,37 @@ addLayer("ro", {
         },
         15: {
             requirementDescription: "15 Rockets",
-            effectDescription: "Unlock something new [COMING SOON]",
+            effectDescription: "Unlock something new",
             unlocked() { return (hasMilestone(this.layer, 14))},
             done() {return player.ro.points.gte(15)}
         },
         16: {
             requirementDescription: "16 Rockets",
-            effectDescription: "Bulk buy Rockets",
+            effectDescription: "3 New Astronaut Upgrades",
             unlocked() { return (hasMilestone(this.layer, 15))},
             done() {return player.ro.points.gte(16)}
         },
         17: {
             requirementDescription: "17 Rockets",
-            effectDescription: "[COMING SOON]",
+            effectDescription: "10% of Astronauts/s",
             unlocked() { return (hasMilestone(this.layer, 16))},
             done() {return player.ro.points.gte(17)}
         },
         18: {
             requirementDescription: "18 Rockets",
-            effectDescription: "[COMING SOON]",
+            effectDescription: "2 New Astronaut Upgrades",
             unlocked() { return (hasMilestone(this.layer, 17))},
             done() {return player.ro.points.gte(18)}
         },
         19: {
             requirementDescription: "19 Rockets",
-            effectDescription: "[COMING SOON]",
+            effectDescription: "Bulk buy Rockets",
             unlocked() { return (hasMilestone(this.layer, 18))},
             done() {return player.ro.points.gte(19)}
         },
         20: {
             requirementDescription: "20 Rockets",
-            effectDescription: "The final Rockets milestone, [COMING SOON]",
+            effectDescription: "Unlock something new [COMING SOON]",
             unlocked() { return (hasMilestone(this.layer, 19))},
             done() {return player.ro.points.gte(20)}
         },
@@ -225,6 +232,16 @@ addLayer("ro", {
             unlocked() { return (hasUpgrade(this.layer, 14)) && (hasMilestone("as", 3))},
             effect() {
                 return player.ro.points.add(1).pow(3.2)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        21: {
+            title: "Space = More Rockets",
+            description: "Rockets cost is decreased based on Space Distance",
+            cost: new Decimal(15),
+            unlocked() { return (hasUpgrade(this.layer, 15)) && (hasMilestone("s", 3))},
+            effect() {
+                return player.ro.points.add(1).pow(1.68)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },

@@ -1,19 +1,21 @@
 Features:
 
 - Rocket Fuel
-- Rockets (rebirth thing)
+- Rockets
 - Astronauts (at 8 rockets)
-- Stars (rebirth thing)
-- Comets
-- Planets (challenges)
-- Galaxy (rebirth thing )
-- Black Holes
-- Cosmic Dust
-- Universe (rebirth thing)
-- Matter
-- Dark Matter
-- Supernova (rebirth thing)
-- ...
+- Space
+- Stars & Stardust
+- Comets & Asteroids
+- Planets & Solar System
+- Galaxy
+- Cosmic Dust & Cosmic Rays
+- Universe
+- Supernova
+- Black Hole & Void
+- Multiverse
+- Dark Matter & Antimatter
+- Dimension
+- ... (new words that i invented in Dimension X)
 
 felt cute might delete later
 

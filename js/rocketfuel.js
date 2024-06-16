@@ -18,7 +18,7 @@ addLayer("r", {
     },
     doReset(reset) {
         let keep = [];
-        if ( hasMilestone("as", 2) ) keep.push("upgrades")
+        if (hasMilestone("as", 2) ) keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("r", keep)
     },
     color: "#97192E",
@@ -51,6 +51,12 @@ addLayer("r", {
         if (hasUpgrade('r', 43)) mult = mult.times(1.1)
         if (hasUpgrade('r', 44)) mult = mult.times(1.01)
         if (hasUpgrade('r', 45)) mult = mult.times(upgradeEffect('r', 45))
+        if (hasUpgrade('as', 33)) mult = mult.times(upgradeEffect('as', 33))
+        if (hasUpgrade('s', 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 21)) mult = mult.times(10)
+        if (hasUpgrade('s', 31)) mult = mult.times(20)
+        if (hasUpgrade('s', 41)) mult = mult.times(50)
+        if (hasUpgrade('as', 34)) mult = mult.times(upgradeEffect('as', 34))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

@@ -3,10 +3,10 @@ let modInfo = {
 	id: "galactictree11",
 	author: "C00LB0R1S",
 	pointsName: "Money",
-	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",],
+	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js", "space.js",],
 	pointsName: "Money",
 	discordName: "COMING SOON",
-	discordLink: "www.discord.com/comingsoon",
+	discordLink: "https://www.discord.com/comingsoon",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
@@ -50,6 +50,8 @@ function getPointGen() {
 	if (hasUpgrade('as', 12)) gain = gain.times(upgradeEffect('as', 12))
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
 	if (hasUpgrade('as', 23)) gain = gain.times(upgradeEffect('as', 23))
+	if (hasMilestone('s', 1)) gain = gain.times(5)
+	if (hasUpgrade('s', 41)) mult = mult.times(100)
 	return gain
 
 }
@@ -61,7 +63,6 @@ function addedPlayerData() { return {
 // Display extra things at the top of the page
 var displayThings = [
 	"SPACE SIMULATOR 3000",
-	"Balanced until 🧑‍🚀 | Discord coming soon"
 ]
 
 // Determines when the game "ends"
@@ -90,21 +91,34 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.13",
-	name: "Early Alpha Release",
+	num: "0.1.0",
+	name: "Alpha Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
+		<h2 style="color:DeepPink;">v0.1.0</h2><br>
+		- Space Layer<br>
+		- Comets & Asteroids Layer<br>
+		- ~20 New Upgrades<br>
+		- ~10 New Milestones<br>
+		- More Achievements<br>
+		- Big Balance Changes<br>
+		- Release on galaxy<br>
+		biggest update yet!!<br>
+		all 0.0.x updates won't be released on galaxy<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.13</h2><br>
 		- More Astronaut Upgrades <br>
 		- More Rocket Fuel Upgrades<br>
 		- More Rockets Milestones<br>
 		- More Achievements<br>
 		new layer next update!!!<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.12</h2><br>
 		- More Astronaut Upgrades <br>
 		- ASTRONAUTS ARE FINALLY BALANCED<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.11</h2><br>
 		- 7 NEW THEMES!! <br>
 		- More Rockets Milestones<br>
@@ -175,7 +189,7 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- Added Rockets<br>
 		- Added 4 Rocket Upgrades<br>
 		<br>
-	<h2 style="color:Violet;">v0.0.1</h2><br>
+	<h2 style="color:Violet;">v0.0.1 [Early Alpha Release]</h2><br>
 		- Added Rocket Fuel
 		- basically nothing<br>`
 	

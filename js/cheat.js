@@ -16,6 +16,13 @@ addLayer("c", {
         let mult = new Decimal(1)
         return mult
     },
+    tabFormat: {
+        "cheat cheat cheat": {
+            content: [
+            "upgrades"
+         ],
+     },
+    },
     layerShown(){return true},
     color: "white",
     symbol: "C",
