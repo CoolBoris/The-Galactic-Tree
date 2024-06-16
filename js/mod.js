@@ -51,7 +51,7 @@ function getPointGen() {
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
 	if (hasUpgrade('as', 23)) gain = gain.times(upgradeEffect('as', 23))
 	if (hasMilestone('s', 1)) gain = gain.times(5)
-	if (hasUpgrade('s', 41)) mult = mult.times(100)
+	if (hasUpgrade('s', 41)) gain = gain.times(100)
 	return gain
 
 }
@@ -99,7 +99,6 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h2 style="color:DeepPink;">v0.1.0</h2><br>
 		- Space Layer<br>
-		- Comets & Asteroids Layer<br>
 		- ~20 New Upgrades<br>
 		- ~10 New Milestones<br>
 		- More Achievements<br>
