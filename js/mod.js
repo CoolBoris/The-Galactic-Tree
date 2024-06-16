@@ -3,7 +3,7 @@ let modInfo = {
 	id: "galactictree11",
 	author: "C00LB0R1S",
 	pointsName: "Money",
-	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",],
+	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js", "tips.js",],
 	pointsName: "Money",
 	discordName: "COMING SOON",
 	discordLink: "www.discord.com/comingsoon",
@@ -49,6 +49,7 @@ function getPointGen() {
 	if (hasUpgrade('as', 11)) gain = gain.times(upgradeEffect('as', 11))
 	if (hasUpgrade('as', 12)) gain = gain.times(upgradeEffect('as', 12))
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
+	if (hasUpgrade('as', 23)) gain = gain.times(upgradeEffect('as', 23))
 	return gain
 
 }
@@ -60,7 +61,7 @@ function addedPlayerData() { return {
 // Display extra things at the top of the page
 var displayThings = [
 	"SPACE SIMULATOR 3000",
-	"discord coming soon"
+	"Balanced until 🧑‍🚀 | Discord coming soon"
 ]
 
 // Determines when the game "ends"
@@ -89,12 +90,26 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0.10",
+	num: "0.0.13",
 	name: "Early Alpha Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
+		<h2 style="color:Violet;">v0.0.13</h2><br>
+		- More Astronaut Upgrades <br>
+		- More Rocket Fuel Upgrades<br>
+		- More Rockets Milestones<br>
+		- More Achievements<br>
+		new layer next update!!!<br>
+		<h2 style="color:Violet;">v0.0.12</h2><br>
+		- More Astronaut Upgrades <br>
+		- ASTRONAUTS ARE FINALLY BALANCED<br>
+		<h2 style="color:Violet;">v0.0.11</h2><br>
+		- 7 NEW THEMES!! <br>
+		- More Rockets Milestones<br>
+	    ong i dont understand softcaps<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.10</h2><br>
 		- Subtabs <br>
 		- More Rockets Milestones<br>

@@ -115,9 +115,23 @@ addLayer("a", {
         },
         25: {
             name: "softcapped again???",
-            done() {return player.as.points.gte(20000000)},
+            done() {return player.as.points.gte(1e8)},
             tooltip: "Astronauts Milestone 3 (softcaps astronaut gain)",
             goalTooltip: "Get Astronauts Milestone 3", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        25: {
+            name: "even more rf upgrades?",
+            done() {return (hasUpgrade("as", 25))},
+            tooltip: "Astronauts Upgrade 10",
+            goalTooltip: "Get Astronauts Upgrade 10", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        26: {
+            name: "something new!",
+            done() {return (hasMilestone("ro", 15))},
+            tooltip: "Rockets Milestone 15",
+            goalTooltip: "Get Rockets Milestone 15", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
     },

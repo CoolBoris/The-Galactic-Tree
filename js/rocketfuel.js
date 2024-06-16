@@ -21,7 +21,6 @@ addLayer("r", {
         if ( hasMilestone("as", 2) ) keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("r", keep)
     },
-
     color: "#97192E",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Rocket Fuel", // Name of prestige currency
@@ -46,6 +45,12 @@ addLayer("r", {
         if (hasUpgrade('ro', 13)) mult = mult.times(upgradeEffect('ro', 13))
         if (hasUpgrade('as', 13)) mult = mult.times(2)
         if (hasUpgrade('as', 14)) mult = mult.times(upgradeEffect('as', 14))
+        if (hasUpgrade('as', 25)) mult = mult.times(5)
+        if (hasUpgrade('r', 41)) mult = mult.times(upgradeEffect('r', 41))
+        if (hasUpgrade('r', 42)) mult = mult.times(upgradeEffect('r', 42))
+        if (hasUpgrade('r', 43)) mult = mult.times(1.1)
+        if (hasUpgrade('r', 44)) mult = mult.times(1.01)
+        if (hasUpgrade('r', 45)) mult = mult.times(upgradeEffect('r', 45))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -154,11 +159,53 @@ addLayer("r", {
         },
         35: {
             title: "Rocketed Rocket Fuel",
-            description: "Rocket Fuel gain is increased based on money",
+            description: "Rocket Fuel gain is increased based on Money",
             unlocked() { return (hasMilestone('ro', 6)) && (hasUpgrade(this.layer, 34))},
             cost: new Decimal(10000000),
             effect() {
                 return player.points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+         41: {
+            title: "MOAR Rocket Fuel!",
+            description: "Rocket Fuel gain is increased based on Astronauts",
+            unlocked() { return (hasUpgrade('as', 25)) && (hasUpgrade(this.layer, 35))},
+            cost: new Decimal(5e40),
+            effect() {
+                return player.as.points.add(1).pow(0.15)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        42: {
+            title: "I SAID MORE",
+            description: "Rocket Fuel gain is increased based on Rockets",
+            unlocked() { return (hasUpgrade('as', 25)) && (hasUpgrade(this.layer, 41))},
+            cost: new Decimal(1e43),
+            effect() {
+                return player.ro.points.add(1).pow(1.35)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        43: {
+            title: "maybe a little bit more",
+            description: "x1.1 Rocket Fuel",
+            unlocked() { return (hasUpgrade('as', 25)) && (hasUpgrade(this.layer, 42))},
+            cost: new Decimal(1e46),
+        },
+        44: {
+            title: "a tiny bit more",
+            description: "x1.01 Rocket Fuel",
+            unlocked() { return (hasUpgrade('as', 25)) && (hasUpgrade(this.layer, 43))},
+            cost: new Decimal(1.5e46),
+        },
+        45: {
+            title: "MOREEEEEE!!!!",
+            description: "Rocket Fuel gain is increased based on Rocket Fuel",
+            unlocked() { return (hasUpgrade('as', 25)) && (hasUpgrade(this.layer, 44))},
+            cost: new Decimal(4e46),
+            effect() {
+                return player.r.points.add(1).pow(0.07)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },

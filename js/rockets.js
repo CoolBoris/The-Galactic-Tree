@@ -11,9 +11,14 @@ addLayer("ro", {
         if (hasUpgrade('r', 25) || player.ro.unlocked) visible = true
        return visible
      },
+     canBuyMax(){
+        let buyMaxRockets = false
+        if (hasMilestone("ro", 16)) buyMaxRockets = true
+       return buyMaxRockets
+     },
  branches: ["r"], 
  row: 1, // Row the layer is in on the tree (0 is the first row)
-    color: "#6D6D6D",
+     color: "#6D6D6D",
     requires: new Decimal(500), // Can be a function that takes requirement increases into account
     resource: "Rockets", // Name of prestige currency
     baseResource: "Rocket Fuel", // Name of resource prestige is based on
@@ -23,6 +28,7 @@ addLayer("ro", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('ro', 11)) mult = mult.divide(upgradeEffect('ro', 11))
+        if (hasUpgrade('as', 21)) mult = mult.divide(upgradeEffect('as', 21))
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -136,9 +142,39 @@ addLayer("ro", {
         },
         15: {
             requirementDescription: "15 Rockets",
-            effectDescription: "Unlock something new",
+            effectDescription: "Unlock something new [COMING SOON]",
             unlocked() { return (hasMilestone(this.layer, 14))},
             done() {return player.ro.points.gte(15)}
+        },
+        16: {
+            requirementDescription: "16 Rockets",
+            effectDescription: "Bulk buy Rockets",
+            unlocked() { return (hasMilestone(this.layer, 15))},
+            done() {return player.ro.points.gte(16)}
+        },
+        17: {
+            requirementDescription: "17 Rockets",
+            effectDescription: "[COMING SOON]",
+            unlocked() { return (hasMilestone(this.layer, 16))},
+            done() {return player.ro.points.gte(17)}
+        },
+        18: {
+            requirementDescription: "18 Rockets",
+            effectDescription: "[COMING SOON]",
+            unlocked() { return (hasMilestone(this.layer, 17))},
+            done() {return player.ro.points.gte(18)}
+        },
+        19: {
+            requirementDescription: "19 Rockets",
+            effectDescription: "[COMING SOON]",
+            unlocked() { return (hasMilestone(this.layer, 18))},
+            done() {return player.ro.points.gte(19)}
+        },
+        20: {
+            requirementDescription: "20 Rockets",
+            effectDescription: "The final Rockets milestone, [COMING SOON]",
+            unlocked() { return (hasMilestone(this.layer, 19))},
+            done() {return player.ro.points.gte(20)}
         },
     },
     upgrades: {
@@ -185,10 +221,10 @@ addLayer("ro", {
         15: {
             title: "Rocket Market",
             description: "Money gain is increased based on Rockets",
-            cost: new Decimal(9),
+            cost: new Decimal(12),
             unlocked() { return (hasUpgrade(this.layer, 14)) && (hasMilestone("as", 3))},
             effect() {
-                return player.ro.points.add(1).pow(3)
+                return player.ro.points.add(1).pow(3.2)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
