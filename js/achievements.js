@@ -109,29 +109,71 @@ addLayer("a", {
         24: {
             name: "unbalanced ahh game",
             done() {return player.as.points.gte(500000)},
-            tooltip: "Astronauts Milestone 2 (softcaps astronaut gain)",
-            goalTooltip: "Get Astronauts Milestone 2", // Shows when achievement is not completed
+            tooltip: "Astronaut Milestone 2 (softcaps astronaut gain)",
+            goalTooltip: "Get Astronaut Milestone 2", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
         25: {
             name: "softcapped again???",
             done() {return player.as.points.gte(1e8)},
-            tooltip: "Astronauts Milestone 3 (softcaps astronaut gain)",
-            goalTooltip: "Get Astronauts Milestone 3", // Shows when achievement is not completed
+            tooltip: "1e8 Astronauts (softcaps astronaut gain)",
+            goalTooltip: "Get 1e8 Astronauts", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
         25: {
             name: "even more rf upgrades?",
             done() {return (hasUpgrade("as", 25))},
-            tooltip: "Astronauts Upgrade 10",
-            goalTooltip: "Get Astronauts Upgrade 10", // Shows when achievement is not completed
+            tooltip: "Astronaut Upgrade 10",
+            goalTooltip: "Get Astronaut Upgrade 10", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
         26: {
             name: "something new!",
             done() {return (hasMilestone("ro", 15))},
-            tooltip: "Rockets Milestone 15",
-            goalTooltip: "Get Rockets Milestone 15", // Shows when achievement is not completed
+            tooltip: "Rocket Milestone 15",
+            goalTooltip: "Get Rocket Milestone 15", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        31: {
+            name: "almost at the end",
+            done() {return player.s.points.gte(100)},
+            tooltip: "100 Space Distance",
+            goalTooltip: "Get 100 Space Distance", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        32: {
+            name: "almost at the end²",
+            done() {return player.s.points.gte(10000)},
+            tooltip: "10000 Space Distance",
+            goalTooltip: "Get 10000 Space Distance", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        33: {
+            name: "more upgrades in the worst feature :(",
+            done() {return (hasMilestone("ro", 16))},
+            tooltip: "Rocket Milestone 16",
+            goalTooltip: "Get Rocket Milestone 16", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        34: {
+            name: "final steps cuh",
+            done() {return player.r.points.gte(1e70)},
+            tooltip: "1e70 Rocket Fuel",
+            goalTooltip: "Get 1e70 Rocket Fuel", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        35: {
+            name: "Mega super!1!1!!",
+            done() {return (hasUpgrade("s", 41))},
+            tooltip: "Space Distance Upgrade 10",
+            goalTooltip: "Get Space Distance Upgrade 10", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        36: {
+            name: "woah another feature",
+            done() {return (hasMilestone("ro", 20))},
+            tooltip: "Rocket Milestone 20",
+            goalTooltip: "Get Rocket Milestone 20", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
     },
