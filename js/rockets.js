@@ -16,6 +16,12 @@ addLayer("ro", {
         if (hasMilestone("ro", 19)) buyMaxRockets = true
        return buyMaxRockets
      },
+     doReset(reset) {
+        let keep = [];
+        if (hasMilestone("c", 2) ) keep.push("upgrades")
+        if (hasMilestone("c", 4) ) keep.push("milestone", 15, 16, 17, 18, 19, 20)
+        if (layers[reset].row > this.row) layerDataReset("ro", keep)
+    },
  branches: ["r"], 
  row: 1, // Row the layer is in on the tree (0 is the first row)
      color: "#6D6D6D",
@@ -36,6 +42,7 @@ addLayer("ro", {
         if (hasUpgrade('s', 32)) mult = mult.divide(10)
         if (hasUpgrade('s', 41)) mult = mult.divide(25)
         if (hasUpgrade('as', 35)) mult = mult.divide(upgradeEffect('as', 35))
+        if (hasMilestone('c', 1)) mult = mult.divide(5)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -60,7 +67,7 @@ addLayer("ro", {
             "blank",
             "upgrades"
          ],
-         unlocked() { return (hasMilestone('ro', 4))}
+         unlocked() { return (hasMilestone('ro', 4)) || (hasMilestone('c', 2))}
      },
   },
     milestones: {
@@ -179,7 +186,7 @@ addLayer("ro", {
         },
         20: {
             requirementDescription: "20 Rockets",
-            effectDescription: "Unlock something new [COMING SOON]",
+            effectDescription: "Unlock something new",
             unlocked() { return (hasMilestone(this.layer, 19))},
             done() {return player.ro.points.gte(20)}
         },
@@ -241,7 +248,7 @@ addLayer("ro", {
             cost: new Decimal(15),
             unlocked() { return (hasUpgrade(this.layer, 15)) && (hasMilestone("s", 3))},
             effect() {
-                return player.ro.points.add(1).pow(1.68)
+                return player.s.points.add(1).pow(0.68)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },

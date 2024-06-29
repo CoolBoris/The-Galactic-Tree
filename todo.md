@@ -17,6 +17,13 @@ Features:
 - Dimension
 - ... (new words that i invented in Dimension X)
 
+make comets & asteroids a different thing, but unlocked at the same time.
+
 felt cute might delete later
 
 https://raw.githack.com/CoolBoris/The-Modding-Tree/master/index.html
+
+make automation tab (maybe)
+make so space ddistance never resets
+balance comets & asteroids
+comets & asteroid upgrades, ...

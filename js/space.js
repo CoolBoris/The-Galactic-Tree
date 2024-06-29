@@ -9,12 +9,17 @@ addLayer("s", {
     }},
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("s", 1) ) keep.push("upgrades")
-        if (hasMilestone("s", 1) ) keep.push("milestones")
-        if (layers[reset].row > this.row) layerDataReset("r", keep)
+        if (hasMilestone("s", 1)) keep.push("milestones")
+        if (hasMilestone("s", 1)) keep.push("upgrades")
+        if (hasMilestone("s", 1)) keep.push(player.s.points)
+        if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
     passiveGeneration() {
-        if (hasMilestone('s', 3)) return 30
+        if (hasMilestone('s', 8)) return 40000
+        if (hasMilestone('s', 7)) return 7500
+        if (hasMilestone('s', 6)) return 1000
+        if (hasMilestone('s', 5)) return 250
+        if (hasMilestone('s', 4)) return 50
         if (hasMilestone('s', 3)) return 10
         if (hasMilestone('s', 2)) return 3
         if (hasMilestone('s', 1)) return 1
@@ -49,16 +54,21 @@ addLayer("s", {
             "main-display",
             "resource-display",
             "blank",
+            ["display-text",
+                'Chapter 1: Space!', { "color": "MediumOrchid", "font-size": "32px"}],
+              "blank",
+              "blank",
             "prestige-button",
             ["display-text",
               '(One time reset)', { "color": "white", "font-size": "16px"}],
+            "blank",
+            ["display-text",
+              'This layer never resets', { "color": "white", "font-size": "14px"}],
          ],
      },
         "Upgrades": {
             content: [
             "main-display",
-            ["display-text",
-                '(Upgrades never resets)', { "color": "white", "font-size": "16px"}],
             "blank",
             "upgrades",
         ],
@@ -66,8 +76,6 @@ addLayer("s", {
      "Milestones": {
         content: [
         "main-display",
-        ["display-text",
-            '(Milestones never resets)', { "color": "white", "font-size": "16px"}],
         "blank",
         "milestones",
     ],
@@ -76,10 +84,13 @@ addLayer("s", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
-    hotkeys: [
-        {key: "s", description: "S: Press for Space Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
-    ],
     upgrades: {
+        10: {
+            title: "Comet Booster",
+            description: "x3 Comets",
+            cost: new Decimal(3.5e6),
+            unlocked() {return (hasMilestone("c", 4))},
+        },
         11: {
             title: "Rocket Fuel Booster",
             description: "x5 Rocket Fuel",
@@ -94,6 +105,18 @@ addLayer("s", {
             title: "Astronaut Booster",
             description: "x2 Astronauts",
             cost: new Decimal(50),
+        },
+        14: {
+            title: "Asteroid Booster",
+            description: "x3 Asteroids",
+            cost: new Decimal(3.5e6),
+            unlocked() {return (hasMilestone("ast", 5))},
+        },
+        20: {
+            title: "Comet Booster+",
+            description: "x5 Comets",
+            cost: new Decimal(1e7),
+            unlocked() {return (hasMilestone("c", 4)) && (hasUpgrade("s", 10))},
         },
         21: {
             title: "Rocket Fuel Booster+",
@@ -113,6 +136,18 @@ addLayer("s", {
             cost: new Decimal(750),
             unlocked() {return (hasUpgrade(this.layer, 13))},
         },
+        24: {
+            title: "Asteroid Booster+",
+            description: "x5 Asteroids",
+            cost: new Decimal(1e7),
+            unlocked() {return (hasMilestone("ast", 5)) && (hasUpgrade("s", 14))},
+        },
+        30: {
+            title: "Comet Booster++",
+            description: "x10 Comets",
+            cost: new Decimal(3e7),
+            unlocked() {return (hasMilestone("c", 4)) && (hasUpgrade("s", 20))},
+        },
         31: {
             title: "Rocket Fuel Booster++",
             description: "x20 Rocket Fuel",
@@ -131,11 +166,47 @@ addLayer("s", {
             cost: new Decimal(10000),
             unlocked() {return (hasUpgrade(this.layer, 23))},
         },
+        34: {
+            title: "Asteroid Booster++",
+            description: "x10 Asteroids",
+            cost: new Decimal(3e7),
+            unlocked() {return (hasMilestone("ast", 5)) && (hasUpgrade("s", 24))},
+        },
+        40: {
+            title: "Comet Booster 3000",
+            description: "x25 Comets",
+            cost: new Decimal(1e8),
+            unlocked() {return (hasMilestone("c", 4)) && (hasUpgrade("s", 30))},
+        },
         41: {
+            title: "Space Comets",
+            description: "x5 Comets",
+            cost: new Decimal(125000),
+            unlocked() {return (hasMilestone("c", 3))},
+        },
+        42: {
             title: "Mega Booster",
             description: "x100 Money, x50 Rocket Fuel, /25 Rocket Price & x25 Astronauts",
             cost: new Decimal(100000),
             unlocked() {return (hasUpgrade(this.layer, 31)) && (hasUpgrade(this.layer, 32)) && (hasUpgrade(this.layer, 33))},
+        },
+        43: {
+            title: "Space Asteroids",
+            description: "x5 Asteroids",
+            cost: new Decimal(125000),
+            unlocked() {return (hasMilestone("ast", 3))},
+        },
+        44: {
+            title: "Asteroid Booster 3000",
+            description: "x25 Asteroids",
+            cost: new Decimal(1e8),
+            unlocked() {return (hasMilestone("ast", 5)) && (hasUpgrade("s", 34))},
+        },
+        52: {
+            title: "Mega Ultra Booster",
+            description: "x499 Money, x199 Rocket Fuel, /99 Rocket Price & x74.99 Astronauts",
+            cost: new Decimal(749999),
+            unlocked() {return (hasUpgrade(this.layer, 41)) && (hasUpgrade(this.layer,42)) && (hasUpgrade(this.layer, 43)) && (hasMilestone("s", 8))},
         },
     },
     milestones: {
@@ -157,10 +228,34 @@ addLayer("s", {
             done() {return player.s.points.gte(1000) && player.ro.points.gte(15)}
          },
          4: {
-            requirementDescription: "20,000 Space Distance & 18 Rockets",
-            effectDescription: "30 Space Distance/s & 25% of Astronauts/s",
-            unlocked() { return (hasMilestone(this.layer, 2))},
-            done() {return player.s.points.gte(20000) && player.ro.points.gte(18)}
+            requirementDescription: "5,000 Space Distance & 18 Rockets",
+            effectDescription: "50 Space Distance/s & 25% of Astronauts/s",
+            unlocked() { return (hasMilestone(this.layer, 3))},
+            done() {return player.s.points.gte(5000) && player.ro.points.gte(18)}
+         },
+         5: {
+            requirementDescription: "44,444 Space Distance & 1e80 Rocket Fuel",
+            effectDescription: "250 Space Distance/s & x2 Comets & Asteroids",
+            unlocked() { return (hasMilestone(this.layer, 4))},
+            done() {return player.s.points.gte(44444) && player.r.points.gte(1e80)}
+         },
+         6: {
+            requirementDescription: "151,515 Space Distance & 5e14 Astronauts",
+            effectDescription: "1,000 Space Distance/s & x10 Astronauts",
+            unlocked() { return (hasMilestone(this.layer, 5))},
+            done() {return player.s.points.gte(151515) && player.as.points.gte(5e14)}
+         },
+         7: {
+            requirementDescription: "999,999 Space Distance",
+            effectDescription: "7,500 Space Distance/s & x3 Comets & Asteroids",
+            unlocked() { return (hasMilestone(this.layer, 7))},
+            done() {return player.s.points.gte(999999)}
+         },
+         8: {
+            requirementDescription: "15,000,000 Space Distance & 22 Rockets",
+            effectDescription: "40,000 Space Distance/s & 1 New Space Upgrade",
+            unlocked() { return (hasMilestone(this.layer, 7))},
+            done() {return player.s.points.gte(15000000) && player.ro.points.gte(22)}
          },
     }
 })

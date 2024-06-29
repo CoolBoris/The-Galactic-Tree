@@ -1,6 +1,6 @@
 
 // A side layer with achievements, with no prestige
-addLayer("c", {
+addLayer("cheat", {
     startData() { return {
         unlocked: true,
         points: new Decimal(0)

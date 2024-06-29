@@ -13,14 +13,20 @@ addLayer("as", {
        return visible
      },
      passiveGeneration() {
+        if (hasMilestone('ast', 4)) return 0.5
         if (hasMilestone('s', 4)) return 0.25
         if (hasMilestone('ro', 17)) return 0.1
         return 0
     },
+    doReset(reset) {
+        let keep = [];
+        if (hasMilestone("ast", 2)) keep.push("milestones")
+        if (layers[reset].row > this.row) layerDataReset("as", keep)
+    },
 softcap: new Decimal(500000),
 softcapPower: new Decimal(0.6),
 softcap: new Decimal(1e8),
-softcapPower: new Decimal(0.04),
+softcapPower: new Decimal(0.06),
  branches: ["ro", "r"], 
     color: "#EFEFEF",
     requires: new Decimal(1e13), // Can be a function that takes requirement increases into account
@@ -47,13 +53,15 @@ softcapPower: new Decimal(0.04),
         if (hasUpgrade('s', 23)) mult = mult.times(4)
         if (hasUpgrade('s', 33)) mult = mult.times(10)
         if (hasUpgrade('s', 41)) mult = mult.times(25)
+        if (hasMilestone('s', 2)) mult = mult.times(5)
+        if (hasMilestone('s', 6)) mult = mult.times(10)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "A", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "a", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     tabFormat: {
         "Upgrades": {
@@ -82,13 +90,21 @@ softcapPower: new Decimal(0.04),
         },
         2: {
             requirementDescription: "500,000 Astronauts",
-            effectDescription: "Keep Rocket Fuel Upgrades on reset",
+            effectDescription: "Keep Rocket Fuel Upgrades on Layer 2 reset",
+            unlocked() { return (hasMilestone(this.layer, 1))},
             done() {return player.as.points.gte(500000)}
         },
         3: {
             requirementDescription: "500,000,000 Astronauts",
             effectDescription: "Unlock 1 Rockets Upgrade",
+            unlocked() { return (hasMilestone(this.layer, 2))},
             done() {return player.as.points.gte(5e8)}
+        },
+        4: {
+            requirementDescription: "5e11 Astronauts",
+            effectDescription: "Unlock something new",
+            unlocked() { return (hasMilestone(this.layer, 3))},
+            done() {return player.as.points.gte(5e11)}
         },
     },
     upgrades: {
@@ -170,7 +186,7 @@ softcapPower: new Decimal(0.04),
         24: {
             title: "Higher Astronaut Salary",
             description: "Astronauts gain is increased based on Money",
-            cost: new Decimal(1.5e10),
+            cost: new Decimal(1e10),
             unlocked() { return (hasUpgrade(this.layer, 23))},
             effect() {
                 return player.points.add(1).pow(0.03)
@@ -180,13 +196,13 @@ softcapPower: new Decimal(0.04),
         25: {
             title: "The Final Astronaut",
             description: "x5 Rocket Fuel & 5 New Rocket Fuel Upgrades",
-            cost: new Decimal(4e10),
+            cost: new Decimal(2e10),
             unlocked() { return (hasUpgrade(this.layer, 24))},
         },
         31: {
             title: "Space Astronauts",
             description: "Astronaut gain is increased based on Space Distance",
-            cost: new Decimal(8e10),
+            cost: new Decimal(5e10),
             unlocked() { return (hasUpgrade(this.layer, 25)) && (hasMilestone("ro", 16))},
             effect() {
                 return player.s.points.add(1).pow(0.5)
@@ -196,7 +212,7 @@ softcapPower: new Decimal(0.04),
         32: {
             title: "Rocket Engineers",
             description: "Rocket cost is decreased based on Astronauts",
-            cost: new Decimal(1.5e11),
+            cost: new Decimal(8e10),
             unlocked() { return (hasUpgrade(this.layer, 31)) && (hasMilestone("ro", 16))},
             effect() {
                 return player.as.points.add(1).pow(0.45)
@@ -206,7 +222,7 @@ softcapPower: new Decimal(0.04),
         33: {
             title: "Rocket Fuel Scientists",
             description: "Rocket Fuel gain is increased based on Astronauts",
-            cost: new Decimal(4e11),
+            cost: new Decimal(1.2e11),
             unlocked() { return (hasUpgrade(this.layer, 32)) && (hasMilestone("ro", 16))},
             effect() {
                 return player.as.points.add(1).pow(0.21)
@@ -216,7 +232,7 @@ softcapPower: new Decimal(0.04),
         34: {
             title: "Travelling Astronauts",
             description: "Rocket Fuel gain is increased based on Space Distance",
-            cost: new Decimal(5e11),
+            cost: new Decimal(2e11),
             unlocked() { return (hasUpgrade(this.layer, 33)) && (hasMilestone("ro", 18))},
             effect() {
                 return player.s.points.add(1).pow(1.32)
@@ -226,8 +242,8 @@ softcapPower: new Decimal(0.04),
         35: {
             title: "Travelling Astronauts",
             description: "Rocket Fuel cost is decreased based on Astronauts",
-            cost: new Decimal(8e11),
-            unlocked() { return (hasUpgrade(this.layer, 33)) && (hasMilestone("ro", 18))},
+            cost: new Decimal(3.5e11),
+            unlocked() { return (hasUpgrade(this.layer, 34)) && (hasMilestone("ro", 18))},
             effect() {
                 return player.s.points.add(1).pow(0.7)
             },

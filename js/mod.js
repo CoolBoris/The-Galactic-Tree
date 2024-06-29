@@ -3,7 +3,10 @@ let modInfo = {
 	id: "galactictree11",
 	author: "C00LB0R1S",
 	pointsName: "Money",
-	modFiles: ["tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js", "space.js", "cometsasteroid.js",],
+	modFiles: [
+		"tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",
+		"space.js",
+	],
 	pointsName: "Money",
 	discordName: "COMING SOON",
 	discordLink: "https://www.discord.com/comingsoon",
@@ -32,8 +35,7 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
-	if (hasUpgrade('c', 11)) gain = gain.add(100000)
-	if (hasUpgrade('c', 12)) gain = gain.add(1000)
+	if (hasUpgrade('cheat', 11)) gain = gain.add(1e20)
 	if (hasUpgrade('r', 11)) gain = gain.add(1)
 	if (hasUpgrade('r', 12)) gain = gain.times(2)
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
@@ -91,13 +93,28 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1.0",
-	name: "Alpha Release",
+	num: "0.2.0",
+	name: "Beta Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
-		<h2 style="color:DeepPink;">v0.1.0</h2><br>
+		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
+
+		<h2 style="color:DeepPink;">v0.2.0</h2><br>
+		- Comets Layer<br>
+		- Asteroids Layer<br>
+		- More Space Content<br>
+		- ~20 New Upgrades<br>
+		- ~15 New Milestones<br>
+		- ~10 New Challenges<br>
+		- More achievements<br>
+		- a lot more Space Content
+		- Big Balance Changes<br>
+		QOL update next :)<br>
+		woah an even bigger update!<br>
+		<br>
+		<h2 style="color:DeepPink;">v0.1.0 [Beta Release]</h2><br>
 		- Space Layer<br>
 		- ~20 New Upgrades<br>
 		- ~10 New Milestones<br>
@@ -105,31 +122,30 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- Big Balance Changes<br>
 		- Release on galaxy<br>
 		biggest update yet!!<br>
-		all 0.0.x updates won't be released on galaxy<br>
 		<br>
-		<h2 style="color:Violet;">v0.0.13</h2><br>
+		<h2 style="color:Violet;">v0.0.14</h2><br>
 		- More Astronaut Upgrades <br>
 		- More Rocket Fuel Upgrades<br>
 		- More Rockets Milestones<br>
 		- More Achievements<br>
 		new layer next update!!!<br>
 		<br>
-		<h2 style="color:Violet;">v0.0.12</h2><br>
+		<h2 style="color:Violet;">v0.0.13</h2><br>
 		- More Astronaut Upgrades <br>
 		- ASTRONAUTS ARE FINALLY BALANCED<br>
 		<br>
-		<h2 style="color:Violet;">v0.0.11</h2><br>
+		<h2 style="color:Violet;">v0.0.12</h2><br>
 		- 7 NEW THEMES!! <br>
 		- More Rockets Milestones<br>
 	    ong i dont understand softcaps<br>
 		<br>
-		<h2 style="color:Violet;">v0.0.10</h2><br>
+		<h2 style="color:Violet;">v0.0.11</h2><br>
 		- Subtabs <br>
 		- More Rockets Milestones<br>
 	    - More Achievements<br>
 		- ...<br>
-		I HATE ASTRONAUTS<br
-		<h2 style="color:Violet;">v0.0.8</h2><br>
+		I HATE ASTRONAUTS<br>
+		<h2 style="color:Violet;">v0.0.10</h2><br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
 		- More Rocket Milestones<br>
@@ -143,7 +159,8 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- Balanced Astronaut stuff <br>
 		- Space Theme<br>
 	     Github is so annoying ong<br>
-		<h2 style="color:Violet;">v0.0.8</h2><br>
+		 <br>
+		<h2 style="color:Violet;">v0.0.8 [Alpha Release]</h2><br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
 		- More Rocket Milestones<br>
@@ -152,6 +169,7 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- 4 Achievements <br>
 		- ...<br>
 		4 new versions in 1 day yippee!<br>
+		also test release on github for friends<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.7</h2><br>
 		- Rockets Upgrades <br>
