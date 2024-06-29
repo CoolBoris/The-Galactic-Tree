@@ -9,7 +9,7 @@ let modInfo = {
 	],
 	pointsName: "Money",
 	discordName: "COMING SOON",
-	discordLink: "https://www.discord.com/comingsoon",
+	discordLink: "https://www.cheapyardsignsage.com/cdn/shop/products/Starburst_ComingSoon_1200x1200.png?v=1586370932",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	offlineLimit: 1,  // In hours
 }
@@ -35,7 +35,6 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
-	if (hasUpgrade('cheat', 11)) gain = gain.add(1e20)
 	if (hasUpgrade('r', 11)) gain = gain.add(1)
 	if (hasUpgrade('r', 12)) gain = gain.times(2)
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
