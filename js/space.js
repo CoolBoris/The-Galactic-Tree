@@ -248,7 +248,7 @@ addLayer("s", {
          7: {
             requirementDescription: "999,999 Space Distance",
             effectDescription: "7,500 Space Distance/s & x3 Comets & Asteroids",
-            unlocked() { return (hasMilestone(this.layer, 7))},
+            unlocked() { return (hasMilestone(this.layer, 6))},
             done() {return player.s.points.gte(999999)}
          },
          8: {
