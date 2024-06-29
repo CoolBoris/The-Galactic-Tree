@@ -4,8 +4,8 @@ Features:
 - Rockets
 - Astronauts (at 8 rockets)
 - Space
-- Stars & Stardust
 - Comets & Asteroids
+- Stars & Stardust
 - Planets & Solar System
 - Galaxy
 - Cosmic Dust & Cosmic Rays

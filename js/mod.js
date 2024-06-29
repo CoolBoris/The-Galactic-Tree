@@ -5,7 +5,7 @@ let modInfo = {
 	pointsName: "Money",
 	modFiles: [
 		"tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",
-		"space.js",
+		"space.js", "comets.js", "asteroids.js"
 	],
 	pointsName: "Money",
 	discordName: "COMING SOON",
@@ -93,7 +93,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.0",
+	num: "0.Pre2.0",
 	name: "Beta Release",
 }
 
@@ -101,18 +101,14 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
-		<h2 style="color:DeepPink;">v0.2.0</h2><br>
+		<h2 style="color:DeepPink;">v0.Pre2.0</h2><br>
 		- Comets Layer<br>
 		- Asteroids Layer<br>
 		- More Space Content<br>
-		- ~20 New Upgrades<br>
-		- ~15 New Milestones<br>
-		- ~10 New Challenges<br>
-		- More achievements<br>
-		- a lot more Space Content
+		- ~10 New Upgrades<br>
+		- ~8 New Milestones<br>
 		- Big Balance Changes<br>
-		QOL update next :)<br>
-		woah an even bigger update!<br>
+		not finished but had to publish for reasons<br>
 		<br>
 		<h2 style="color:DeepPink;">v0.1.0 [Beta Release]</h2><br>
 		- Space Layer<br>
