@@ -404,7 +404,7 @@ addLayer("save", {
      },
      23: {
         title: "Endgame",
-        display: "Chapter 1: Space [NO SAVE YET]",
+        display: "Chapter 1: Space",
         canClick: true,
         onClick() {
             if(!confirm("WARNING: Your save file will be fully changed. Are you sure?")) return;

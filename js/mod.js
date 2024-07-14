@@ -66,7 +66,7 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Endgame: 1e55 Money",
+	"Endgame: 1e62 Money",
 	"Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!",
 ]
 

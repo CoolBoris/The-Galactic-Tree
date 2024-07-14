@@ -130,7 +130,7 @@ addLayer("c", {
         },
         15: {
             title: "Asteroid Infusion",
-            description: "Asteroids are boosted based on Comets",
+            description: "Asteroids gain is increased based on Comets",
             unlocked() { return (hasUpgrade(this.layer, 14))},
             cost: new Decimal(150),
             effect() {
