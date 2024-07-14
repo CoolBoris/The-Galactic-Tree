@@ -35,7 +35,7 @@ addLayer("ast", {
 
         // Softcaps
         if (player.ast.points.gte(100000)) mult = mult.pow(0.88)
-        if (player.ast.points.gte(5e6)) mult = mult.pow(0.25)
+        if (player.ast.points.gte(5e6)) mult = mult.pow(0.18)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

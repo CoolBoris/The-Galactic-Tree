@@ -72,7 +72,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e61"))
+	return player.points.gte(new Decimal("1e62"))
 	
 }
 
@@ -96,17 +96,20 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.0",
+	num: "0.2.1",
 	name: "Beta Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
-	<h2 style="color:MediumSpringGreen;">UPDATE WEEK </h2><br>
-	<h4 style="color:White;">Expect a lot of small updates this week! </h4><br>
-	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
+		<h2 style="color:Violet;">v0.2.1</h2><br>
+		- Asteroids & Comets Balancing<br>
+		- More Achievements<br>
+		- Endgame changes<br>
+		- minor bug fixes<br>
+		<br>
 		<h2 style="color:DeepPink;">v0.2.0 </h2><br>
 		- Secret Achievements<br>
 		- Savebank<br>
