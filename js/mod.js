@@ -4,14 +4,14 @@ let modInfo = {
 	author: "C00LB0R1S",
 	pointsName: "Money",
 	modFiles: [
-		"tree.js", "rocketfuel.js", "rockets.js", "achievements.js", "astronauts.js",
+		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
 		"space.js", "comets.js", "asteroids.js"
 	],
 	pointsName: "Money",
-	discordName: "COMING SOON",
-	discordLink: "https://www.cheapyardsignsage.com/cdn/shop/products/Starburst_ComingSoon_1200x1200.png?v=1586370932",
+	discordName: "CoolBoris' Server",
+	discordLink: "https://discord.gg/tRDV4qUf",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	offlineLimit: 0.0000001,  // In hours
 }
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
@@ -46,13 +46,16 @@ function getPointGen() {
 	if (hasUpgrade('r', 33)) gain = gain.times(10)
 	if (hasMilestone('ro', 5)) gain = gain.times(3)
 	if (hasUpgrade('ro', 12)) gain = gain.times(upgradeEffect('ro', 12))
+	if (hasUpgrade('ro', 15)) gain = gain.times(upgradeEffect('ro', 15))
 	if (hasMilestone('ro', 10)) gain = gain.times(2)
-	if (hasUpgrade('as', 11)) gain = gain.times(upgradeEffect('as', 11))
-	if (hasUpgrade('as', 12)) gain = gain.times(upgradeEffect('as', 12))
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
-	if (hasUpgrade('as', 23)) gain = gain.times(upgradeEffect('as', 23))
-	if (hasMilestone('s', 1)) gain = gain.times(5)
-	if (hasUpgrade('s', 41)) gain = gain.times(100)
+	if (hasMilestone('s', 1)) gain = gain.times(3)
+	if (hasUpgrade('s', 43)) gain = gain.times(100)
+	if (hasUpgrade('as', 11)) gain = gain.times(5)
+	if (hasUpgrade('as', 12)) gain = gain.times(10)
+	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
+	if (hasUpgrade('as', 25)) gain = gain.times(100)
+	if (hasUpgrade('s', 51)) gain = gain.times(500)	
 	return gain
 
 }
@@ -63,12 +66,13 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"SPACE SIMULATOR 3000",
+	"Endgame: 1e55 Money",
+	"Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!",
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e999999"))
+	return player.points.gte(new Decimal("e61"))
 	
 }
 
@@ -92,22 +96,40 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.Pre2.0",
+	num: "0.2.0",
 	name: "Beta Release",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
+	<h2 style="color:MediumSpringGreen;">UPDATE WEEK </h2><br>
+	<h4 style="color:White;">Expect a lot of small updates this week! </h4><br>
+	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
-		<h2 style="color:DeepPink;">v0.Pre2.0</h2><br>
+		<h2 style="color:DeepPink;">v0.2.0 </h2><br>
+		- Secret Achievements<br>
+		- Savebank<br>
+		- Softcaps<br>
+		- More Comets & Asteroids content<br>
+		- Achievements rework<br>
+		- BIG Balance Changes<br>
+		- QOL<br>
+		- crazy amount of bug fixes<br>
+		- Full Astronauts Rework<br>
+		- 1 new theme<br>
+		- Space Rework<br>
+		<br>
+		<h3 style="color:Red;">IMPORTANT:</h3><br>
+		Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!<br>
+		<br>
+		<h2 style="color:Violet;">v0.Pre2.0</h2><br>
 		- Comets Layer<br>
 		- Asteroids Layer<br>
 		- More Space Content<br>
-		- ~10 New Upgrades<br>
-		- ~8 New Milestones<br>
 		- Big Balance Changes<br>
-		not finished but had to publish for reasons<br>
+		not finished but had to publish for fix<br>
+		still not released on galaxy lol (slow verification)<br>
 		<br>
 		<h2 style="color:DeepPink;">v0.1.0 [Beta Release]</h2><br>
 		- Space Layer<br>
@@ -115,7 +137,7 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- ~10 New Milestones<br>
 		- More Achievements<br>
 		- Big Balance Changes<br>
-		- Release on galaxy<br>
+		- Release on galaxy, needs to be verified tho<br>
 		biggest update yet!!<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.14</h2><br>

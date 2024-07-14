@@ -17,13 +17,11 @@ Features:
 - Dimension
 - ... (new words that i invented in Dimension X)
 
-make comets & asteroids a different thing, but unlocked at the same time.
+make a thing for endgame players, with buyables and upgrades that can go on infinitely
+a loop system like gci, resets each update, is optional
 
 felt cute might delete later
 
 https://raw.githack.com/CoolBoris/The-Modding-Tree/master/index.html
 
-make automation tab (maybe)
-make so space ddistance never resets
-balance comets & asteroids
-comets & asteroid upgrades, ...
+grass cutting incremental tree

@@ -6,9 +6,9 @@ function getStartOptions() {
 	return {
 		autosave: true,
 		msDisplay: "always",
-		theme: "default",
+		theme: "space",
 		hqTree: false,
-		offlineProd: true,
+		offlineProd: false,
 		hideChallenges: false,
 		showStory: true,
 		forceOneTab: false,

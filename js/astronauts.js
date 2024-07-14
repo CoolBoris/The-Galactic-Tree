@@ -7,6 +7,7 @@ addLayer("as", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 8) || player.as.unlocked) visible = true
@@ -15,18 +16,14 @@ addLayer("as", {
      passiveGeneration() {
         if (hasMilestone('ast', 4)) return 0.5
         if (hasMilestone('s', 4)) return 0.25
-        if (hasMilestone('ro', 17)) return 0.1
+        if (hasMilestone('ro', 13)) return 0.1
         return 0
     },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("ast", 2)) keep.push("milestones")
+        if (hasMilestone("ast", 3)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("as", keep)
     },
-softcap: new Decimal(500000),
-softcapPower: new Decimal(0.6),
-softcap: new Decimal(1e8),
-softcapPower: new Decimal(0.06),
  branches: ["ro", "r"], 
     color: "#EFEFEF",
     requires: new Decimal(1e13), // Can be a function that takes requirement increases into account
@@ -34,27 +31,38 @@ softcapPower: new Decimal(0.06),
     baseResource: "Rocket Fuel", // Name of resource prestige is based on
     baseAmount() {return player.r.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
-    exponent: 0.7, // Prestige currency exponent
+    exponent: 0.6, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
         if (hasMilestone('ro', 9)) mutl = mult.times(1.5)
         if (hasMilestone('ro', 10)) mult = mult.times(1.5)
-        if (hasUpgrade('as', 13)) mult = mult.times(upgradeEffect('as', 13))
-        if (hasMilestone('as', 2)) mult = mult.pow(-2.1)
-        if (hasMilestone('as', 3)) mult = mult.pow(-0.5)
         if (hasMilestone('ro', 12)) mult = mult.times(2)
-        if (hasMilestone('ro', 13)) mult = mult.times(2)
-        if (hasUpgrade('as', 15)) mult = mult.times(upgradeEffect('as', 15))
-        if (hasUpgrade('as', 22)) mult = mult.times(3)
-        if (hasUpgrade('as', 24)) mult = mult.times(upgradeEffect('as', 24))
+        if (hasMilestone('ro', 17)) mult = mult.times(2)
+        if (hasMilestone('ro', 19)) mult = mult.times(3)
         if (hasMilestone('s', 2)) mult = mult.times(2)
-        if (hasUpgrade('as', 31)) mult = mult.times(upgradeEffect('as', 31))
-        if (hasUpgrade('s', 13)) mult = mult.times(2)
-        if (hasUpgrade('s', 23)) mult = mult.times(4)
-        if (hasUpgrade('s', 33)) mult = mult.times(10)
-        if (hasUpgrade('s', 41)) mult = mult.times(25)
+        if (hasUpgrade('ro', 14)) mult = mult.times(upgradeEffect('ro', 14))
+        if (hasUpgrade('s', 14)) mult = mult.times(2)
+        if (hasUpgrade('s', 24)) mult = mult.times(4)
+        if (hasUpgrade('s', 34)) mult = mult.times(10)
+        if (hasUpgrade('s', 43)) mult = mult.times(25)
         if (hasMilestone('s', 2)) mult = mult.times(5)
-        if (hasMilestone('s', 6)) mult = mult.times(10)
+        if (hasUpgrade('as', 12)) mult = mult.times(3)
+        if (hasUpgrade('as', 13)) mult = mult.times(5)
+        if (hasUpgrade('as', 14)) mult = mult.times(3)
+        if (hasUpgrade('as', 22)) mult = mult.times(5)
+        if (hasUpgrade('as', 23)) mult = mult.times(8)
+        if (hasUpgrade('s', 51)) mult = mult.times(75)
+        if (hasUpgrade('ast', 11)) mult = mult.times(5) 
+        if (hasUpgrade('ast', 13)) mult = mult.times(upgradeEffect('ast', 13))
+        if (hasUpgrade('ast', 14)) mult = mult.times(10)
+
+        // Softcaps
+        if (player.as.points.gte(10000)) mult = mult.pow(0.88)
+        if (player.as.points.gte(1e10)) mult = mult.pow(0.82)
+        if (player.as.points.gte(1e12)) mult = mult.pow(0.7)
+        if (player.as.points.gte(1e15)) mult = mult.pow(0.65)
+        if (player.as.points.gte(1e20)) mult = mult.pow(0.1)
+        if (player.as.points.gte(1e30)) mult = mult.pow(0.0001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -84,9 +92,9 @@ softcapPower: new Decimal(0.06),
  },
     milestones: {
         1: {
-            requirementDescription: "250 Astronauts",
-            effectDescription: "100% of Rocket Fuel/s & 1 New Rockets Upgrade",
-            done() {return player.as.points.gte(250)}
+            requirementDescription: "750 Astronauts",
+            effectDescription: "100% of Rocket Fuel/s & 1 New Rocket Upgrade",
+            done() {return player.as.points.gte(750)}
         },
         2: {
             requirementDescription: "500,000 Astronauts",
@@ -96,158 +104,88 @@ softcapPower: new Decimal(0.06),
         },
         3: {
             requirementDescription: "500,000,000 Astronauts",
-            effectDescription: "Unlock 1 Rockets Upgrade",
+            effectDescription: "Unlock 1 Rocket Upgrade",
             unlocked() { return (hasMilestone(this.layer, 2))},
             done() {return player.as.points.gte(5e8)}
         },
         4: {
-            requirementDescription: "5e11 Astronauts",
+            requirementDescription: "1e29 Astronauts",
             effectDescription: "Unlock something new",
             unlocked() { return (hasMilestone(this.layer, 3))},
-            done() {return player.as.points.gte(5e11)}
+            done() {return player.as.points.gte(1e29)}
         },
     },
     upgrades: {
-        11: {
-            title: "Hire Astronauts",
-            description: "Money gain is increased based on Astronauts",
-            cost: new Decimal(1),
-            effect() {
-                return player.as.points.add(1).pow(0.5)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        12: {
-            title: "Hire more Astronauts",
-            description: "Money gain is increased based on Astronauts",
-            cost: new Decimal(8),
-            unlocked() { return (hasUpgrade(this.layer, 11))},
-            effect() {
-                return player.as.points.add(1).pow(0.73)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        13: {
-            title: "Trained Astronauts",
-            description: "Astronauts gain is increased based on Rockets & x2 Rocket Fuel",
-            cost: new Decimal(50),
-            unlocked() { return (hasUpgrade(this.layer, 12))},
-            effect() {
-                return player.ro.points.add(1).pow(1)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        14: {
-            title: "Skilled Astronauts",
-            description: "Rocket Fuel gain is increased based on Astronauts",
-            cost: new Decimal(300000),
-            unlocked() { return (hasUpgrade(this.layer, 13))},
-            effect() {
-                return player.as.points.add(1).pow(0.22)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        15: {
-            title: "Recruiting Astronauts",
-            description: "Astronaut gain is increased based on Money",
-            cost: new Decimal(1e6),
-            unlocked() { return (hasUpgrade(this.layer, 14))},
-            effect() {
-                return player.points.add(1).pow(0.03)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        21: {
-            title: "Rocket Astronauts",
-            description: "Rocket cost is decreased based on Astronauts",
-            cost: new Decimal(1e7),
-            unlocked() { return (hasUpgrade(this.layer, 15))},
-            effect() {
-                return player.as.points.add(1).pow(0.3)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        22: {
-            title: "Teaching the Astronauts",
-            description: "x3 Astronauts",
-            cost: new Decimal(1e8),
-            unlocked() { return (hasUpgrade(this.layer, 21))},
-        },
-        23: {
-            title: "Astronaut Production?",
-            description: "Money gain is greatly increased based on Astronauts",
-            cost: new Decimal(3e9),
-            unlocked() { return (hasUpgrade(this.layer, 22))},
-            effect() {
-                return player.as.points.add(1).pow(1)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        24: {
-            title: "Higher Astronaut Salary",
-            description: "Astronauts gain is increased based on Money",
-            cost: new Decimal(1e10),
-            unlocked() { return (hasUpgrade(this.layer, 23))},
-            effect() {
-                return player.points.add(1).pow(0.03)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        25: {
-            title: "The Final Astronaut",
-            description: "x5 Rocket Fuel & 5 New Rocket Fuel Upgrades",
-            cost: new Decimal(2e10),
-            unlocked() { return (hasUpgrade(this.layer, 24))},
-        },
-        31: {
-            title: "Space Astronauts",
-            description: "Astronaut gain is increased based on Space Distance",
-            cost: new Decimal(5e10),
-            unlocked() { return (hasUpgrade(this.layer, 25)) && (hasMilestone("ro", 16))},
-            effect() {
-                return player.s.points.add(1).pow(0.5)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        32: {
-            title: "Rocket Engineers",
-            description: "Rocket cost is decreased based on Astronauts",
-            cost: new Decimal(8e10),
-            unlocked() { return (hasUpgrade(this.layer, 31)) && (hasMilestone("ro", 16))},
-            effect() {
-                return player.as.points.add(1).pow(0.45)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        33: {
-            title: "Rocket Fuel Scientists",
-            description: "Rocket Fuel gain is increased based on Astronauts",
-            cost: new Decimal(1.2e11),
-            unlocked() { return (hasUpgrade(this.layer, 32)) && (hasMilestone("ro", 16))},
-            effect() {
-                return player.as.points.add(1).pow(0.21)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        34: {
-            title: "Travelling Astronauts",
-            description: "Rocket Fuel gain is increased based on Space Distance",
-            cost: new Decimal(2e11),
-            unlocked() { return (hasUpgrade(this.layer, 33)) && (hasMilestone("ro", 18))},
-            effect() {
-                return player.s.points.add(1).pow(1.32)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
-        35: {
-            title: "Travelling Astronauts",
-            description: "Rocket Fuel cost is decreased based on Astronauts",
-            cost: new Decimal(3.5e11),
-            unlocked() { return (hasUpgrade(this.layer, 34)) && (hasMilestone("ro", 18))},
-            effect() {
-                return player.s.points.add(1).pow(0.7)
-            },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
-        },
+    11: {
+        title: "The First Astronaut",
+        description: "5x Money & 2x Rocket Fuel",
+        cost: new Decimal(1),
     },
+    12: {
+        title: "Untrained Astronauts",
+        description: "10x Money & 3x Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 11))},
+        cost: new Decimal(8),
+    },
+    13: {
+        title: "Training Astronauts",
+        description: "5x Rocket fuel & 5x Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 12))},
+        cost: new Decimal(75),
+    },
+    14: {
+        title: "Rocket Astronauts",
+        description: "Rocket cost is greatly decreased based on money",
+        unlocked() { return (hasUpgrade(this.layer, 13))},
+        cost: new Decimal(1500),
+        effect() {
+            return player.points.add(1).pow(0.47)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+    },
+    15: {
+        title: "Skilled Astronauts",
+        description: "3x Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 14))},
+        cost: new Decimal(60000),
+    },
+    21: {
+        title: "Engineering Astronauts",
+        description: "Money gain is increased based on Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 15))},
+        cost: new Decimal(200000),
+        effect() {
+            return player.as.points.add(1).pow(0.5)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+    },
+    22: {
+        title: "Higher Salary",
+        description: "5x Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 21))},
+        cost: new Decimal(1e6),
+    },
+    23: {
+        title: "Astronaut Benefits",
+        description: "8x Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 22))},
+        cost: new Decimal(7e6),
+    },
+    24: {
+        title: "Rocket Astronauts+",
+        description: "Rocket cost is decreased based on Astronauts",
+        unlocked() { return (hasUpgrade(this.layer, 23))},
+        cost: new Decimal(1e8),
+        effect() {
+            return player.as.points.add(1).pow(0.4)
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+    },
+    25: {
+        title: "Scientific Astronauts",
+        description: "100x Money & 10x Rocket Fuel",
+        unlocked() { return (hasUpgrade(this.layer, 24))},
+        cost: new Decimal(1e11),
+    },
+}
 })

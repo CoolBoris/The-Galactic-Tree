@@ -13,13 +13,12 @@ addLayer("ro", {
      },
      canBuyMax(){
         let buyMaxRockets = false
-        if (hasMilestone("ro", 19)) buyMaxRockets = true
+        if (hasMilestone("ro", 7)) buyMaxRockets = true
        return buyMaxRockets
      },
      doReset(reset) {
         let keep = [];
-        if (hasMilestone("c", 2) ) keep.push("upgrades")
-        if (hasMilestone("c", 4) ) keep.push("milestone", 15, 16, 17, 18, 19, 20)
+        if (hasMilestone("c", 3) ) keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("ro", keep)
     },
  branches: ["r"], 
@@ -34,15 +33,17 @@ addLayer("ro", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasUpgrade('ro', 11)) mult = mult.divide(upgradeEffect('ro', 11))
-        if (hasUpgrade('as', 21)) mult = mult.divide(upgradeEffect('as', 21))
         if (hasUpgrade('ro', 21)) mult = mult.divide(upgradeEffect('ro', 21))
-        if (hasUpgrade('as', 32)) mult = mult.divide(upgradeEffect('as', 32))
-        if (hasUpgrade('s', 12)) mult = mult.divide(3)
-        if (hasUpgrade('s', 22)) mult = mult.divide(5)
-        if (hasUpgrade('s', 32)) mult = mult.divide(10)
-        if (hasUpgrade('s', 41)) mult = mult.divide(25)
-        if (hasUpgrade('as', 35)) mult = mult.divide(upgradeEffect('as', 35))
+        if (hasUpgrade('s', 13)) mult = mult.divide(3)
+        if (hasUpgrade('s', 23)) mult = mult.divide(5)
+        if (hasUpgrade('s', 33)) mult = mult.divide(10)
+        if (hasUpgrade('s', 43)) mult = mult.divide(25)
         if (hasMilestone('c', 1)) mult = mult.divide(5)
+        if (hasUpgrade('as', 14)) mult = mult.divide(upgradeEffect('as', 14))
+        if (hasUpgrade('as', 24)) mult = mult.divide(upgradeEffect('as', 24))
+        if (hasUpgrade('s', 51)) mult = mult.divide(100)
+        if (hasUpgrade('c', 13)) mult = mult.divide(upgradeEffect('c', 13))
+        if (hasUpgrade('c', 14)) mult = mult.divide(10)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -73,18 +74,18 @@ addLayer("ro", {
     milestones: {
         1: {
             requirementDescription: "1 Rocket",
-            effectDescription: "x3 Money",
+            effectDescription: "3x Money",
             done() {return player.ro.points.gte(1)}
         },
         2: {
             requirementDescription: "2 Rockets",
-            effectDescription: "x2 Rocket Fuel & 2 Rocket Fuel Upgrades",
+            effectDescription: "2x Rocket Fuel & 2 Rocket Fuel Upgrades",
             unlocked() { return (hasMilestone(this.layer, 1))},
             done() {return player.ro.points.gte(2)}
         },
         3: {
             requirementDescription: "3 Rockets",
-            effectDescription: "x2 Rocket Fuel & 2 Rocket Fuel Upgrades",
+            effectDescription: "2x Rocket Fuel & 2 Rocket Fuel Upgrades",
             unlocked() { return (hasMilestone(this.layer, 2))},
             done() {return player.ro.points.gte(3)}
         },
@@ -108,7 +109,7 @@ addLayer("ro", {
         },
         7: {
             requirementDescription: "7 Rockets",
-            effectDescription: "50% of Rocket Fuel/s",
+            effectDescription: "Bulk buy rockets",
             unlocked() { return (hasMilestone(this.layer, 6))},
             done() {return player.ro.points.gte(7)}
         },
@@ -120,31 +121,31 @@ addLayer("ro", {
         },
         9: {
             requirementDescription: "9 Rockets",
-            effectDescription: "x1.5 Astronauts",
+            effectDescription: "50% of Rocket Fuel/s & 1.5x Astronauts",
             unlocked() { return (hasMilestone(this.layer, 8))},
             done() {return player.ro.points.gte(9)}
         },
         10: {
             requirementDescription: "10 Rockets",
-            effectDescription: "x2 Money & x1.5 Astronauts",
+            effectDescription: "2x Money & 1.5x Astronauts",
             unlocked() { return (hasMilestone(this.layer, 9))},
             done() {return player.ro.points.gte(10)}
         },
         11: {
             requirementDescription: "11 Rockets",
-            effectDescription: "x2 Money",
+            effectDescription: "2x Money",
             unlocked() { return (hasMilestone(this.layer, 10))},
             done() {return player.ro.points.gte(11)}
         },
         12: {
             requirementDescription: "12 Rockets",
-            effectDescription: "x2 Astronauts",
+            effectDescription: "2x Astronauts",
             unlocked() { return (hasMilestone(this.layer, 11))},
             done() {return player.ro.points.gte(12)}
         },
         13: {
             requirementDescription: "13 Rockets",
-            effectDescription: "x2 Astronauts",
+            effectDescription: "10% of Astronauts/s",
             unlocked() { return (hasMilestone(this.layer, 12))},
             done() {return player.ro.points.gte(13)}
         },
@@ -162,25 +163,25 @@ addLayer("ro", {
         },
         16: {
             requirementDescription: "16 Rockets",
-            effectDescription: "3 New Astronaut Upgrades",
+            effectDescription: "2 New Rocket Fuel Upgrades",
             unlocked() { return (hasMilestone(this.layer, 15))},
             done() {return player.ro.points.gte(16)}
         },
         17: {
             requirementDescription: "17 Rockets",
-            effectDescription: "10% of Astronauts/s",
+            effectDescription: "2x Astronauts",
             unlocked() { return (hasMilestone(this.layer, 16))},
             done() {return player.ro.points.gte(17)}
         },
         18: {
             requirementDescription: "18 Rockets",
-            effectDescription: "2 New Astronaut Upgrades",
+            effectDescription: "3 New Rocket Fuel Upgrades",
             unlocked() { return (hasMilestone(this.layer, 17))},
             done() {return player.ro.points.gte(18)}
         },
         19: {
             requirementDescription: "19 Rockets",
-            effectDescription: "Bulk buy Rockets",
+            effectDescription: "3x Astronauts",
             unlocked() { return (hasMilestone(this.layer, 18))},
             done() {return player.ro.points.gte(19)}
         },
@@ -198,7 +199,7 @@ addLayer("ro", {
             cost: new Decimal(4),
             unlocked() { return (hasMilestone(this.layer, 4))},
             effect() {
-                return player.points.add(1).pow(0.27)
+                return player.points.add(1).pow(0.3)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
@@ -225,7 +226,7 @@ addLayer("ro", {
         14: {
             title: "Astronauts+",
             description: "Astronauts gain is increased based on Astronauts",
-            cost: new Decimal(9),
+            cost: new Decimal(10),
             unlocked() { return (hasUpgrade(this.layer, 13)) && (hasMilestone("as", 1))},
             effect() {
                 return player.as.points.add(1).pow(0.13)
@@ -234,7 +235,7 @@ addLayer("ro", {
         },
         15: {
             title: "Rocket Market",
-            description: "Money gain is increased based on Rockets",
+            description: "Money gain is greatly increased based on Rockets",
             cost: new Decimal(12),
             unlocked() { return (hasUpgrade(this.layer, 14)) && (hasMilestone("as", 3))},
             effect() {
