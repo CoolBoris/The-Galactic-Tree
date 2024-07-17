@@ -44,6 +44,9 @@ addLayer("ro", {
         if (hasUpgrade('s', 51)) mult = mult.divide(100)
         if (hasUpgrade('c', 13)) mult = mult.divide(upgradeEffect('c', 13))
         if (hasUpgrade('c', 14)) mult = mult.divide(10)
+        if (hasMilestone('inf', 4)) mult = mult.divide(2)
+        if (hasMilestone('inf', 5)) mult = mult.divide(2)
+        if (hasMilestone('inf', 6)) mult = mult.divide(2)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

@@ -9,9 +9,9 @@ addLayer("s", {
     }},
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("s", 1)) keep.push("milestones")
-        if (hasMilestone("s", 1)) keep.push("upgrades")
-        if (hasMilestone("s", 1)) keep.push(player.s.points)
+        if (hasMilestone("inf", 11)) keep.push("milestones")
+        if (hasMilestone("inf", 11)) keep.push("upgrades")
+        if (hasMilestone("inf", 11)) keep.push(player.s.points)
         if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
 

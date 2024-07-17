@@ -5,7 +5,7 @@ let modInfo = {
 	pointsName: "Money",
 	modFiles: [
 		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
-		"space.js", "comets.js", "asteroids.js"
+		"space.js", "comets.js", "asteroids.js", "infinity.js"
 	],
 	pointsName: "Money",
 	discordName: "CoolBoris' Server",
@@ -55,7 +55,10 @@ function getPointGen() {
 	if (hasUpgrade('as', 12)) gain = gain.times(10)
 	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
 	if (hasUpgrade('as', 25)) gain = gain.times(100)
-	if (hasUpgrade('s', 51)) gain = gain.times(500)	
+	if (hasUpgrade('s', 51)) gain = gain.times(500)
+	if (hasMilestone('inf', 1)) gain = gain.times(2)
+	if (hasMilestone('inf', 2)) gain = gain.times(2)
+	if (hasMilestone('inf', 3)) gain = gain.times(2)	
 	return gain
 
 }
@@ -96,7 +99,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.1",
+	num: "0.2.2",
 	name: "Beta Release",
 }
 
@@ -104,6 +107,9 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
+		<h2 style="color:Violet;">v0.2.2</h2><br>
+		- Infinity <br>
+		<br>
 		<h2 style="color:Violet;">v0.2.1</h2><br>
 		- Asteroids & Comets Balancing<br>
 		- More Achievements<br>

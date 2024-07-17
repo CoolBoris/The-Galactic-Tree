@@ -55,6 +55,9 @@ addLayer("as", {
         if (hasUpgrade('ast', 11)) mult = mult.times(5) 
         if (hasUpgrade('ast', 13)) mult = mult.times(upgradeEffect('ast', 13))
         if (hasUpgrade('ast', 14)) mult = mult.times(10)
+        if (hasMilestone('inf', 7)) mult = mult.times(2)
+        if (hasMilestone('inf', 8)) mult = mult.times(2)
+        if (hasMilestone('inf', 9)) mult = mult.times(2)
 
         // Softcaps
         if (player.as.points.gte(10000)) mult = mult.pow(0.88)

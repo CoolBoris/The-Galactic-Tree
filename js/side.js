@@ -253,7 +253,7 @@ addLayer("sa", {
         "Secret Achievements": {
             content: [
                 ["display-text",
-                    function() { return player.sa.points + '/5 Secret Achievements' },
+                    function() { return player.sa.points + '/6 Secret Achievements' },
                     { "color": "#3E3E3E", "font-size": "32px",}],
             "blank",
             ["display-text",
@@ -309,6 +309,13 @@ addLayer("sa", {
         tooltip: "You went even further even tho you already finished the game.. yay?",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "1e64 Money (changes every update)", // Shows when achievement is not completed
+    },
+    16: {
+        name: "Infinite",
+        done() {return player.inf.points.gte(1)},
+        tooltip: "You reached Infinity once",
+        onComplete() {addPoints("sa",1)},
+        goalTooltip: "Infinity", // Shows when achievement is not completed
     },
 },
 },)
