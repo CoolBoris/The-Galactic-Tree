@@ -132,7 +132,7 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		<h3 style="color:Red;">IMPORTANT:</h3><br>
 		Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!<br>
 		<br>
-		<h2 style="color:Violet;">v0.Pre2.0</h2><br>
+		<h2 style="color:Violet;">v0.1.1</h2><br>
 		- Comets Layer<br>
 		- Asteroids Layer<br>
 		- More Space Content<br>
