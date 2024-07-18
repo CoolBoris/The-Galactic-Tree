@@ -63,7 +63,7 @@ tabFormat: {
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "r", description: "R: Press for Rocket Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "m", description: "M: Press for Mega Infinity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     milestones: {
         1: {
