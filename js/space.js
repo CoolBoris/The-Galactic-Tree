@@ -219,7 +219,7 @@ addLayer("s", {
         51: {
             title: "Mega Ultra Booster",
             description: "500x Money, 200x Rocket Fuel, /100 Rocket Price & 75x Astronauts",
-            cost: new Decimal(1e9),
+            cost: new Decimal(2e8),
             unlocked() {return (hasUpgrade(this.layer, 42)) && (hasUpgrade(this.layer,43)) && (hasUpgrade(this.layer, 44)) && (hasMilestone("s", 9))},
         },
     },
