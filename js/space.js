@@ -41,10 +41,10 @@ addLayer("s", {
         "height": "125px",
     }},
     resetDescription: "Launch a Rocket into space! ",
-    requires: new Decimal(100), // Can be a function that takes requirement increases into account
+    requires: new Decimal(15), // Can be a function that takes requirement increases into account
     resource: "Space Distance", // Name of prestige currency
-    baseResource: "Rocket Fuel", // Name of resource prestige is based on
-    baseAmount() {return player.r.points}, // Get the current amount of baseResource
+    baseResource: "", // Name of resource prestige is based on
+    baseAmount() {return player.ro.points}, // Get the current amount of baseResource
     type: "static", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999, // Prestige currency exponent
     gainMult() {

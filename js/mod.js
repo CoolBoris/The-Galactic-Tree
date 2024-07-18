@@ -5,7 +5,7 @@ let modInfo = {
 	pointsName: "Money",
 	modFiles: [
 		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
-		"space.js", "comets.js", "asteroids.js", "infinity.js"
+		"space.js", "comets.js", "asteroids.js", "infinity.js", "megainfinity.js"
 	],
 	pointsName: "Money",
 	discordName: "CoolBoris' Server",
@@ -58,7 +58,9 @@ function getPointGen() {
 	if (hasUpgrade('s', 51)) gain = gain.times(500)
 	if (hasMilestone('inf', 1)) gain = gain.times(2)
 	if (hasMilestone('inf', 2)) gain = gain.times(2)
-	if (hasMilestone('inf', 3)) gain = gain.times(2)	
+	if (hasMilestone('inf', 3)) gain = gain.times(2)
+	if (hasMilestone('megainf', 1)) gain = gain.times(3)	
+	if (hasMilestone('megainf', 2)) gain = gain.times(3)	
 	return gain
 
 }
@@ -70,7 +72,6 @@ function addedPlayerData() { return {
 // Display extra things at the top of the page
 var displayThings = [
 	"Endgame: 1e62 Money",
-	"Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!",
 ]
 
 // Determines when the game "ends"

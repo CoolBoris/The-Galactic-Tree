@@ -58,6 +58,8 @@ addLayer("as", {
         if (hasMilestone('inf', 7)) mult = mult.times(2)
         if (hasMilestone('inf', 8)) mult = mult.times(2)
         if (hasMilestone('inf', 9)) mult = mult.times(2)
+        if (hasMilestone('megainf', 5)) mult = mult.times(3)
+        if (hasMilestone('megainf', 6)) mult = mult.times(3)
 
         // Softcaps
         if (player.as.points.gte(10000)) mult = mult.pow(0.88)

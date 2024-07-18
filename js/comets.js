@@ -32,6 +32,9 @@ addLayer("c", {
         if (hasUpgrade('s', 42)) mult = mult.times(5)      
         if (hasMilestone('s', 7)) mult = mult.times(3)
         if (hasUpgrade('ast', 15)) mult = mult.times(upgradeEffect('ast', 15))
+        if (hasMilestone('megainf', 7)) mult = mult.times(2)
+        if (hasMilestone('megainf', 8)) mult = mult.times(2)
+        if (hasMilestone('megainf', 9)) mult = mult.times(3)
 
         // Softcaps
         if (player.c.points.gte(100000)) mult = mult.pow(0.92)

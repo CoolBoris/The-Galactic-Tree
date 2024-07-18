@@ -253,7 +253,7 @@ addLayer("sa", {
         "Secret Achievements": {
             content: [
                 ["display-text",
-                    function() { return player.sa.points + '/6 Secret Achievements' },
+                    function() { return player.sa.points + '/7 Secret Achievements' },
                     { "color": "#3E3E3E", "font-size": "32px",}],
             "blank",
             ["display-text",
@@ -316,6 +316,13 @@ addLayer("sa", {
         tooltip: "You reached Infinity once",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "Infinity", // Shows when achievement is not completed
+    },
+    21: {
+        name: "mega infinite",
+        done() {return player.megainf.points.gte(1)},
+        tooltip: "You reached Mega Infinity once",
+        onComplete() {addPoints("sa",1)},
+        goalTooltip: "even more?", // Shows when achievement is not completed
     },
 },
 },)

@@ -58,6 +58,8 @@ addLayer("r", {
         if (hasUpgrade('s', 51)) mult = mult.times(200)
         if (hasUpgrade('c', 12)) mult = mult.times(10)
         if (hasUpgrade('ast', 12)) mult = mult.times(10)
+        if (hasMilestone('megainf', 3)) mult = mult.times(2)
+        if (hasMilestone('megainf', 4)) mult = mult.times(2)
 
 
         // Softcaps
