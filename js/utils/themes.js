@@ -12,6 +12,16 @@ var colors = {
 		background: "#24003F",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 	},
+	space: {
+		1: "#C66EFF",
+		2: "#C66EFF",
+		3: "#C66EFF",
+		color: "#C66EFF",
+		points: "#9211E7",
+		locked: "#BB9CB3",
+		background: "#24003F",
+		background_tooltip: "rgba(0, 15, 31, 0.75)",
+	},
 	blueberry: {
 		1: "#bfdfff",
 		2: "#bfdfff",
