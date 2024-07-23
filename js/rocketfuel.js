@@ -19,7 +19,8 @@ addLayer("r", {
     },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("as", 2) ) keep.push("upgrades")
+        if (hasMilestone("as", 2))keep.push("upgrades")
+        if (hasMilestone("omegainf", 3))keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("r", keep)
     },
 
@@ -60,7 +61,14 @@ addLayer("r", {
         if (hasUpgrade('ast', 12)) mult = mult.times(10)
         if (hasMilestone('megainf', 3)) mult = mult.times(2)
         if (hasMilestone('megainf', 4)) mult = mult.times(2)
+        if (hasMilestone('omegainf', 1)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 2)) mult = mult.times(3)
 
+	    // Challenges
+        if (inChallenge('c', 11)) mult = mult.pow(0.45)
+        if (inChallenge('c', 12)) mult = mult.pow(0.01)
+        if (inChallenge('ast', 11)) mult = mult.pow(0.22)
+        if (inChallenge('ast', 12)) mult = mult.pow(0.1)
 
         // Softcaps
         if (player.r.points.gte(1e60)) mult = mult.pow(0.88)

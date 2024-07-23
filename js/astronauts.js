@@ -21,6 +21,7 @@ addLayer("as", {
     },
     doReset(reset) {
         let keep = [];
+        if (hasMilestone("omegainf", 9)) keep.push("upgrades")
         if (hasMilestone("ast", 3)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("as", keep)
     },
@@ -60,7 +61,13 @@ addLayer("as", {
         if (hasMilestone('inf', 9)) mult = mult.times(2)
         if (hasMilestone('megainf', 5)) mult = mult.times(3)
         if (hasMilestone('megainf', 6)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 4)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 5)) mult = mult.times(3)
+        if (hasUpgrade('ast', 23)) mult = mult.times(upgradeEffect('ast', 23))
+        if (hasUpgrade('ast', 24)) mult = mult.times(100)
 
+        // Challenges
+        
         // Softcaps
         if (player.as.points.gte(10000)) mult = mult.pow(0.88)
         if (player.as.points.gte(1e10)) mult = mult.pow(0.82)
@@ -68,6 +75,7 @@ addLayer("as", {
         if (player.as.points.gte(1e15)) mult = mult.pow(0.65)
         if (player.as.points.gte(1e20)) mult = mult.pow(0.1)
         if (player.as.points.gte(1e30)) mult = mult.pow(0.0001)
+        if (player.as.points.gte(1e35)) mult = mult.pow(0.01)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

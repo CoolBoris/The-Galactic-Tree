@@ -1,19 +1,8 @@
 // ************ Themes ************
-var themes = ["default", "space", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "dragonfruit"]
+var themes = ["default", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "dragonfruit", "blackberry"]
 
 var colors = {
 	default: {
-		1: "#ffffff",//Branch color 1
-		2: "#bfbfbf",//Branch color 2
-		3: "#7f7f7f",//Branch color 3
-		color: "#dfdfdf",
-		points: "#ffffff",
-		locked: "#bf8f8f",
-		background: "#0f0f0f",
-		background_tooltip: "rgba(0, 0, 0, 0.75)",
-		tint: "#ffffff00",
-	},
-	space: {
 		1: "#C66EFF",
 		2: "#C66EFF",
 		3: "#C66EFF",
@@ -110,6 +99,17 @@ var colors = {
 		background: "#F78FC4",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ff78ef80",
+	},
+	blackberry: {
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#dfdfdf",
+		points: "#ffffff",
+		locked: "#bf8f8f",
+		background: "#0f0f0f",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
 	},
 }
 function changeTheme() {

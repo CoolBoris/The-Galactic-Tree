@@ -9,6 +9,7 @@ addLayer("ro", {
     layerShown(){
         let visible = false
         if (hasUpgrade('r', 25) || player.ro.unlocked) visible = true
+        if (inChallenge('c', 13) || (inChallenge("ast", 13))) visible = false
        return visible
      },
      canBuyMax(){
@@ -18,6 +19,7 @@ addLayer("ro", {
      },
      doReset(reset) {
         let keep = [];
+        if (hasMilestone("omegainf", 6) ) keep.push("upgrades")
         if (hasMilestone("c", 3) ) keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("ro", keep)
     },
@@ -47,6 +49,9 @@ addLayer("ro", {
         if (hasMilestone('inf', 4)) mult = mult.divide(2)
         if (hasMilestone('inf', 5)) mult = mult.divide(2)
         if (hasMilestone('inf', 6)) mult = mult.divide(2)
+        if (hasUpgrade('c', 22)) mult = mult.divide(upgradeEffect('c', 22))
+        if (hasUpgrade('ast', 23)) mult = mult.divide(upgradeEffect('ast', 23))
+        if (hasUpgrade('c', 24)) mult = mult.divide(100)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses

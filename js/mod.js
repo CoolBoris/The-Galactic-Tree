@@ -1,11 +1,12 @@
 let modInfo = {
 	name: "The Galactic Tree",
 	id: "galactictree11",
-	author: "C00LB0R1S",
+	author: "CoolBoris",
 	pointsName: "Money",
 	modFiles: [
 		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
-		"space.js", "comets.js", "asteroids.js", "infinity.js", "megainfinity.js"
+		"space.js", "comets.js", "asteroids.js", 
+		"infinity.js", "megainfinity.js", "omegainfinity.js"
 	],
 	pointsName: "Money",
 	discordName: "CoolBoris' Server",
@@ -60,7 +61,19 @@ function getPointGen() {
 	if (hasMilestone('inf', 2)) gain = gain.times(2)
 	if (hasMilestone('inf', 3)) gain = gain.times(2)
 	if (hasMilestone('megainf', 1)) gain = gain.times(3)	
-	if (hasMilestone('megainf', 2)) gain = gain.times(3)	
+	if (hasMilestone('megainf', 2)) gain = gain.times(3)
+	if (hasUpgrade('ast', 21)) gain = gain.times(upgradeEffect('ast', 21))
+	if (hasUpgrade('c', 21)) gain = gain.times(1000)
+	if (hasUpgrade('ast', 22)) gain = gain.times(1000)
+	if (hasUpgrade('c', 23)) gain = gain.times(upgradeEffect('c', 23))
+	if (hasUpgrade('ast', 25)) gain = gain.times(100)
+	if (hasUpgrade('c', 25)) gain = gain.times(100)
+		
+	// Challenges
+	if (inChallenge('c', 11)) gain = gain.pow(0.5)
+	if (inChallenge('c', 14)) gain = gain.pow(0.12)
+	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
+	if (inChallenge('ast', 14)) gain = gain.pow(0.108)
 	return gain
 
 }
@@ -71,12 +84,12 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Endgame: 1e62 Money",
+	"Endgame: 1e104 Money",
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("1e62"))
+	return player.points.gte(new Decimal("1e104"))
 	
 }
 
@@ -100,13 +113,21 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.2",
-	name: "Beta Release",
+	num: "0.2.3",
+	name: "Infinity Deluxe",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
+
+		<h2 style="color:Violet;">v0.2.3</h2><br>
+		- Omega Infinity <br>
+		- New Comets & Asteroids Content<br>
+		- More Achievements<br>
+		- More Secret Achievements<br>
+		- Small themes rework<br>
+		<br>
 
 		<h2 style="color:Violet;">v0.2.2</h2><br>
 		- Infinity <br>

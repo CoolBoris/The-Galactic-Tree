@@ -7,6 +7,10 @@ addLayer("ast", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+    passiveGeneration() {
+        if (hasMilestone('ast', 5)) return 0.01
+        return 0
+    },
     layerShown(){
         let visible = false
         if (hasMilestone('as', 4) || player.ast.unlocked) visible = true
@@ -35,10 +39,15 @@ addLayer("ast", {
         if (hasMilestone('megainf', 7)) mult = mult.times(2)
         if (hasMilestone('megainf', 8)) mult = mult.times(2)
         if (hasMilestone('megainf', 9)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 7)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 8)) mult = mult.times(3)
+        if (hasChallenge('ast', 12)) mult = mult.times(100)
 
         // Softcaps
         if (player.ast.points.gte(100000)) mult = mult.pow(0.88)
-        if (player.ast.points.gte(5e6)) mult = mult.pow(0.18)
+        if (player.ast.points.gte(5e6)) mult = mult.pow(0.5)
+        if (player.ast.points.gte(1e9)) mult = mult.pow(0.9)
+        if (player.ast.points.gte(1e15)) mult = mult.pow(0.000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -51,6 +60,9 @@ addLayer("ast", {
         "Milestones": {
             content: [
             "main-display",
+            "blank",
+            "resource-display",
+            "blank",
             "prestige-button",
             "blank",
             "milestones",
@@ -59,18 +71,21 @@ addLayer("ast", {
         "Upgrades": {
             content: [
             "main-display",
+            "blank",
+            "resource-display",
+            "blank",
             "prestige-button",
             "blank",
             "upgrades"
          ],
+        },
          "Asteroids": {
             content: [
             "main-display",
             "challenges"
          ],
-         unlocked() { return (hasMilestone('ast', 5))}
-        }
-     },
+         unlocked() { return (hasChallenge('c', 14))}
+        },
   },
     milestones: {
         1: {
@@ -97,10 +112,10 @@ addLayer("ast", {
             done() {return player.ast.points.gte(500000)}
         },
         5: {
-            requirementDescription: "??? Asteroids",
-            effectDescription: "Unlock Asteroid Psyche (coming soon)",
+            requirementDescription: "1e10 Asteroids",
+            effectDescription: "1% of Asteroids & Comets/s",
             unlocked() { return (hasMilestone(this.layer, 4))},
-            done() {return player.ast.points.gte(1e100)}
+            done() {return player.ast.points.gte(1e10)}
         },
     },
     upgrades: {
@@ -133,13 +148,84 @@ addLayer("ast", {
         },
         15: {
             title: "Comet Infusion",
-            description: "Comets gain is increased based on Asteroids",
+            description: "Comet gain is increased based on Asteroids",
             unlocked() { return (hasUpgrade(this.layer, 14))},
             cost: new Decimal(175),
             effect() {
                 return player.ast.points.add(1).pow(0.17)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        21: {
+            title: "Halley's Asteroid",
+            description: "Money gain is Increased based on Asteroids",
+            unlocked() { return (hasUpgrade(this.layer, 14)) && (hasChallenge("c", 11))},
+            cost: new Decimal(1e7),
+            effect() {
+                return player.ast.points.add(1).pow(0.34)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        22: {
+            title: "Sell Asteroids",
+            description: "1000x Money",
+            cost: new Decimal(1.5e7),
+            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasChallenge("c", 14))},
+        },
+        23: {
+            title: "Astronaut Asteroids",
+            description: "Rocket cost is decreased based on Asteroids",
+            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasChallenge("c", 14))},
+            cost: new Decimal(5e7),
+            effect() {
+                return player.c.points.add(1).pow(0.32)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        24: {
+            title: "Astronauts Discovery",
+            description: "100x Astronauts",
+            cost: new Decimal(5e13),
+            unlocked() { return (hasUpgrade(this.layer, 23)) && (hasChallenge("ast", 13))},
+        },
+        25: {
+            title: "Money Asteroids",
+            description: "100x Money",
+            cost: new Decimal(1e14),
+            unlocked() { return (hasUpgrade(this.layer, 24)) && (hasChallenge("ast", 13))},
+        },
+    },
+    challenges: {
+        11: {
+            name: "Asteroid Icarus",
+            challengeDescription: "^0.25 Money & ^0.25 Rocket Fuel",
+            canComplete: function() {return player.ro.points.gte(11)},
+            goalDescription: "11 Rockets",
+            rewardDescription: "Unlock Asteroid Eros & Unlock 1 New Comet Upgrade",
+        },
+        12: {
+            name: "Asteroid Eros",
+            challengeDescription: "^0.005 Rocket Fuel",
+            canComplete: function() {return player.ro.points.gte(18)},
+            goalDescription: "18 Rockets",
+            unlocked() { return (hasChallenge(this.layer, 11))},
+            rewardDescription: "Unlock Asteroid Pallas & 100x Asteroids",
+        },
+        13: {
+            name: "Asteroid Pallas",
+            challengeDescription: "You cant earn Rockets",
+            canComplete: function() {return player.points.gte(1e68)},
+            goalDescription: "1e68 Money",
+            unlocked() { return (hasChallenge(this.layer, 12))},
+            rewardDescription: "Unlock Asteroid Ceres & Unlock 2 New Asteroid Upgrades",
+        },
+        14: {
+            name: "Asteroid Ceres",
+            challengeDescription: "^0.1 Money",
+            canComplete: function() {return player.ro.points.gte(16)},
+            goalDescription: "16 Rockets",
+            unlocked() { return (hasChallenge(this.layer, 13))},
+            rewardDescription: "Unlock ??? & Unlock 2 New Comet Upgrades",
         },
     }
 })

@@ -24,7 +24,7 @@ componentStyles: {
     }},
 },
 tabFormat: {
-    "Infinity": {
+    "Mega Infinity": {
         content: [
         "blank",
         "prestige-button",
@@ -45,8 +45,8 @@ tabFormat: {
      ],
  },
 },
- branches: ["s", "c", "ast",], 
- row: 101, // Row the layer is in on the tree (0 is the first row)
+ branches: ["inf",], 
+ row: 98, // Row the layer is in on the tree (0 is the first row)
      color: "#05ff0e",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Mega Infinities", // Name of prestige currency
@@ -99,7 +99,7 @@ tabFormat: {
         7: {
             requirementDescription: "Seventh Mega Infinity",
             effectDescription: "2x Comets & Asteroids",
-            done() {return player.megainf.points.gte(6)}
+            done() {return player.megainf.points.gte(7)}
         },
         8: {
             requirementDescription: "Eigth Mega Infinity",
@@ -113,7 +113,7 @@ tabFormat: {
         },
         10: {
             requirementDescription: "Tenth Mega Infinity",
-            effectDescription: "Unlock Omega-Infinity (coming soon) & Recieve a Special role in the Discord Server",
+            effectDescription: "Unlock Omega-Infinity & Recieve a Special role in the Discord Server",
             done() {return player.megainf.points.gte(10)}
         },
     }

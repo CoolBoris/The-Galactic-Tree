@@ -12,6 +12,10 @@ addLayer("c", {
         if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
        return visible
      },
+     passiveGeneration() {
+        if (hasMilestone('ast', 5)) return 0.01
+        return 0
+    },
      color: "#2D6CD3",
      nodeStyle() {return {
         "background": "radial-gradient(#4AEAF1, #2D6CD3)" ,
@@ -35,10 +39,14 @@ addLayer("c", {
         if (hasMilestone('megainf', 7)) mult = mult.times(2)
         if (hasMilestone('megainf', 8)) mult = mult.times(2)
         if (hasMilestone('megainf', 9)) mult = mult.times(3)
+        if (hasChallenge('c', 12)) mult = mult.times(100)
+        if (hasMilestone('omegainf', 7)) mult = mult.times(3)
+        if (hasMilestone('omegainf', 8)) mult = mult.times(3)
 
         // Softcaps
         if (player.c.points.gte(100000)) mult = mult.pow(0.92)
-        if (player.c.points.gte(1e6)) mult = mult.pow(0.3)
+        if (player.c.points.gte(1e6)) mult = mult.pow(0.7)
+        if (player.c.points.gte(1e10)) mult = mult.pow(0.000001)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -51,6 +59,9 @@ addLayer("c", {
         "Milestones": {
             content: [
             "main-display",
+            "blank",
+            "resource-display",
+            "blank",
             "prestige-button",
             "blank",
             "milestones",
@@ -59,17 +70,20 @@ addLayer("c", {
         "Upgrades": {
             content: [
             "main-display",
+            "blank",
+            "resource-display",
+            "blank",
             "prestige-button",
             "blank",
             "upgrades"
          ],
+        },
          "Comets": {
+            unlocked() { return (hasMilestone('c', 5))},
             content: [
             "main-display",
             "challenges"
          ],
-         unlocked() { return (hasMilestone('c', 5))}
-        }
      },
   },
     milestones: {
@@ -97,10 +111,10 @@ addLayer("c", {
             done() {return player.c.points.gte(100000)}
         },
         5: {
-            requirementDescription: "??? Comets",
+            requirementDescription: "1,000,000 Comets",
             effectDescription: "Unlock Halley's Comet (coming soon)",
             unlocked() { return (hasMilestone(this.layer, 4))},
-            done() {return player.c.points.gte(1e100)}
+            done() {return player.c.points.gte(1e6)}
         },
     },
     upgrades: {
@@ -140,6 +154,77 @@ addLayer("c", {
                 return player.c.points.add(1).pow(0.25)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        21: {
+            title: "Sell Comets",
+            description: "1000x Money",
+            cost: new Decimal(1.5e7),
+            unlocked() { return (hasUpgrade(this.layer, 15)) && (hasChallenge(this.layer, 13))},
+        },
+        22: {
+            title: "Rocket Comets",
+            description: "Rocket cost is decreased based on Comets",
+            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasChallenge(this.layer, 13))},
+            cost: new Decimal(5e7),
+            effect() {
+                return player.c.points.add(1).pow(0.41)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        23: {
+            title: "Comet Icarus",
+            description: "Money gain is Increased based on Asteroids",
+            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasChallenge("ast", 11))},
+            cost: new Decimal(1.5e8),
+            effect() {
+                return player.ast.points.add(1).pow(0.38)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
+        24: {
+            title: "Rocket Discovery",
+            description: "/100 Rocket Cost",
+            cost: new Decimal(1.5e9),
+            unlocked() { return (hasUpgrade(this.layer, 23)) && (hasChallenge("ast", 14))},
+        },
+        25: {
+            title: "Money Comets",
+            description: "100x Money",
+            cost: new Decimal(3e9),
+            unlocked() { return (hasUpgrade(this.layer, 24)) && (hasChallenge("ast", 14))},
+        },
+    },
+    challenges: {
+        11: {
+            name: "Halley's Comet",
+            challengeDescription: "^0.5 Money & ^0.5 Rocket Fuel",
+            canComplete: function() {return player.ro.points.gte(14)},
+            goalDescription: "14 Rockets",
+            rewardDescription: "Unlock Encke's Comet & Unlock 1 New Asteroid Upgrade",
+        },
+        12: {
+            name: "Encke's Comet",
+            challengeDescription: "^0.01 Rocket Fuel",
+            canComplete: function() {return player.ro.points.gte(11)},
+            goalDescription: "11 Rockets",
+            unlocked() { return (hasChallenge(this.layer, 11))},
+            rewardDescription: "Unlock Comet Hyakutake & 100x Comets",
+        },
+        13: {
+            name: "Comet Hyakutake",
+            challengeDescription: "You cant earn Rockets",
+            canComplete: function() {return player.points.gte(1e49)},
+            goalDescription: "1e49 Money",
+            unlocked() { return (hasChallenge(this.layer, 12))},
+            rewardDescription: "Unlock Biela's Comet & Unlock 2 New Comets Upgrade",
+        },
+        14: {
+            name: "Biela's Comet",
+            challengeDescription: "^0.125 Money",
+            canComplete: function() {return player.ro.points.gte(15)},
+            goalDescription: "15 Rockets",
+            unlocked() { return (hasChallenge(this.layer, 13))},
+            rewardDescription: "Unlock Asteroid Icarus & Unlock 2 New Asteroid Upgrades",
         },
     }
 })

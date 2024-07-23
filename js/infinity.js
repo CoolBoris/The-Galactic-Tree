@@ -8,7 +8,7 @@ addLayer("inf", {
     }},
     layerShown(){
         let visible = false
-        if (player.points.gte(1e64) || player.inf.unlocked) visible = true
+        if (player.points.gte(1e108) || player.inf.unlocked) visible = true
        return visible
      },
      nodeStyle() {return {
@@ -46,7 +46,7 @@ tabFormat: {
  },
 },
  branches: ["s", "c", "ast",], 
- row: 100, // Row the layer is in on the tree (0 is the first row)
+ row: 97, // Row the layer is in on the tree (0 is the first row)
      color: "#e73c7e",
     requires: new Decimal(1e64), // Can be a function that takes requirement increases into account
     resource: "Infinities", // Name of prestige currency
@@ -99,7 +99,7 @@ tabFormat: {
         7: {
             requirementDescription: "Seventh Infinity",
             effectDescription: "2x Astronauts",
-            done() {return player.inf.points.gte(6)}
+            done() {return player.inf.points.gte(7)}
         },
         8: {
             requirementDescription: "Eigth Infinity",
