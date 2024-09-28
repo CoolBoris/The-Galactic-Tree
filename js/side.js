@@ -539,7 +539,7 @@ addLayer("sa", {
     },
     26: {
         name: "blobs",
-        done() {return player.blob.points.gte(1)},
+        done() {return player.blob.points.gte(10)},
         tooltip: "10 Blobs<br>Reward: Secret Role)",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "blob blob", // Shows when achievement is not completed
