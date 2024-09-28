@@ -11,9 +11,12 @@ addLayer("as", {
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 8) || player.as.unlocked) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
      passiveGeneration() {
+        if (inChallenge("stars", 11) || inChallenge("planets", 11)) return 0
+        if (hasMilestone('s', 10)) return 1
         if (hasMilestone('ast', 4)) return 0.5
         if (hasMilestone('s', 4)) return 0.25
         if (hasMilestone('ro', 13)) return 0.1
@@ -21,9 +24,13 @@ addLayer("as", {
     },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("omegainf", 9)) keep.push("upgrades")
         if (hasMilestone("ast", 3)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("as", keep)
+    },
+    autoUpgrade() {
+        if (hasMilestone("stars", 5)) return true
+        if (hasMilestone("omegainf", 4)) return true
+        else return false
     },
  branches: ["ro", "r"], 
     color: "#EFEFEF",
@@ -56,15 +63,15 @@ addLayer("as", {
         if (hasUpgrade('ast', 11)) mult = mult.times(5) 
         if (hasUpgrade('ast', 13)) mult = mult.times(upgradeEffect('ast', 13))
         if (hasUpgrade('ast', 14)) mult = mult.times(10)
-        if (hasMilestone('inf', 7)) mult = mult.times(2)
-        if (hasMilestone('inf', 8)) mult = mult.times(2)
-        if (hasMilestone('inf', 9)) mult = mult.times(2)
-        if (hasMilestone('megainf', 5)) mult = mult.times(3)
-        if (hasMilestone('megainf', 6)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 4)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 5)) mult = mult.times(3)
         if (hasUpgrade('ast', 23)) mult = mult.times(upgradeEffect('ast', 23))
         if (hasUpgrade('ast', 24)) mult = mult.times(100)
+        if (hasUpgrade('stars', 14)) mult = mult.times(upgradeEffect('stars', 14))
+        if (hasUpgrade('planets', 14)) mult = mult.times(upgradeEffect('planets', 14))
+        if (hasMilestone('s', 14)) mult = mult.times(1e6)
+
+
+        // Inf
+	    if (hasMilestone('inf', 7)) mult = mult.times(3)
 
         // Challenges
         
@@ -85,10 +92,23 @@ addLayer("as", {
         {key: "a", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     tabFormat: {
+        "Main": {
+            content: [
+            "main-display",
+            "blank",
+            "resource-display",
+            "blank",
+            "prestige-button",
+            "blank",
+            ["infobox", "main"],
+         ],
+     },
         "Upgrades": {
             content: [
             "main-display",
+            "blank",
             "resource-display",
+            "blank",
             "prestige-button",
             "blank",
             "upgrades"
@@ -97,6 +117,7 @@ addLayer("as", {
         "Milestones": {
             content: [
             "main-display",
+            "blank",
             "prestige-button",
             "blank",
             "milestones",
@@ -111,7 +132,7 @@ addLayer("as", {
         },
         2: {
             requirementDescription: "500,000 Astronauts",
-            effectDescription: "Keep Rocket Fuel Upgrades on Layer 2 reset",
+            effectDescription: "Keep Rocket Fuel Upgrades",
             unlocked() { return (hasMilestone(this.layer, 1))},
             done() {return player.as.points.gte(500000)}
         },
@@ -123,7 +144,7 @@ addLayer("as", {
         },
         4: {
             requirementDescription: "1e29 Astronauts",
-            effectDescription: "Unlock something new",
+            effectDescription: "Unlock Asteroids",
             unlocked() { return (hasMilestone(this.layer, 3))},
             done() {return player.as.points.gte(1e29)}
         },
@@ -135,19 +156,19 @@ addLayer("as", {
         cost: new Decimal(1),
     },
     12: {
-        title: "Untrained Astronauts",
+        title: "Basic Training Facility",
         description: "10x Money & 3x Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 11))},
         cost: new Decimal(8),
     },
     13: {
-        title: "Training Astronauts",
+        title: "Trained Astronauts",
         description: "5x Rocket fuel & 5x Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 12))},
         cost: new Decimal(75),
     },
     14: {
-        title: "Rocket Astronauts",
+        title: "Basic Space School",
         description: "Rocket cost is greatly decreased based on money",
         unlocked() { return (hasUpgrade(this.layer, 13))},
         cost: new Decimal(1500),
@@ -163,7 +184,7 @@ addLayer("as", {
         cost: new Decimal(60000),
     },
     21: {
-        title: "Engineering Astronauts",
+        title: "Increase Salary",
         description: "Money gain is increased based on Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 15))},
         cost: new Decimal(200000),
@@ -173,19 +194,19 @@ addLayer("as", {
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
     },
     22: {
-        title: "Higher Salary",
+        title: "Enhanced Training Facility",
         description: "5x Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 21))},
         cost: new Decimal(1e6),
     },
     23: {
-        title: "Astronaut Benefits",
+        title: "Professional Astronauts",
         description: "8x Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 22))},
         cost: new Decimal(7e6),
     },
     24: {
-        title: "Rocket Astronauts+",
+        title: "Enhanced Space School",
         description: "Rocket cost is decreased based on Astronauts",
         unlocked() { return (hasUpgrade(this.layer, 23))},
         cost: new Decimal(1e8),
@@ -195,10 +216,16 @@ addLayer("as", {
         effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
     },
     25: {
-        title: "Scientific Astronauts",
+        title: "Scientist Astronauts",
         description: "100x Money & 10x Rocket Fuel",
         unlocked() { return (hasUpgrade(this.layer, 24))},
         cost: new Decimal(1e11),
+    },
+},
+infoboxes: {
+    main: {
+        title: "Introducing: Astronauts",
+        body() { return "This layer is nothing new, it's the same as Rocket Fuel but it also uses Rocket Fuel instead of Money. It's also very slow in the beginning. Prepare for a big feature!" },
     },
 }
 })

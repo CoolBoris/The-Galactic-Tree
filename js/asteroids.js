@@ -8,14 +8,27 @@ addLayer("ast", {
 		points: new Decimal(0),
     }},
     passiveGeneration() {
+        if (hasMilestone('planets', 1)) return getBuyableAmount('planets', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
     },
     layerShown(){
         let visible = false
         if (hasMilestone('as', 4) || player.ast.unlocked) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
+     autoUpgrade() {
+        if (hasMilestone("planets", 5)) return true
+        if (hasMilestone("omegainf", 7)) return true
+        else return false
+    },
+    doReset(reset) {
+        let keep = [];
+        if (hasMilestone("planets", 3)) keep.push("challenges")
+        if (hasMilestone("x", 3)) keep.push("milestones")
+        if (layers[reset].row > this.row) layerDataReset("ast", keep)
+    },
      color: "#F1DD4A",
      nodeStyle() {return {
         "background": "radial-gradient(#E99A19, #F1DD4A)" ,
@@ -36,18 +49,22 @@ addLayer("ast", {
         if (hasUpgrade('s', 44)) mult = mult.times(5)        
         if (hasMilestone('s', 7)) mult = mult.times(3)
         if (hasUpgrade('c', 15)) mult = mult.times(upgradeEffect('c', 15))
-        if (hasMilestone('megainf', 7)) mult = mult.times(2)
-        if (hasMilestone('megainf', 8)) mult = mult.times(2)
-        if (hasMilestone('megainf', 9)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 7)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 8)) mult = mult.times(3)
         if (hasChallenge('ast', 12)) mult = mult.times(100)
+        if (hasMilestone('planets', 1)) mult = mult.times(buyableEffect("planets", 12))
+        if (hasUpgrade('planets', 15)) mult = mult.times(upgradeEffect('planets', 15))
+        if (hasUpgrade('x', 15)) mult = mult.times(1000)   
+
+        // Inf
+	    if (hasMilestone('inf', 9)) mult = mult.times(3)
+            if (hasMilestone('megainf', 6)) mult = mult.times(5)
 
         // Softcaps
         if (player.ast.points.gte(100000)) mult = mult.pow(0.88)
         if (player.ast.points.gte(5e6)) mult = mult.pow(0.5)
         if (player.ast.points.gte(1e9)) mult = mult.pow(0.9)
-        if (player.ast.points.gte(1e15)) mult = mult.pow(0.000001)
+        if (player.ast.points.gte(1e20)) mult = mult.pow(0.5)
+        if (player.ast.points.gte(1e30)) mult = mult.pow(0.5)
+        if (player.ast.points.gte(1e40)) mult = mult.pow(0.4)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -57,6 +74,17 @@ addLayer("ast", {
         {key: "t", description: "T: Press for Asteroid Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     tabFormat: {
+        "Main": {
+            content: [
+            "main-display",
+            "blank",
+            "resource-display",
+            "blank",
+            "prestige-button",
+            "blank",
+            ["infobox", "main"],
+            ]
+        },
         "Milestones": {
             content: [
             "main-display",
@@ -159,7 +187,7 @@ addLayer("ast", {
         21: {
             title: "Halley's Asteroid",
             description: "Money gain is Increased based on Asteroids",
-            unlocked() { return (hasUpgrade(this.layer, 14)) && (hasChallenge("c", 11))},
+            unlocked() { return (hasUpgrade(this.layer, 15)) && (hasChallenge("c", 11))},
             cost: new Decimal(1e7),
             effect() {
                 return player.ast.points.add(1).pow(0.34)
@@ -225,7 +253,13 @@ addLayer("ast", {
             canComplete: function() {return player.ro.points.gte(16)},
             goalDescription: "16 Rockets",
             unlocked() { return (hasChallenge(this.layer, 13))},
-            rewardDescription: "Unlock ??? & Unlock 2 New Comet Upgrades",
+            rewardDescription: "Unlock Stars & Unlock 2 New Comet Upgrades",
         },
-    }
+    },
+    infoboxes: {
+        main: {
+            title: "Introducing: Asteroids",
+            body() { return "Asteroids Reset everything from layer 1 & 2. Asteroids are Used for Upgrades & Milestones. After a while, you will unlock Challenges. Challenges are objectives you need to complete while having a debuf, in return you get rewards!" },
+        },
+    },
 })

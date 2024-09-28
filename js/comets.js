@@ -10,11 +10,24 @@ addLayer("c", {
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
      passiveGeneration() {
+        if (hasMilestone('stars', 1)) return getBuyableAmount('stars', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
+    },
+    autoUpgrade() {
+        if (hasMilestone("planets", 4)) return true
+        if (hasMilestone("omegainf", 6)) return true
+        else return false
+    },
+    doReset(reset) {
+        let keep = [];
+        if (hasMilestone("planets", 2)) keep.push("challenges")
+        if (hasMilestone("x", 3)) keep.push("milestones")
+        if (layers[reset].row > this.row) layerDataReset("c", keep)
     },
      color: "#2D6CD3",
      nodeStyle() {return {
@@ -36,17 +49,18 @@ addLayer("c", {
         if (hasUpgrade('s', 42)) mult = mult.times(5)      
         if (hasMilestone('s', 7)) mult = mult.times(3)
         if (hasUpgrade('ast', 15)) mult = mult.times(upgradeEffect('ast', 15))
-        if (hasMilestone('megainf', 7)) mult = mult.times(2)
-        if (hasMilestone('megainf', 8)) mult = mult.times(2)
-        if (hasMilestone('megainf', 9)) mult = mult.times(3)
         if (hasChallenge('c', 12)) mult = mult.times(100)
-        if (hasMilestone('omegainf', 7)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 8)) mult = mult.times(3)
+        if (hasMilestone('stars', 1)) mult = mult.times(buyableEffect("stars", 12))
+        if (hasUpgrade('stars', 15)) mult = mult.times(upgradeEffect('stars', 15))
+
+        // Inf
+        if (hasMilestone('inf', 9)) mult = mult.times(3)
+            if (hasMilestone('megainf', 6)) mult = mult.times(5)
 
         // Softcaps
         if (player.c.points.gte(100000)) mult = mult.pow(0.92)
         if (player.c.points.gte(1e6)) mult = mult.pow(0.7)
-        if (player.c.points.gte(1e10)) mult = mult.pow(0.000001)
+        if (player.c.points.gte(1e10)) mult = mult.pow(0.75)
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -56,6 +70,17 @@ addLayer("c", {
         {key: "c", description: "C: Press for Comet Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     tabFormat: {
+        "Main": {
+            content: [
+            "main-display",
+            "blank",
+            "resource-display",
+            "blank",
+            "prestige-button",
+            "blank",
+            ["infobox", "main"],
+        ],
+        },
         "Milestones": {
             content: [
             "main-display",
@@ -112,7 +137,7 @@ addLayer("c", {
         },
         5: {
             requirementDescription: "1,000,000 Comets",
-            effectDescription: "Unlock Halley's Comet (coming soon)",
+            effectDescription: "Unlock Halley's Comet",
             unlocked() { return (hasMilestone(this.layer, 4))},
             done() {return player.c.points.gte(1e6)}
         },
@@ -123,7 +148,7 @@ addLayer("c", {
             description: "/5 Rocket Price",
             cost: new Decimal(1),
         },
-        12: {
+        12: { 
             title: "Comets Research Equipment",
             description: "x10 Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 11))},
@@ -226,5 +251,11 @@ addLayer("c", {
             unlocked() { return (hasChallenge(this.layer, 13))},
             rewardDescription: "Unlock Asteroid Icarus & Unlock 2 New Asteroid Upgrades",
         },
-    }
+    },
+    infoboxes: {
+        main: {
+            title: "Introducing: Comets",
+            body() { return "Comets Reset everything from layer 1 & 2. Comets are Used for Upgrades & Milestones. After a while, you will unlock Challenges. Challenges are objectives you need to complete while having a debuf, in return you get rewards!" },
+        },
+    },
 })

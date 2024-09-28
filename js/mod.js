@@ -4,8 +4,10 @@ let modInfo = {
 	author: "CoolBoris",
 	pointsName: "Money",
 	modFiles: [
+
 		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
-		"space.js", "comets.js", "asteroids.js", 
+		"space.js", "comets.js", "asteroids.js", "stars.js", "planets.js",
+		"clickergame.js", "x.js",
 		"infinity.js", "megainfinity.js", "omegainfinity.js"
 	],
 	pointsName: "Money",
@@ -57,18 +59,26 @@ function getPointGen() {
 	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
 	if (hasUpgrade('as', 25)) gain = gain.times(100)
 	if (hasUpgrade('s', 51)) gain = gain.times(500)
-	if (hasMilestone('inf', 1)) gain = gain.times(2)
-	if (hasMilestone('inf', 2)) gain = gain.times(2)
-	if (hasMilestone('inf', 3)) gain = gain.times(2)
-	if (hasMilestone('megainf', 1)) gain = gain.times(3)	
-	if (hasMilestone('megainf', 2)) gain = gain.times(3)
 	if (hasUpgrade('ast', 21)) gain = gain.times(upgradeEffect('ast', 21))
 	if (hasUpgrade('c', 21)) gain = gain.times(1000)
 	if (hasUpgrade('ast', 22)) gain = gain.times(1000)
 	if (hasUpgrade('c', 23)) gain = gain.times(upgradeEffect('c', 23))
 	if (hasUpgrade('ast', 25)) gain = gain.times(100)
 	if (hasUpgrade('c', 25)) gain = gain.times(100)
-		
+	if (hasUpgrade('stars', 11)) gain = gain.times(upgradeEffect('stars', 11))
+	if (hasUpgrade('planets', 11)) gain = gain.times(upgradeEffect('planets', 11))
+	if (hasUpgrade('r', 51)) gain = gain.times(1e9)
+	if (hasUpgrade('x', 21)) gain = gain.times(upgradeEffect('x', 21))
+	if (hasUpgrade('ro', 22)) gain = gain.times(upgradeEffect('ro', 22))
+	if (hasUpgrade('ro', 23)) gain = gain.times(upgradeEffect('ro', 23))
+	if (hasMilestone('ro', 21)) gain = gain.times(1e20)
+	
+
+	// Inf
+	if (hasMilestone('inf', 1)) gain = gain.times(3)
+	if (hasMilestone('megainf', 1)) gain = gain.times(5)
+	if (hasMilestone('megainf', 7)) gain = gain.times(5)
+
 	// Challenges
 	if (inChallenge('c', 11)) gain = gain.pow(0.5)
 	if (inChallenge('c', 14)) gain = gain.pow(0.12)
@@ -84,7 +94,7 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Endgame: 1e104 Money",
+	"Endgame: 1e350 Money",
 ]
 
 // Determines when the game "ends"
@@ -113,14 +123,30 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.2.3",
-	name: "Infinity Deluxe",
+	num: "1.0.0",
+	name: "Outer Space",
 }
 
 let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
+		<h2 style="color:#ff3200;">v1.0 [Release]</h2><br>
+		- Chapter 2<br>
+		- Stars<br>
+		- Planets<br>
+		- The Sun<br>
+		- The Solar System<br>
+		- X<br>
+		- Infoboxes<br>
+		- Infinity Rework<br>
+		- More Space Content<br>
+		- More Achievements<br>
+		- More Secret Achievements<br>
+		- Renamed 50% of the game<br>
+		- Rebalanced earlygame<br>
+		- Secrets..<br>
+		<br>
 		<h2 style="color:Violet;">v0.2.3</h2><br>
 		- Omega Infinity <br>
 		- New Comets & Asteroids Content<br>
@@ -128,7 +154,6 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- More Secret Achievements<br>
 		- Small themes rework<br>
 		<br>
-
 		<h2 style="color:Violet;">v0.2.2</h2><br>
 		- Infinity <br>
 		<br>
@@ -151,16 +176,11 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- 1 new theme<br>
 		- Space Rework<br>
 		<br>
-		<h3 style="color:Red;">IMPORTANT:</h3><br>
-		Pre 0.2.0 Players should use the savebank to import the Comets & Asteroids file!<br>
-		<br>
 		<h2 style="color:Violet;">v0.1.1</h2><br>
 		- Comets Layer<br>
 		- Asteroids Layer<br>
 		- More Space Content<br>
 		- Big Balance Changes<br>
-		not finished but had to publish for fix<br>
-		still not released on galaxy lol (slow verification)<br>
 		<br>
 		<h2 style="color:DeepPink;">v0.1.0 [Beta Release]</h2><br>
 		- Space Layer<br>
@@ -168,15 +188,12 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		- ~10 New Milestones<br>
 		- More Achievements<br>
 		- Big Balance Changes<br>
-		- Release on galaxy, needs to be verified tho<br>
-		biggest update yet!!<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.14</h2><br>
 		- More Astronaut Upgrades <br>
 		- More Rocket Fuel Upgrades<br>
 		- More Rockets Milestones<br>
 		- More Achievements<br>
-		new layer next update!!!<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.13</h2><br>
 		- More Astronaut Upgrades <br>
@@ -185,20 +202,19 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 		<h2 style="color:Violet;">v0.0.12</h2><br>
 		- 7 NEW THEMES!! <br>
 		- More Rockets Milestones<br>
-	    ong i dont understand softcaps<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.11</h2><br>
 		- Subtabs <br>
 		- More Rockets Milestones<br>
 	    - More Achievements<br>
-		- ...<br>
-		I HATE ASTRONAUTS<br>
+		<br>
 		<h2 style="color:Violet;">v0.0.10</h2><br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
 		- More Rocket Milestones<br>
-		- Balancing!!!!! (astronauts aren't yet)<br>
-		- **SOFTCAPPED**<br>
+		- Some balancing<br>
+		- Reward: Secret role<br>
+		- Softcaps<br>
 		- 4 Achievements <br>
 		- ...<br>
 		4 new versions in 1 day yippee!<br>

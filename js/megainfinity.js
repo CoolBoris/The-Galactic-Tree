@@ -9,6 +9,7 @@ addLayer("megainf", {
     layerShown(){
         let visible = false
         if (player.inf.points.gte(10) || player.megainf.unlocked) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
      nodeStyle() {return {
@@ -46,7 +47,7 @@ tabFormat: {
  },
 },
  branches: ["inf",], 
- row: 98, // Row the layer is in on the tree (0 is the first row)
+ row: 26, // Row the layer is in on the tree (0 is the first row)
      color: "#05ff0e",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Mega Infinities", // Name of prestige currency
@@ -68,52 +69,52 @@ tabFormat: {
     milestones: {
         1: {
             requirementDescription: "First Mega Infinity",
-            effectDescription: "3x Money",
+            effectDescription: "5x Money",
             done() {return player.megainf.points.gte(1)}
         },
         2: {
             requirementDescription: "Second Mega Infinity",
-            effectDescription: "3x Money",
+            effectDescription: "5x Rocket Fuel",
             done() {return player.megainf.points.gte(2)}
         },
         3: {
             requirementDescription: "Third Mega Infinity",
-            effectDescription: "2x Rocket Fuel",
+            effectDescription: "2x Infinity",
             done() {return player.megainf.points.gte(3)}
         },
         4: {
             requirementDescription: "Fourth Mega Infinity",
-            effectDescription: "2x Rocket Fuel",
+            effectDescription: "3x Stardust & Planetoids",
             done() {return player.megainf.points.gte(4)}
         },
         5: {
             requirementDescription: "Fifth Mega Infinity",
-            effectDescription: "3x Astronauts",
+            effectDescription: "3x The Sun & The Solar System currencies",
             done() {return player.megainf.points.gte(5)}
         },
         6: {
             requirementDescription: "Sixth Mega Infinity",
-            effectDescription: "3x Astronauts",
+            effectDescription: "5x Comets & Asteroids",
             done() {return player.megainf.points.gte(6)}
         },
         7: {
             requirementDescription: "Seventh Mega Infinity",
-            effectDescription: "2x Comets & Asteroids",
+            effectDescription: "5x Money",
             done() {return player.megainf.points.gte(7)}
         },
         8: {
             requirementDescription: "Eigth Mega Infinity",
-            effectDescription: "2x Comets & Asteroids",
+            effectDescription: "5x Rocket Fuel",
             done() {return player.megainf.points.gte(8)}
         },
         9: {
             requirementDescription: "Ninth Mega Infinity",
-            effectDescription: "3x Comets & Asteroids",
+            effectDescription: "/5 Rocket Cost",
             done() {return player.megainf.points.gte(9)}
         },
         10: {
             requirementDescription: "Tenth Mega Infinity",
-            effectDescription: "Unlock Omega-Infinity & Recieve a Special role in the Discord Server",
+            effectDescription: "Unlock Omega Infinity & Recieve a Special role in the Discord Server",
             done() {return player.megainf.points.gte(10)}
         },
     }

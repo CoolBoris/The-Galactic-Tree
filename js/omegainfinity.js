@@ -8,7 +8,8 @@ addLayer("omegainf", {
     }},
     layerShown(){
         let visible = false
-        if (player.megainf.points.gte(1) || player.omegainf.unlocked) visible = true
+        if (player.megainf.points.gte(10) || player.omegainf.unlocked) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
      nodeStyle() {return {
@@ -46,7 +47,7 @@ tabFormat: {
  },
 },
  branches: ["megainf",], 
- row: 99, // Row the layer is in on the tree (0 is the first row)
+ row: 27, // Row the layer is in on the tree (0 is the first row)
      color: "#FF5100",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Omega Infinities", // Name of prestige currency
@@ -68,47 +69,47 @@ tabFormat: {
     milestones: {
         1: {
             requirementDescription: "First Omega Infinity",
-            effectDescription: "3x Rocket Fuel",
+            effectDescription: "2x Infinity",
             done() {return player.omegainf.points.gte(1)}
         },
         2: {
             requirementDescription: "Second Omega Infinity",
-            effectDescription: "3x Rocket Fuel",
+            effectDescription: "Auto-buy Rocket Fuel Upgrades",
             done() {return player.omegainf.points.gte(2)}
         },
         3: {
             requirementDescription: "Third Omega Infinity",
-            effectDescription: "Keep Rocket Fuel Upgrades on Reset",
+            effectDescription: "Auto-Buy Rocket Upgrades",
             done() {return player.omegainf.points.gte(3)}
         },
         4: {
             requirementDescription: "Fourth Omega Infinity",
-            effectDescription: "3x Astronauts",
+            effectDescription: "Auto-Buy Astronaut Upgrades",
             done() {return player.omegainf.points.gte(4)}
         },
         5: {
             requirementDescription: "Fifth Omega Infinity",
-            effectDescription: "3x Astronauts",
+            effectDescription: "1.5x Infinity",
             done() {return player.omegainf.points.gte(5)}
         },
         6: {
             requirementDescription: "Sixth Omega Infinity",
-            effectDescription: "Keep Rocket Upgrades on Reset",
+            effectDescription: "Auto-Buy Comet Upgrades",
             done() {return player.omegainf.points.gte(6)}
         },
         7: {
             requirementDescription: "Seventh Omega Infinity",
-            effectDescription: "3x Comets & Asteroids",
+            effectDescription: "Auto-Buy Asteroid Upgrades",
             done() {return player.omegainf.points.gte(7)}
         },
         8: {
             requirementDescription: "Eigth Omega Infinity",
-            effectDescription: "3x Comets & Asteroids",
+            effectDescription: "Auto-buy Star Upgrades",
             done() {return player.omegainf.points.gte(8)}
         },
         9: {
             requirementDescription: "Ninth Omega Infinity",
-            effectDescription: "Keep Astronaut Upgrades on Reset",
+            effectDescription: "Auto-Buy Planet Upgrades",
             done() {return player.omegainf.points.gte(9)}
         },
         10: {

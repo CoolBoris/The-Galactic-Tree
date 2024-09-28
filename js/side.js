@@ -9,6 +9,7 @@ addLayer("a", {
     color: "yellow",
     symbol: "🏆",
     row: "side",
+    position: "1",
     tooltip() { // Optional, tooltip displays when the layer is locked
         return ("Achievements")
     },
@@ -16,8 +17,14 @@ addLayer("a", {
         "Achievements": {
             content: [
                 ["display-text",
-                    function() { return player.a.points + '/26 Achievements' },
-                    { "color": "gold", "font-size": "32px",}],
+                    function(){
+                        let txt = ""
+                        txt = txt + `You have 
+                        <h2><span style="color: Yellow; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
+                            ${(player.a.points)}/42</span></h2> Achievements`
+                        return txt
+                    }
+                ],
             "blank",
             ["display-text",
                 'Achievements contain spoilers!',
@@ -248,7 +255,157 @@ addLayer("a", {
             goalTooltip: "Complete Asteroid Ceres", // Shows when achievement is not completed
             onComplete() {addPoints("a",1)}
         },
+        53: {
+            name: "ST4R",
+            done() {return player.stars.points.gte(1)},
+            tooltip: "1 Star",
+            goalTooltip: "Get 1 Star", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+            style() {
+                return {
+                "border-color": "#FFFEA5",
+                "border-width": "3px"
+                }
+            }
+        },
+        54: {
+            name: "Max",
+            done() {
+                if (getBuyableAmount('stars', 11) == 100) {
+                   return true
+                }
+            },
+            tooltip: "Star Buyable 1",
+            goalTooltip: "Complete Star Buyable 1", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        55: {
+            name: "Stardust is cool",
+            done() {return hasUpgrade("stars", 15)},
+            tooltip: "Star Upgrade 5",
+            goalTooltip: "Unlock Star Upgrade 5", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        56: {
+            name: "Sunlight",
+            done() {return hasMilestone("s", 13)},
+            tooltip: "The Sun",
+            goalTooltip: "Unlock The Sun", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+            style() {
+                return {
+                "border-color": "#FF6C00",
+                "border-width": "3px"
+                }
+        }
     },
+        61: {
+            name: "Light years",
+            done() {return player.sun.points.gte(1e100)},
+            tooltip: "1e100 Light",
+            goalTooltip: "Get 1e100 Light", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        62: {
+            name: "Infinite Light",
+            done() {return hasChallenge("stars", 11)},
+            tooltip: "The Sun",
+            goalTooltip: "Complete The Sun", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+            style() {
+                return {
+                "border-color": "#5E37B0",
+                "border-width": "3px"
+                }
+        }
+        },
+        63: {
+            name: "Planetoid Mayhem",
+            done() {return player.planetoid.points.gte(250)},
+            tooltip: "250 Planetoids",
+            goalTooltip: "Get 250 Planetoids", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        64: {
+            name: "Automation+++",
+            done() {return hasMilestone("planets", 5)},
+            tooltip: "Planet Milestone 5",
+            goalTooltip: "Get Planet Milestone 5", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        65: {
+            name: "Prepare for 8",
+            done() {return hasMilestone("planets", 6)},
+            tooltip: "The Solar System",
+            goalTooltip: "Unlock The Solar System", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+            style() {
+                return {
+                "border-color": "#620A8A",
+                "border-width": "3px"
+                }
+        }
+    },
+        66: {
+            name: "Easy, right?",
+            done() {return hasMilestone("mercury", 3)},
+            tooltip: "Mercury",
+            goalTooltip: "Complete Mercury", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        71: {
+            name: "100CPS",
+            done() {
+                if (getBuyableAmount('neptune', 11) == 100) {
+                   return true
+                }
+            },
+            tooltip: "Neptune Buyable 1",
+            goalTooltip: "Complete Neptune Buyable 1", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)}
+        },
+        72: {
+            name: "oh, that was easy..",
+            done() {return hasMilestone("jupiter", 1)},
+            tooltip: "The Solar System",
+            goalTooltip: "Complete The Solar System", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+            style() {
+                return {
+                "border-color": "#A1004C",
+                "border-width": "3px"
+                }
+        }
+        },
+        73: {
+            name: "Ultrafuel",
+            done() {return hasUpgrade("r", 51)},
+            tooltip: "Rocket Fuel Upgrade 21",
+            goalTooltip: "Unlock Rocket Fuel Upgrade 21", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+        },
+        74: {
+            name: "XPRO",
+            done() {return player.xpo.points.gte(1000)},
+            tooltip: "1,000 XPO",
+            goalTooltip: "Get 1,000 XPO", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+        },
+        75: {
+            name: "TRIPLE X",
+            done() {return player.x.points.gte(3)},
+            tooltip: "XXX",
+            goalTooltip: "Get XXX", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+        },
+        76: {
+            name: "The Final Rocket",
+            done() {return hasMilestone("ro", 21)},
+            tooltip: "Rocket Milestone 21",
+            goalTooltip: "Unlock Rocket Milestone 21", // Shows when achievement is not completed
+            onComplete() {addPoints("a",1)},
+        },
+    }
 },)
 
 addLayer("sa", {
@@ -260,6 +417,7 @@ addLayer("sa", {
     color: "#3E3E3E",
     symbol: "🏆",
     row: "side",
+    position: "2",
     tooltip() { // Optional, tooltip displays when the layer is locked
         return ("Secret Achievements")
     },
@@ -267,24 +425,37 @@ addLayer("sa", {
         "Secret Achievements": {
             content: [
                 ["display-text",
-                    function() { return player.sa.points + '/8 Secret Achievements' },
-                    { "color": "#3E3E3E", "font-size": "32px",}],
+                    function(){
+                        let txt = ""
+                        txt = txt + `You have 
+                        <h2><span style="color: #3E3E3E; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
+                            ${(player.sa.points)}/12</span></h2> Secret Achievements`
+                        return txt
+                    }
+                ],
             "blank",
-            ["display-text",
-                'some Secret Achievements may not be obtainable anymore after a while',
-                { "color": "red", "font-size": "13px",}],
-                "blank",
             "achievements",
          ],
      },
+     "Secrets": {
+        content: [
+        ["infobox", "main"],
+     ],
+ },
   },
+  infoboxes: {
+    main: {
+        title: "Introducing: Secrets",
+        body() { return "There are currently 3 Secrets in The Galactic Tree, each give a special role in CoolBoris' Studio. <br>To claim the role you need to send a screenshot of the secret to @coolboris08 or any staff and you will recieve your role asap.<br>Good luck!" },
+    },
+},
 
     achievementPopups: true,
     achievements: {
         11: {
-            name: "the first one is always free",
+            name: "The First one is always free",
             done() {return player.sa.points.gte(0)},
-            tooltip: "free secret achievement",
+            tooltip: "Free Achievement",
             onComplete() {addPoints("sa",1)},
             goalTooltip: "you can't see me?", // Shows when achievement is not completed
         },
@@ -295,9 +466,9 @@ addLayer("sa", {
                    return true
                 }
             },
-            tooltip: "switch the theme",
+            tooltip: "Switch the theme",
             onComplete() {addPoints("sa",1)},
-            goalTooltip: "fruity", // Shows when achievement is not completed
+            goalTooltip: "Whatever the title says", // Shows when achievement is not completed
         },
         13: {
             name: "last",
@@ -306,51 +477,72 @@ addLayer("sa", {
                    return true
                 }
             },
-            tooltip: "go through all the themes",
+            tooltip: "Go through all the themes",
             onComplete() {addPoints("sa",1)},
-            goalTooltip: "actually defualt", // Shows when achievement is not completed
+            goalTooltip: "actually default", // Shows when achievement is not completed
         },
         14: {
-            name: "251 sd",
+            name: "9,882 Inches",
             done() {return player.s.points.gte(251)},
             tooltip: "251 Space Distance",
             onComplete() {addPoints("sa",1)},
-            goalTooltip: "abbreviation", // Shows when achievement is not completed
+            goalTooltip: "Convert", // Shows when achievement is not completed
         },
-    15: {
-        name: "Endgame.",
-        done() {return player.points.gte(1e104)},
-        tooltip: "You beat the game! congrats!",
+        15: {
+            name: "Keep clicking!",
+            done() {return player.sun.points.gte("1e53150")},
+            tooltip: "1e53,150 Light",
+            onComplete() {addPoints("sa",1)},
+            goalTooltip: "keep going!", // Shows when achievement is not completed
+        },
+        16: {
+            name: "tap tap tap",
+            done() {return player.sun.points.gte("1e53250")},
+            tooltip: "1e53,250 Light",
+            onComplete() {addPoints("sa",1)},
+            goalTooltip: "even further!!", // Shows when achievement is not completed
+        },
+    21: {
+        name: "Endgame",
+        done() {return player.points.gte("1e350")},
+        tooltip: "You beat the game! congrats!<br>Reward: Infinity",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "Beat the game (changes every update)", // Shows when achievement is not completed
     },
-    21: {
-        name: "Mega Endgame",
-        done() {return player.points.gte(1e108)},
-        tooltip: "You went even further even tho you already finished the game.. yay? (Reward: Infinity)",
-        onComplete() {addPoints("sa",1)},
-        goalTooltip: "1e108 Money (changes every update)", // Shows when achievement is not completed
-    },
     22: {
+        name: "Mega Endgame",
+        done() {return player.points.gte("1e366")},
+        tooltip: "You definitely beat the game now..",
+        onComplete() {addPoints("sa",1)},
+        goalTooltip: "1e366 Money (changes every update)", // Shows when achievement is not completed
+    },
+    23: {
         name: "Infinite",
         done() {return player.inf.points.gte(1)},
         tooltip: "You reached Infinity once",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "Infinity", // Shows when achievement is not completed
     },
-    23: {
-        name: "mega infinite",
+    24: {
+        name: "Mega Infinite",
         done() {return player.megainf.points.gte(1)},
         tooltip: "You reached Mega Infinity once",
         onComplete() {addPoints("sa",1)},
         goalTooltip: "even more?", // Shows when achievement is not completed
     },
-    24: {
-        name: "not possible",
+    25: {
+        name: "Omega Infinite",
         done() {return player.omegainf.points.gte(10)},
-        tooltip: "Beat Infinity. (10 Omega Infinities)",
+        goalTooltip: "Beat Infinity. (10 Omega Infinities)",
         onComplete() {addPoints("sa",1)},
-        goalTooltip: "want more infinity? (10 omegainf)", // Shows when achievement is not completed
+        tooltip: "Congratulations, Few have reached this milestone, but your journey is far from over. The path you've chosen is only the beginning. What lies beyond is known only to those who dare to seek it. The game is never truly over.", // Shows when achievement is not completed
+    },
+    26: {
+        name: "blobs",
+        done() {return player.blob.points.gte(1)},
+        tooltip: "10 Blobs<br>Reward: Secret Role)",
+        onComplete() {addPoints("sa",1)},
+        goalTooltip: "blob blob", // Shows when achievement is not completed
     },
 },
 },)
@@ -364,6 +556,7 @@ addLayer("save", {
     color: "#48FFD0",
     symbol: "💾",
     row: "side",
+    position: "3",
     tooltip() { // Optional, tooltip displays when the layer is locked
         return ("Savebank")
     },
@@ -371,12 +564,8 @@ addLayer("save", {
        "Savebank": {
             content: [
                 ["display-text",
-                    "if you have a savefile that isn't added, dm them to coolboris08 on discord",
+                    "If you have a save that isn't added yet, send them to any staff in CoolBoris' Studio!",
                     { "color": "white", "font-size": "13px",}],
-                    "blank",
-                ["display-text",
-                 "to have the best experience, turn off offline progress when loading a file",
-                    { "color": "white", "font-size": "16px",}],
                     "blank",
                 "clickables",
             ],
@@ -445,7 +634,7 @@ addLayer("save", {
         }},
      },
      23: {
-        title: "Endgame",
+        title: "Unlock Stars",
         display: "Chapter 1: Space",
         canClick: true,
         onClick() {
@@ -453,10 +642,61 @@ addLayer("save", {
             importSave("eyJ0YWIiOiJvcHRpb25zLXRhYiIsIm5hdlRhYiI6InRyZWUtdGFiIiwidGltZSI6MTcyMTc2NDY5NzgzOCwibm90aWZ5Ijp7fSwidmVyc2lvblR5cGUiOiJnYWxhY3RpY3RyZWUxMSIsInZlcnNpb24iOiIwLjIuMiIsInRpbWVQbGF5ZWQiOjMyMTI5Ljg5OTYzNzAyNTk3NCwia2VlcEdvaW5nIjp0cnVlLCJoYXNOYU4iOmZhbHNlLCJwb2ludHMiOiI3LjQ1MTAyOTExMjczNTM2N2UxMDgiLCJzdWJ0YWJzIjp7ImNoYW5nZWxvZy10YWIiOnt9LCJybyI6eyJtYWluVGFicyI6Ik1pbGVzdG9uZXMifSwicyI6eyJtYWluVGFicyI6Ik1pbGVzdG9uZXMifSwiYSI6eyJtYWluVGFicyI6IkFjaGlldmVtZW50cyJ9LCJhcyI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sImFzdCI6eyJtYWluVGFicyI6IkFzdGVyb2lkcyJ9LCJjIjp7Im1haW5UYWJzIjoiVXBncmFkZXMifSwiciI6eyJtYWluVGFicyI6Ik1haW4ifSwic2EiOnsibWFpblRhYnMiOiJTZWNyZXQgQWNoaWV2ZW1lbnRzIn0sInNhdmUiOnsibWFpblRhYnMiOiJTYXZlYmFuayJ9LCJzb2Z0Y2FwcyI6eyJtYWluVGFicyI6IkFzdHJvbmF1dHMifSwiaW5mIjp7Im1haW5UYWJzIjoiSW5maW5pdHkifSwibWVnYWluZiI6eyJtYWluVGFicyI6Ik1lZ2EgSW5maW5pdHkifSwib21lZ2FpbmYiOnsibWFpblRhYnMiOiJPbWVnYSBJbmZpbml0eSJ9fSwibGFzdFNhZmVUYWIiOiJpbmYiLCJpbmZvYm94ZXMiOnt9LCJpbmZvLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyMTI5Ljg5OTYzNzAyNTk3NCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJvcHRpb25zLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyMTI5Ljg5OTYzNzAyNTk3NCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJjaGFuZ2Vsb2ctdGFiIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MzIxMjkuODk5NjM3MDI1OTc0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImJsYW5rIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MzIxMjkuODk5NjM3MDI1OTc0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInRyZWUtdGFiIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MzIxMjkuODk5NjM3MDI1OTc0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInIiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjIuMjcyNzQ4NDYzNzQ1OTE3ZTExNSIsInRvdGFsIjoiMi4yNzI3NDg0NjM3NDU5MTdlMTE1IiwiYmVzdCI6IjIuMjcyNzQ4NDYzNzQ1OTE3ZTExNSIsInJlc2V0VGltZSI6MzIyLjA0ODAwMDAwMDAwMTQsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzExLDEyLDEzLDE0LDE1LDIxLDIyLDIzLDI0LDI1LDMxLDMyLDMzLDM0LDM1LDQxLDQyLDQzLDQ0LDQ1XSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImEiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjI2IiwidG90YWwiOiIyNiIsImJlc3QiOiIyNiIsInJlc2V0VGltZSI6MzIxMjkuODk5NjM3MDI1OTc0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTYiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIyNiIsIjMxIiwiMzIiLCIzMyIsIjM0IiwiMzUiLCI0MiIsIjQxIiwiMzYiLCI0MyIsIjQ0IiwiNDUiLCI0NiIsIjUxIiwiNTIiXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNhIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiI2IiwidG90YWwiOiI2IiwiYmVzdCI6IjYiLCJyZXNldFRpbWUiOjMxNjQwLjQ0NzYzNzAyNzU2NiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6WyIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMjEiXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNhdmUiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MzE2NDAuNDQ3NjM3MDI3NTY2LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnsiMTEiOiIiLCIxMiI6IiIsIjEzIjoiIiwiMjEiOiIiLCIyMiI6IiIsIjIzIjoiIn0sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic29mdGNhcHMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MjU3NjguMzQzNzE0MzczMDUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwiYXMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjYuNjUyMjY1MDcxNjIyMjllNjIiLCJ0b3RhbCI6IjYuNjUyMjY1MDcxNjIyMjllNjIiLCJiZXN0IjoiNi42NTIyNjUwNzE2MjIyOWU2MiIsInJlc2V0VGltZSI6NDE3LjEzMzAwMDAwMDAwNDI0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsxMSwxMiwxMywxNCwxNSwyMSwyMiwyMywyNCwyNV0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCJdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJybyI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMjkiLCJ0b3RhbCI6IjI5IiwiYmVzdCI6IjI5IiwicmVzZXRUaW1lIjozMjIuMDQ4MDAwMDAwMDAxNCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTEsMTIsMTMsMTQsMTUsMjFdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiIsIjciLCI4IiwiOSIsIjEwIiwiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjE2IiwiMTciLCIxOCIsIjE5IiwiMjAiXSwibGFzdE1pbGVzdG9uZSI6IjIwIiwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIiwiYWN0aXZlQ2hhbGxlbmdlIjpudWxsfSwicyI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMTA1MjYwNDUwMy43MDE3NTA1IiwidG90YWwiOiIyMjA1NzI4NjUzLjcwMTc1MDgiLCJiZXN0IjoiMTM0MTI3NDUwMy43MDE3NTA1IiwicmVzZXRUaW1lIjoxNTkzOS42Mzc2NDEwNDY0NjUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzEyLDEzLDE0LDIyLDIzLDI0LDMyLDMzLDM0LDQzLDQyLDQ0LDExLDIxLDMxLDE1LDI1LDM1LDQ1LDQxLDUxXSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSIsIjYiLCI3IiwiOCIsIjkiXSwibGFzdE1pbGVzdG9uZSI6IjkiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJjIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiI0MTg2MjAyMjIzLjQ4NDI2OSIsInRvdGFsIjoiODQwMTIwMjM5Mi40ODQyNjQiLCJiZXN0IjoiNDE4NjIwMjIyMy40ODQyNjkiLCJyZXNldFRpbWUiOjQxNy4xMzMwMDAwMDAwMDQyNCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTEsMTIsMTMsMTQsMTUsMjEsMjIsMjMsMjQsMjVdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1Il0sImxhc3RNaWxlc3RvbmUiOiI1IiwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6eyIxMSI6MSwiMTIiOjEsIjEzIjoxLCIxNCI6MX0sImdyaWQiOnt9LCJwcmV2VGFiIjoiIiwiYWN0aXZlQ2hhbGxlbmdlIjpudWxsfSwiYXN0Ijp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIxMDQzNjYwMDQ3MTQ5MTMyLjgiLCJ0b3RhbCI6IjExOTM2NjAxMjIxNDkzNTkuOCIsImJlc3QiOiIxMDQzNjYwMDQ3MTQ5MTMyLjgiLCJyZXNldFRpbWUiOjc4Ny4yNTEwMDAwMDAwMTE1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsxMSwxMiwxMywxNCwxNSwyMSwyMiwyMywyNCwyNV0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiXSwibGFzdE1pbGVzdG9uZSI6IjUiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7IjExIjoxLCIxMiI6MSwiMTMiOjEsIjE0IjoxfSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMwNTYuNzU5OTk5OTk5OTg0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm1lZ2FpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMwNTYuNzU5OTk5OTk5OTg0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm9tZWdhaW5mIjp7InVubG9ja2VkIjpmYWxzZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjozMDU2Ljc1OTk5OTk5OTk4NCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9fQ==")
         },
         style() {return{
-            'background-color':"MidnightBlue",
+            'background-color':"#FFFEA5",
         }},
      },
-
+     31: {
+        title: "Unlock The Sun",
+        display: "Chapter 1: Space",
+        canClick: true,
+        onClick() {
+            if(!confirm("WARNING: Your save file will be fully changed. Are you sure?")) return;
+            importSave("eyJ0YWIiOiJvcHRpb25zLXRhYiIsIm5hdlRhYiI6InRyZWUtdGFiIiwidGltZSI6MTcyMjM3NDI2NTc3Nywibm90aWZ5Ijp7fSwidmVyc2lvblR5cGUiOiJnYWxhY3RpY3RyZWUxMSIsInZlcnNpb24iOiIwLjMiLCJ0aW1lUGxheWVkIjozMjUxOC45Mjc2MzcwMjE4NjUsImtlZXBHb2luZyI6dHJ1ZSwiaGFzTmFOIjpmYWxzZSwicG9pbnRzIjoiNC41MDgwNjI1NjA3NTAzNWU2MSIsInN1YnRhYnMiOnsiY2hhbmdlbG9nLXRhYiI6e30sInJvIjp7Im1haW5UYWJzIjoiTWlsZXN0b25lcyJ9LCJzIjp7Im1haW5UYWJzIjoiVXBncmFkZXMifSwiYSI6eyJtYWluVGFicyI6IkFjaGlldmVtZW50cyJ9LCJhcyI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sImFzdCI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sImMiOnsibWFpblRhYnMiOiJDb21ldHMifSwiciI6eyJtYWluVGFicyI6Ik1haW4ifSwic2EiOnsibWFpblRhYnMiOiJTZWNyZXQgQWNoaWV2ZW1lbnRzIn0sInNhdmUiOnsibWFpblRhYnMiOiJTYXZlYmFuayJ9LCJzb2Z0Y2FwcyI6eyJtYWluVGFicyI6IkFzdHJvbmF1dHMifSwiaW5mIjp7Im1haW5UYWJzIjoiSW5maW5pdHkifSwibWVnYWluZiI6eyJtYWluVGFicyI6Ik1lZ2EgSW5maW5pdHkifSwib21lZ2FpbmYiOnsibWFpblRhYnMiOiJPbWVnYSBJbmZpbml0eSJ9LCJzdGFycyI6eyJtYWluVGFicyI6Ik1haW4ifSwic3VuIjp7Im1haW5UYWJzIjoiTWFpbiJ9fSwibGFzdFNhZmVUYWIiOiJzIiwiaW5mb2JveGVzIjp7InIiOnsibWFpbiI6ZmFsc2UsIm1haW4yIjpmYWxzZX0sInN0YXJzIjp7Im1haW4iOmZhbHNlfSwic3VuIjp7Im1haW4iOmZhbHNlfSwicm8iOnsibWFpbiI6ZmFsc2V9LCJhcyI6eyJtYWluIjpmYWxzZX0sInMiOnsibWFpbiI6ZmFsc2UsIm1haW4yIjpmYWxzZX0sImMiOnsibWFpbiI6ZmFsc2V9LCJhc3QiOnsibWFpbiI6ZmFsc2V9fSwiaW5mby10YWIiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjozMjUxOC45Mjc2MzcwMjE4NjUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwib3B0aW9ucy10YWIiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjozMjUxOC45Mjc2MzcwMjE4NjUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwiY2hhbmdlbG9nLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyNTE4LjkyNzYzNzAyMTg2NSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJibGFuayI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyNTE4LjkyNzYzNzAyMTg2NSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJ0cmVlLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyNTE4LjkyNzYzNzAyMTg2NSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJyIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIxLjIzNjAyMTM4NDkyNTkxOTRlNzMiLCJ0b3RhbCI6IjEuMjM2MDIxMzg0OTI1OTE5NGU3MyIsImJlc3QiOiIxLjIzNjAyMTM4NDkyNTkxOTRlNzMiLCJyZXNldFRpbWUiOjYuOTQ5LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIzMSIsIjMyIiwiMzMiLCIzNCIsIjM1IiwiNDEiLCI0MiIsIjQzIiwiNDQiLCI0NSJdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIiwiYWN0aXZlQ2hhbGxlbmdlIjpudWxsfSwicm8iOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjIyIiwidG90YWwiOiIyMiIsImJlc3QiOiIyMiIsInJlc2V0VGltZSI6Ni45NDksImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WyIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMjEiXSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSIsIjYiLCI3IiwiOCIsIjkiLCIxMCIsIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIxNiIsIjE3IiwiMTgiLCIxOSIsIjIwIl0sImxhc3RNaWxlc3RvbmUiOiIyMCIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImEiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjMwIiwidG90YWwiOiIzMCIsImJlc3QiOiIzMCIsInJlc2V0VGltZSI6MzI1MTguOTI3NjM3MDIxODY1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTYiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIyNiIsIjMxIiwiMzIiLCIzMyIsIjM0IiwiMzUiLCI0MiIsIjQxIiwiMzYiLCI0MyIsIjQ0IiwiNDUiLCI0NiIsIjUxIiwiNTIiLCI1MyIsIjU1IiwiNTQiLCI1NiJdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic2EiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjciLCJ0b3RhbCI6IjciLCJiZXN0IjoiNyIsInJlc2V0VGltZSI6MzIwMjkuNDc1NjM3MDIzNDU3LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIyMSIsIjE2Il0sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzYXZlIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjMyMDI5LjQ3NTYzNzAyMzQ1NywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7IjExIjoiIiwiMTIiOiIiLCIxMyI6IiIsIjIxIjoiIiwiMjIiOiIiLCIyMyI6IiIsIjMxIjoiIn0sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic29mdGNhcHMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MjYxNTcuMzcxNzE0MzY4OTQzLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImFzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIxLjYzNjU0MTExMTg4MzY4MzVlMzYiLCJ0b3RhbCI6IjEuNjM2NTQxMTExODgzNjgzNWUzNiIsImJlc3QiOiIxLjYzNjU0MTExMTg4MzY4MzVlMzYiLCJyZXNldFRpbWUiOjEyLjAwNSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIyMSIsIjIyIiwiMjMiLCIyNCIsIjI1Il0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCJdLCJsYXN0TWlsZXN0b25lIjoiNCIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sIm1lZ2FpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjM0NDUuNzg3OTk5OTk5OTMyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm9tZWdhaW5mIjp7InVubG9ja2VkIjpmYWxzZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjozNDQ1Ljc4Nzk5OTk5OTkzMiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIzMTgwNzIyNTU5MDMuNzAxOCIsInRvdGFsIjoiMzE3MDA2OTE1MDAwIiwiYmVzdCI6IjMxODA3MjI1NTkwMy43MDE4IiwicmVzZXRUaW1lIjozODIuODc0MDAwMDAwMDEyMywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTIsMTMsMTQsMjIsMjMsMjQsMzIsMzMsMzQsNDMsNDIsNDQsMTEsMjEsMzEsMTUsMjUsMzUsNDUsNDEsNTFdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiIsIjciLCI4IiwiOSIsIjEwIiwiMTEiLCIxMiIsIjEzIl0sImxhc3RNaWxlc3RvbmUiOiIxMyIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjEwMTk2MzAxMTAwLjI0OTg4NyIsInRvdGFsIjoiMTAxOTYzMDEyNjkuMjQ5ODg3IiwiYmVzdCI6IjEwMTk2MzAxMTAwLjI0OTg4NyIsInJlc2V0VGltZSI6MTIuMDA1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsxMSwxMiwxMywxNCwxNV0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiXSwibGFzdE1pbGVzdG9uZSI6IjUiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7IjExIjoxLCIxMiI6MCwiMTMiOjAsIjE0IjowfSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJhc3QiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MzgyLjg3NDAwMDAwMDAxMjMsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7IjExIjowLCIxMiI6MCwiMTMiOjAsIjE0IjowfSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJzdGFyZHVzdCI6eyJ1bmxvY2tlZCI6ZmFsc2UsInBvaW50cyI6IjI0MDQwLjM4Nzk5OTk5NTc4MyIsInRvdGFsIjoiMjQxNjUxLjg4Nzk5OTk5MzU3IiwiYmVzdCI6IjE4ODcxMy43ODc5OTk5OTU3IiwicmVzZXRUaW1lIjozODkuMDI4MDAwMDAwMDEyMjQsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic3RhcnMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjEwIiwidG90YWwiOiIxMCIsImJlc3QiOiIxMCIsInJlc2V0VGltZSI6MzgyLjg3NDAwMDAwMDAxMjMsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7IjExIjoiMTAwIiwiMTIiOiI5NiJ9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTEsMTIsMTMsMTQsMTVdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1Il0sImxhc3RNaWxlc3RvbmUiOiI1IiwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6eyIxMSI6MH0sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInN1biI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjozODkuMDI4MDAwMDAwMDEyMjQsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7IjExIjoiMCIsIjEyIjoiMCJ9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjM0NDUuNzg3OTk5OTk5OTMyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn19")
+        },
+        style() {return{
+            'background-color':"#FFB50B",
+        }},
+     },
+     32: {
+        title: "Unlock Planets",
+        display: "Chapter 1: Space",
+        canClick: true,
+        onClick() {
+            if(!confirm("WARNING: Your save file will be fully changed. Are you sure?")) return;
+            importSave("eyJ0YWIiOiJvcHRpb25zLXRhYiIsIm5hdlRhYiI6InRyZWUtdGFiIiwidGltZSI6MTcyMjc2NTA5NzUzOCwibm90aWZ5Ijp7fSwidmVyc2lvblR5cGUiOiJnYWxhY3RpY3RyZWUxMSIsInZlcnNpb24iOiIwLjMiLCJ0aW1lUGxheWVkIjo0MjA5Ny41NTQ2MzcwODUyMiwia2VlcEdvaW5nIjp0cnVlLCJoYXNOYU4iOnRydWUsInBvaW50cyI6IjIuNTA2Njc4MTkxNDk0MDc1N2UxMTUiLCJzdWJ0YWJzIjp7ImNoYW5nZWxvZy10YWIiOnt9LCJybyI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sInMiOnsibWFpblRhYnMiOiJNaWxlc3RvbmVzIn0sImEiOnsibWFpblRhYnMiOiJBY2hpZXZlbWVudHMifSwiYXMiOnsibWFpblRhYnMiOiJVcGdyYWRlcyJ9LCJhc3QiOnsibWFpblRhYnMiOiJVcGdyYWRlcyJ9LCJjIjp7Im1haW5UYWJzIjoiVXBncmFkZXMifSwiciI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sInNhIjp7Im1haW5UYWJzIjoiU2VjcmV0IEFjaGlldmVtZW50cyJ9LCJzYXZlIjp7Im1haW5UYWJzIjoiU2F2ZWJhbmsifSwic29mdGNhcHMiOnsibWFpblRhYnMiOiJBc3Ryb25hdXRzIn0sImluZiI6eyJtYWluVGFicyI6IkluZmluaXR5In0sIm1lZ2FpbmYiOnsibWFpblRhYnMiOiJNZWdhIEluZmluaXR5In0sIm9tZWdhaW5mIjp7Im1haW5UYWJzIjoiT21lZ2EgSW5maW5pdHkifSwic3RhcnMiOnsibWFpblRhYnMiOiJUaGUgU3VuIn0sInN1biI6eyJtYWluVGFicyI6Ik1haW4ifSwicGxhbmV0cyI6eyJtYWluVGFicyI6Ik1haW4ifX0sImxhc3RTYWZlVGFiIjoiYXMiLCJpbmZvYm94ZXMiOnsiciI6eyJtYWluIjpmYWxzZSwibWFpbjIiOmZhbHNlfSwicm8iOnsibWFpbiI6ZmFsc2V9LCJhcyI6eyJtYWluIjpmYWxzZX0sInMiOnsibWFpbiI6ZmFsc2UsIm1haW4yIjpmYWxzZX0sImMiOnsibWFpbiI6ZmFsc2V9LCJhc3QiOnsibWFpbiI6ZmFsc2V9LCJzdGFycyI6eyJtYWluIjpmYWxzZX0sInN1biI6eyJtYWluIjpmYWxzZX0sInBsYW5ldHMiOnsibWFpbiI6ZmFsc2V9fSwiaW5mby10YWIiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjo0MjA5Ny41NTQ2MzcwODUyMiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJvcHRpb25zLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjQyMDk3LjU1NDYzNzA4NTIyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImNoYW5nZWxvZy10YWIiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjo0MjA5Ny41NTQ2MzcwODUyMiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJibGFuayI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjQyMDk3LjU1NDYzNzA4NTIyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInRyZWUtdGFiIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6NDIwOTcuNTU0NjM3MDg1MjIsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwiciI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiOS4yMzY5MTM3ODk2NjI3NGUxMjEiLCJ0b3RhbCI6IjkuMjM2OTEzNzg5NjYyNzRlMTIxIiwiYmVzdCI6IjkuMjM2OTEzNzg5NjYyNzRlMTIxIiwicmVzZXRUaW1lIjoyNi45OTI5OTk5OTk5OTk5OSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIyMSIsIjIyIiwiMjMiLCIyNCIsIjI1IiwiMzEiLCIzMiIsIjMzIiwiMzQiLCIzNSIsIjQxIiwiNDIiLCI0MyIsIjQ0IiwiNDUiXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sInJvIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIzMCIsInRvdGFsIjoiMzAiLCJiZXN0IjoiMzAiLCJyZXNldFRpbWUiOjI2Ljk5Mjk5OTk5OTk5OTk5LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIl0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiLCI2IiwiNyIsIjgiLCI5IiwiMTAiLCIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMTkiLCIyMCJdLCJsYXN0TWlsZXN0b25lIjoiMjAiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJhIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIzMiIsInRvdGFsIjoiMzIiLCJiZXN0IjoiMzIiLCJyZXNldFRpbWUiOjQyMDk3LjU1NDYzNzA4NTIyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTYiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIyNiIsIjMxIiwiMzIiLCIzMyIsIjM0IiwiMzUiLCI0MiIsIjQxIiwiMzYiLCI0MyIsIjQ0IiwiNDUiLCI0NiIsIjUxIiwiNTIiLCI1MyIsIjU1IiwiNTQiLCI1NiIsIjYxIiwiNjIiXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNhIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiI4IiwidG90YWwiOiI4IiwiYmVzdCI6IjgiLCJyZXNldFRpbWUiOjQxNjA4LjEwMjYzNzA4NjgyLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIyMSIsIjIyIiwiMjYiXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNhdmUiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6NDE2MDguMTAyNjM3MDg2ODIsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6eyIxMSI6IiIsIjEyIjoiIiwiMTMiOiIiLCIyMSI6IiIsIjIyIjoiIiwiMjMiOiIiLCIzMSI6IiJ9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNvZnRjYXBzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjM1NzM1Ljk5ODcxNDM0MDI0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImJsb2IiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjIiLCJ0b3RhbCI6IjIiLCJiZXN0IjoiMiIsInJlc2V0VGltZSI6OTk2Ny42NTUwMDAwMDE1MDksImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwiYXMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjEuMTE4MTUxNzgzMjM5MzUwNGU2NiIsInRvdGFsIjoiMS4xMTgxNTE3ODMyMzkzNTA0ZTY2IiwiYmVzdCI6IjEuMTE4MTUxNzgzMjM5MzUwNGU2NiIsInJlc2V0VGltZSI6NTQuOTAxOTk5OTk5OTk5NTc1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiXSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0Il0sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sInN0YXJkdXN0Ijp7InVubG9ja2VkIjpmYWxzZSwicG9pbnRzIjoiMTIxNTgxOS43MDQwMDAyMjM0IiwidG90YWwiOiIxNDM5MDQ3LjIwNDAwMDAxMzYiLCJiZXN0IjoiMTIxNTgxOS43MDQwMDAyMjM0IiwicmVzZXRUaW1lIjo5OTY3LjY1NTAwMDAwMTUwOSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzdGFycyI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMTAiLCJ0b3RhbCI6IjEwIiwiYmVzdCI6IjEwIiwicmVzZXRUaW1lIjoyMzUuODAyMDAwMDAwMDAyNzUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7IjExIjoiMTAwIiwiMTIiOiIxMDAifSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzExLDEyLDEzLDE0LDE1XSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSJdLCJsYXN0TWlsZXN0b25lIjoiNSIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnsiMTEiOjF9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sInN1biI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMi44OTA1NTA5NzExNzgxNjAzZTUzMjAwIiwidG90YWwiOiIyLjg5MDU1MDk3MTE3ODE2MDNlNTMyMDAiLCJiZXN0IjoiMi44OTA1NTA5NzExNzgxNjAzZTUzMjAwIiwicmVzZXRUaW1lIjo5OTY3LjY1NTAwMDAwMTUwOSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnsiMTEiOiI2NzkiLCIxMiI6IjEwMDAiLCIxMyI6IjI1MCIsIjIxIjoiMzI5In0sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsxMSwxMiwxMywxNCwxNSwyMSwyMiwyMywyNCwyNSwzMSwzMiwzMywzNCwzNV0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiLCI2IiwiNyIsIjgiXSwibGFzdE1pbGVzdG9uZSI6IjgiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwicGxhbmV0b2lkIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjk5NjcuNjU1MDAwMDAxNTA5LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInBsYW5ldHMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6OTk2Ny42NTUwMDAwMDE1MDksImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7IjExIjoiMCIsIjEyIjoiMCJ9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjEzMDI0LjQxNTAwMDAwODg2LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm1lZ2FpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjEzMDI0LjQxNTAwMDAwODg2LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm9tZWdhaW5mIjp7InVubG9ja2VkIjpmYWxzZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjoxMzAyNC40MTUwMDAwMDg4NiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIyMzY3MjI4MDk2ODEwMy43IiwidG90YWwiOiIyMzU4MDIwMDAwMDAwIiwiYmVzdCI6IjIzNjcyMjgwOTY4MTAzLjciLCJyZXNldFRpbWUiOjIzNS44MDIwMDAwMDAwMDI3NSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTIsMTMsMTQsMjIsMjMsMjQsMzIsMzMsMzQsNDMsNDIsNDQsMTEsMjEsMzEsMTUsMjUsMzUsNDUsNDEsNTFdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiIsIjciLCI4IiwiOSIsIjEwIiwiMTEiLCIxMiIsIjEzIl0sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjQzOTA1NjU4MDgwNjIwLjMzIiwidG90YWwiOiI0MzkxMDM3MzA4MDc4OS4zMyIsImJlc3QiOiI0MzkwNTY1ODA4MDYyMC4zMyIsInJlc2V0VGltZSI6OTMuMjAyOTk5OTk5OTk5OTYsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzExLDEyLDEzLDE0LDE1LDIxLDIyLDIzLDI0LDI1XSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSJdLCJsYXN0TWlsZXN0b25lIjoiNSIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnsiMTEiOjEsIjEyIjoxLCIxMyI6MSwiMTQiOjF9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImFzdCI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiNS45NTgzNDMyMjMwNTE5OTJlMTciLCJ0b3RhbCI6IjUuOTU5ODQzMjIzODAyMDI0ZTE3IiwiYmVzdCI6IjUuOTU4MzQzMjIzMDUxOTkyZTE3IiwicmVzZXRUaW1lIjo1NC45MDE5OTk5OTk5OTk1NzUsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzExLDEyLDEzLDE0LDE1LDIxLDIyLDIzLDI0LDI1XSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSJdLCJsYXN0TWlsZXN0b25lIjoiNSIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnsiMTEiOjEsIjEyIjoxLCIxMyI6MSwiMTQiOjF9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH19")
+        },
+        style() {return{
+            'background-color':"#5E37B0",
+        }},
+     },
+     33: {
+        title: "Unlock The Solar System",
+        display: "Chapter 1: Space",
+        canClick: true,
+        onClick() {
+            if(!confirm("WARNING: Your save file will be fully changed. Are you sure?")) return;
+            importSave("eyJ0YWIiOiJvcHRpb25zLXRhYiIsIm5hdlRhYiI6InRyZWUtdGFiIiwidGltZSI6MTcyMzA1Njg0MTQwOCwibm90aWZ5Ijp7fSwidmVyc2lvblR5cGUiOiJnYWxhY3RpY3RyZWUxMSIsInZlcnNpb24iOiIwLjMiLCJ0aW1lUGxheWVkIjo0MjMyMS4zOTQ2MzcwODYxMywia2VlcEdvaW5nIjp0cnVlLCJoYXNOYU4iOnRydWUsInBvaW50cyI6IjEuNzMzNTYxOTI0NTQ5NjY1MmUxMzQiLCJzdWJ0YWJzIjp7ImNoYW5nZWxvZy10YWIiOnt9LCJybyI6eyJtYWluVGFicyI6IlVwZ3JhZGVzIn0sInMiOnsibWFpblRhYnMiOiJNaWxlc3RvbmVzIn0sImEiOnsibWFpblRhYnMiOiJBY2hpZXZlbWVudHMifSwiYXMiOnsibWFpblRhYnMiOiJVcGdyYWRlcyJ9LCJhc3QiOnsibWFpblRhYnMiOiJBc3Rlcm9pZHMifSwiYyI6eyJtYWluVGFicyI6IkNvbWV0cyJ9LCJyIjp7Im1haW5UYWJzIjoiVXBncmFkZXMifSwic2EiOnsibWFpblRhYnMiOiJTZWNyZXQgQWNoaWV2ZW1lbnRzIn0sInNhdmUiOnsibWFpblRhYnMiOiJTYXZlYmFuayJ9LCJzb2Z0Y2FwcyI6eyJtYWluVGFicyI6IkFzdHJvbmF1dHMifSwiaW5mIjp7Im1haW5UYWJzIjoiSW5maW5pdHkifSwibWVnYWluZiI6eyJtYWluVGFicyI6Ik1lZ2EgSW5maW5pdHkifSwib21lZ2FpbmYiOnsibWFpblRhYnMiOiJPbWVnYSBJbmZpbml0eSJ9LCJzdGFycyI6eyJtYWluVGFicyI6IlRoZSBTdW4ifSwic3VuIjp7Im1haW5UYWJzIjoiTWFpbiJ9LCJwbGFuZXRzIjp7Im1haW5UYWJzIjoiTWlsZXN0b25lcyJ9LCJlYXJ0aCI6eyJtYWluVGFicyI6Ik1haW4ifX0sImxhc3RTYWZlVGFiIjoicGxhbmV0cyIsImluZm9ib3hlcyI6eyJyIjp7Im1haW4iOmZhbHNlLCJtYWluMiI6ZmFsc2V9LCJybyI6eyJtYWluIjpmYWxzZX0sImFzIjp7Im1haW4iOmZhbHNlfSwicyI6eyJtYWluIjpmYWxzZSwibWFpbjIiOmZhbHNlfSwiYyI6eyJtYWluIjpmYWxzZX0sImFzdCI6eyJtYWluIjpmYWxzZX0sInN0YXJzIjp7Im1haW4iOmZhbHNlfSwic3VuIjp7Im1haW4iOmZhbHNlfSwicGxhbmV0cyI6eyJtYWluIjpmYWxzZX0sImVhcnRoIjp7Im1haW4iOmZhbHNlfX0sImluZm8tdGFiIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6NDIzMjEuMzk0NjM3MDg2MTMsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwib3B0aW9ucy10YWIiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjo0MjMyMS4zOTQ2MzcwODYxMywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJjaGFuZ2Vsb2ctdGFiIjp7InVubG9ja2VkIjp0cnVlLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6NDIzMjEuMzk0NjM3MDg2MTMsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwiYmxhbmsiOnsidW5sb2NrZWQiOnRydWUsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjo0MjMyMS4zOTQ2MzcwODYxMywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJ0cmVlLXRhYiI6eyJ1bmxvY2tlZCI6dHJ1ZSwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjQyMzIxLjM5NDYzNzA4NjEzLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImluZiI6eyJ1bmxvY2tlZCI6ZmFsc2UsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MTMyNDguMjU1MDAwMDA4OTA1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm1lZ2FpbmYiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjEzMjQ4LjI1NTAwMDAwODkwNSwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJvbWVnYWluZiI6eyJ1bmxvY2tlZCI6ZmFsc2UsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MTMyNDguMjU1MDAwMDA4OTA1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInIiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjcuOTI4NjY5NjQxNzcxMDY0ZTE0MCIsInRvdGFsIjoiNy45Mjg2Njk2NDE3NzEwNjRlMTQwIiwiYmVzdCI6IjcuOTI4NjY5NjQxNzcxMDY0ZTE0MCIsInJlc2V0VGltZSI6MTIyLjM2NDAwMDAwMDAwMDY2LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIzMSIsIjMyIiwiMzMiLCIzNCIsIjM1IiwiNDEiLCI0MiIsIjQzIiwiNDQiLCI0NSJdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIiwiYWN0aXZlQ2hhbGxlbmdlIjpudWxsfSwicm8iOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjMzIiwidG90YWwiOiIzMyIsImJlc3QiOiIzMyIsInJlc2V0VGltZSI6MTIyLjM2NDAwMDAwMDAwMDY2LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIl0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiLCI2IiwiNyIsIjgiLCI5IiwiMTAiLCIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMTYiLCIxNyIsIjE4IiwiMTkiLCIyMCJdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJhIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIzNCIsInRvdGFsIjoiMzQiLCJiZXN0IjoiMzQiLCJyZXNldFRpbWUiOjQyMzIxLjM5NDYzNzA4NjEzLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTYiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiLCIyNiIsIjMxIiwiMzIiLCIzMyIsIjM0IiwiMzUiLCI0MiIsIjQxIiwiMzYiLCI0MyIsIjQ0IiwiNDUiLCI0NiIsIjUxIiwiNTIiLCI1MyIsIjU1IiwiNTQiLCI1NiIsIjYxIiwiNjIiLCI2NCIsIjYzIl0sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzYSI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiOCIsInRvdGFsIjoiOCIsImJlc3QiOiI4IiwicmVzZXRUaW1lIjo0MTgzMS45NDI2MzcwODc3MywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6WyIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMjEiLCIyMiIsIjI2Il0sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzYXZlIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjQxODMxLjk0MjYzNzA4NzczLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnsiMTEiOiIiLCIxMiI6IiIsIjEzIjoiIiwiMjEiOiIiLCIyMiI6IiIsIjIzIjoiIiwiMzEiOiIiLCIzMiI6IiJ9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInNvZnRjYXBzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjM1OTU5LjgzODcxNDM0MTE1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImJsb2IiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjIiLCJ0b3RhbCI6IjIiLCJiZXN0IjoiMiIsInJlc2V0VGltZSI6MTAxOTEuNDk1MDAwMDAxNTU0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sImFzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiI0LjIwNDg4NzU4NTc1MDYzNmU3NyIsInRvdGFsIjoiNC4yMDQ4ODc1ODU3NTA2MzZlNzciLCJiZXN0IjoiNC4yMDQ4ODc1ODU3NTA2MzZlNzciLCJyZXNldFRpbWUiOjEyMi4zNjQwMDAwMDAwMDA2NiwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbIjExIiwiMTIiLCIxMyIsIjE0IiwiMTUiLCIyMSIsIjIyIiwiMjMiLCIyNCIsIjI1Il0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCJdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIyNTkxMDY4MDk2ODEwMy43IiwidG90YWwiOiIxNTE1NjkwMDAwMDAwIiwiYmVzdCI6IjI1OTEwNjgwOTY4MTAzLjciLCJyZXNldFRpbWUiOjE1MS41NjkwMDAwMDAwMDA1MywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTIsMTMsMTQsMjIsMjMsMjQsMzIsMzMsMzQsNDMsNDIsNDQsMTEsMjEsMzEsMTUsMjUsMzUsNDUsNDEsNTFdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiIsIjciLCI4IiwiOSIsIjEwIiwiMTEiLCIxMiIsIjEzIl0sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjEzMzY1NDgzNjM1ODg2MTIiLCJ0b3RhbCI6IjEzMzY1NTMwNzg1ODg3ODEiLCJiZXN0IjoiMTMzNjU0ODM2MzU4ODYxMiIsInJlc2V0VGltZSI6MTUxLjU2OTAwMDAwMDAwMDUzLCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsiMTEiLCIxMiIsIjEzIiwiMTQiLCIxNSIsIjIxIiwiMjIiLCIyMyIsIjI0IiwiMjUiXSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSJdLCJsYXN0TWlsZXN0b25lIjoiNSIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnsiMTEiOjEsIjEyIjoxLCIxMyI6MSwiMTQiOjF9LCJncmlkIjp7fSwicHJldlRhYiI6IiIsImFjdGl2ZUNoYWxsZW5nZSI6bnVsbH0sImFzdCI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMi44ODA3NDc3MzA4NDMxMzZlMjQiLCJ0b3RhbCI6IjIuODgwNzQ3NzMwOTkzMDM4ZTI0IiwiYmVzdCI6IjIuODgwNzQ3NzMwODQzMTM2ZTI0IiwicmVzZXRUaW1lIjoxMjIuMzY0MDAwMDAwMDAwNjYsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WyIxMSIsIjEyIiwiMTMiLCIxNCIsIjE1IiwiMjEiLCIyMiIsIjIzIiwiMjQiLCIyNSJdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1Il0sImxhc3RNaWxlc3RvbmUiOiI1IiwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6eyIxMSI6MSwiMTIiOjEsIjEzIjoxLCIxNCI6MX0sImdyaWQiOnt9LCJwcmV2VGFiIjoiIiwiYWN0aXZlQ2hhbGxlbmdlIjpudWxsfSwic3RhcmR1c3QiOnsidW5sb2NrZWQiOmZhbHNlLCJwb2ludHMiOiIxMzIyODE1LjIyNDAwMDE1NSIsInRvdGFsIjoiMTU0NjA0Mi43MjM5OTk5NDUyIiwiYmVzdCI6IjEzMjI4MTUuMjI0MDAwMTU1IiwicmVzZXRUaW1lIjoxMDE5MS40OTUwMDAwMDE1NTQsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic3RhcnMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjEwIiwidG90YWwiOiIxMCIsImJlc3QiOiIxMCIsInJlc2V0VGltZSI6NDU5LjY0MjAwMDAwMDAwNTQ1LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6eyIxMSI6IjEwMCIsIjEyIjoiMTAwIn0sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOlsxMSwxMiwxMywxNCwxNV0sIm1pbGVzdG9uZXMiOlsiMSIsIjIiLCIzIiwiNCIsIjUiXSwibGFzdE1pbGVzdG9uZSI6IjUiLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7IjExIjoxfSwiZ3JpZCI6e30sInByZXZUYWIiOiIiLCJhY3RpdmVDaGFsbGVuZ2UiOm51bGx9LCJwbGFuZXRvaWQiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6Ijc4NTkwNC4yNTE5OTk5OTU0IiwidG90YWwiOiIxMDAyMTUyLjI1MTk5OTk5NTYiLCJiZXN0IjoiOTk2MDA3LjI0Nzk5OTk5OTgiLCJyZXNldFRpbWUiOjEwMTkxLjQ5NTAwMDAwMTU1NCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJwbGFuZXRzIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIxMCIsInRvdGFsIjoiMTAiLCJiZXN0IjoiMTAiLCJyZXNldFRpbWUiOjE1MS41NjkwMDAwMDAwMDA1MywiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnsiMTEiOiIxMDAiLCIxMiI6IjEwMCJ9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbMTEsMTIsMTMsMTQsMTVdLCJtaWxlc3RvbmVzIjpbIjEiLCIyIiwiMyIsIjQiLCI1IiwiNiJdLCJsYXN0TWlsZXN0b25lIjoiNiIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnsiMTEiOjB9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJzdW4iOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjMuMjA3ODkxOTY4MzE4OTU1N2U1MzIxMyIsInRvdGFsIjoiMy4yMDc4OTE5NjgzMTg5NTU3ZTUzMjEzIiwiYmVzdCI6IjMuMjA3ODkxOTY4MzE4OTU1N2U1MzIxMyIsInJlc2V0VGltZSI6MTAxOTEuNDk1MDAwMDAxNTU0LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6eyIxMSI6IjY3OSIsIjEyIjoiMTAwMCIsIjEzIjoiMjUwIiwiMjEiOiIzMjkifSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6WzExLDEyLDEzLDE0LDE1LDIxLDIyLDIzLDI0LDI1LDMxLDMyLDMzLDM0LDM1XSwibWlsZXN0b25lcyI6WyIxIiwiMiIsIjMiLCI0IiwiNSIsIjYiLCI3IiwiOCJdLCJsYXN0TWlsZXN0b25lIjoiOCIsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJlYXJ0aCI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjoyMjMuODQwMDAwMDAwMDAyMDgsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwibWVyY3VyeSI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjoyMjMuODQwMDAwMDAwMDAyMDgsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwibWFycyI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjoyMjMuODQwMDAwMDAwMDAyMDgsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwidmVudXMiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MjIzLjg0MDAwMDAwMDAwMjA4LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sIm5lcHR1bmUiOnsidW5sb2NrZWQiOnRydWUsInBvaW50cyI6IjAiLCJ0b3RhbCI6IjAiLCJiZXN0IjoiMCIsInJlc2V0VGltZSI6MjIzLjg0MDAwMDAwMDAwMjA4LCJmb3JjZVRvb2x0aXAiOmZhbHNlLCJidXlhYmxlcyI6e30sIm5vUmVzcGVjQ29uZmlybSI6ZmFsc2UsImNsaWNrYWJsZXMiOnt9LCJzcGVudE9uQnV5YWJsZXMiOiIwIiwidXBncmFkZXMiOltdLCJtaWxlc3RvbmVzIjpbXSwibGFzdE1pbGVzdG9uZSI6bnVsbCwiYWNoaWV2ZW1lbnRzIjpbXSwiY2hhbGxlbmdlcyI6e30sImdyaWQiOnt9LCJwcmV2VGFiIjoiIn0sInVyYW51cyI6eyJ1bmxvY2tlZCI6dHJ1ZSwicG9pbnRzIjoiMCIsInRvdGFsIjoiMCIsImJlc3QiOiIwIiwicmVzZXRUaW1lIjoyMjMuODQwMDAwMDAwMDAyMDgsImZvcmNlVG9vbHRpcCI6ZmFsc2UsImJ1eWFibGVzIjp7fSwibm9SZXNwZWNDb25maXJtIjpmYWxzZSwiY2xpY2thYmxlcyI6e30sInNwZW50T25CdXlhYmxlcyI6IjAiLCJ1cGdyYWRlcyI6W10sIm1pbGVzdG9uZXMiOltdLCJsYXN0TWlsZXN0b25lIjpudWxsLCJhY2hpZXZlbWVudHMiOltdLCJjaGFsbGVuZ2VzIjp7fSwiZ3JpZCI6e30sInByZXZUYWIiOiIifSwic2F0dXJuIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjIyMy44NDAwMDAwMDAwMDIwOCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9LCJqdXBpdGVyIjp7InVubG9ja2VkIjp0cnVlLCJwb2ludHMiOiIwIiwidG90YWwiOiIwIiwiYmVzdCI6IjAiLCJyZXNldFRpbWUiOjIyMy44NDAwMDAwMDAwMDIwOCwiZm9yY2VUb29sdGlwIjpmYWxzZSwiYnV5YWJsZXMiOnt9LCJub1Jlc3BlY0NvbmZpcm0iOmZhbHNlLCJjbGlja2FibGVzIjp7fSwic3BlbnRPbkJ1eWFibGVzIjoiMCIsInVwZ3JhZGVzIjpbXSwibWlsZXN0b25lcyI6W10sImxhc3RNaWxlc3RvbmUiOm51bGwsImFjaGlldmVtZW50cyI6W10sImNoYWxsZW5nZXMiOnt9LCJncmlkIjp7fSwicHJldlRhYiI6IiJ9fQ==")
+        },
+        style() {return{
+            'background-color':"#4F0778",
+        }},
+     },
+     41: {
+        title: "Unlock X",
+        display: "Chapter 2: Outer Space<br> (NO SAVE FILE YET)",
+        canClick: true,
+        style() {return{
+            'background-color':"#49002F",
+        }},
+     },
+     42: {
+        title: "Infinity",
+        display: "Chapter 2: Outer Space<br> (NO SAVE FILE YET)",
+        canClick: true,
+        style() {return{
+            'background-color':"#23a6d5",
+        }},
+     },
 },
 },)
 
@@ -469,6 +709,7 @@ addLayer("softcaps", {
     color: "#052880",
     symbol: "⬇️",
     row: "side",
+    position: "4",
     tooltip() { // Optional, tooltip displays when the layer is locked
         return ("Softcaps")
     },
@@ -476,19 +717,11 @@ addLayer("softcaps", {
         "Softcaps?": {
             content: [
                 ["display-text",
-                "Softcaps are nerfs that are required for balancing.",
+                "Softcaps are nerfs that are required for balancing the game",
                 { "color": "white", "font-size": "20px",}],
-                "blank",
                     ["display-text",
                         "You will unlock softcaps at some features",
                         { "color": "white", "font-size": "20px",}],
-                        "blank",
-                        "blank",
-                        "blank",
-                        ["display-text",
-                            "I HATE SOFTCAPS",
-                            { "color": "gray", "font-size": "10px",}],
-                            "blank",
                 ],
         },
         "Rocket Fuel": {
@@ -543,7 +776,7 @@ addLayer("softcaps", {
                                     { "color": "white", "font-size": "16px",}],
                                     "blank",
                                     ["display-text",
-                                        "Softcap at 1e10 Comets (^0.000001) [Will change next update, preventing mass asteroid gain",
+                                        "Softcap at 1e10 Comets (^0.75)",
                                         { "color": "white", "font-size": "16px",}],
                                         "blank",
                                     
@@ -565,11 +798,61 @@ addLayer("softcaps", {
                                         { "color": "white", "font-size": "16px",}],
                                         "blank",
                                         ["display-text",
-                                            "Softcap at 1e15 Asteroids (^0.000001) [Will change next update, preventing mass asteroid gain",
+                                            "Softcap at 1e20 Asteroids (^0.5)",
                                             { "color": "white", "font-size": "16px",}],
                                             "blank",
+                                            ["display-text",
+                                                "Softcap at 1e30 Asteroids (^0.5)",
+                                                { "color": "white", "font-size": "16px",}],
+                                                "blank",
+                                                ["display-text",
+                                                    "Softcap at 1e40 Asteroids (^0.4)",
+                                                    { "color": "white", "font-size": "16px",}],
+                                                    "blank",
                   ],
                           unlocked() {return player.ast.points.gte(1) || player.ast.unlocked} 
                         },
-            }
+                                "X": {
+                                content: [
+                                    ["display-text",
+                                        "Max 3 X [Might change next update]",
+                                        { "color": "white", "font-size": "16px",}],
+                                        "blank",
+                          ],
+                                  unlocked() {return player.x.points.gte(1) || player.x.unlocked} 
+                                },
+                        }
+},)
+
+
+addLayer("blob", {
+    resource: "blobs", 
+    startData() { return {
+        unlocked: true,
+        points: new Decimal(0)
+    }},
+    nodeStyle() {return {
+        "width": "0px",
+        "height": "0px",
+    }},
+    color: "#24003F",
+    symbol: "",
+    row: "side",
+    position: "5",
+    layerShown(){
+        let visible = true
+       return visible
+     },
+    resetDescription: "blob ",
+    requires: new Decimal(0), // Can be a function that takes requirement increases into account
+    resource: "Blobs", // Name of prestige currency
+    baseResource: "blobbers", // Name of resource prestige is based on
+    baseAmount() {return player.blob.points}, // Get the current amount of baseResource
+    type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
+    resetsNothing: true,
+    shouldNotify: false,
+    gainMult() {
+        let mult = new Decimal(1)
+        return mult
+    },
 },)

@@ -7,7 +7,13 @@ addLayer("r", {
         unlocked: true,
 		points: new Decimal(0),
     }},
+    layerShown(){
+        let visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+       return visible
+     },
     passiveGeneration() {
+        if (hasMilestone('s', 11)) return 10
         if (hasMilestone('s', 8)) return 5
         if (hasMilestone('ro', 14)) return 2.5
         if (hasMilestone('as', 1)) return 1
@@ -19,9 +25,14 @@ addLayer("r", {
     },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("as", 2))keep.push("upgrades")
-        if (hasMilestone("omegainf", 3))keep.push("upgrades")
+        if (hasMilestone("as", 2) ) keep.push("upgrades")
         if (layers[reset].row > this.row) layerDataReset("r", keep)
+    },
+    autoUpgrade() {
+        if (inChallenge("stars", 11) || inChallenge("planets", 11)) return false
+        if (hasMilestone("stars", 4)) return true
+        if (hasMilestone("omegainf", 2)) return true
+        else return false
     },
 
     color: "#97192E",
@@ -59,10 +70,16 @@ addLayer("r", {
         if (hasUpgrade('s', 51)) mult = mult.times(200)
         if (hasUpgrade('c', 12)) mult = mult.times(10)
         if (hasUpgrade('ast', 12)) mult = mult.times(10)
-        if (hasMilestone('megainf', 3)) mult = mult.times(2)
-        if (hasMilestone('megainf', 4)) mult = mult.times(2)
-        if (hasMilestone('omegainf', 1)) mult = mult.times(3)
-        if (hasMilestone('omegainf', 2)) mult = mult.times(3)
+        if (hasUpgrade('stars', 12)) mult = mult.times(upgradeEffect('stars', 12))
+        if (hasUpgrade('planets', 12)) mult = mult.times(upgradeEffect('planets', 12))
+        if (hasUpgrade('x', 11)) mult = mult.times(upgradeEffect('x', 11))
+        if (hasUpgrade('r', 52)) mult = mult.times(1e6)
+        if (hasUpgrade('r', 54)) mult = mult.times(1e10)
+
+        // Inf
+	    if (hasMilestone('inf', 3)) mult = mult.times(3)
+        if (hasMilestone('megainf', 2)) mult = mult.times(5)
+        if (hasMilestone('megainf', 8)) mult = mult.times(5)
 
 	    // Challenges
         if (inChallenge('c', 11)) mult = mult.pow(0.45)
@@ -86,10 +103,23 @@ addLayer("r", {
     "Main": {
             content: [
             ["display-text",
-            'Chapter 0: Earth!', { "color": "LightBlue", "font-size": "32px"}],
+            'Chapter 0: Earth!', { "color": "LightBlue", "font-size": "32px", "text-shadow": "0px 0px 20px LightBlue"}],
             "blank",
             "blank",
             "main-display",
+            "blank",
+            "resource-display",
+            "blank",
+            "prestige-button",
+            "blank",
+            ["infobox", "main"],
+            ["infobox", "main2"],
+         ],
+        },
+        "Upgrades": {
+            content: [
+            "main-display",
+            "blank",
             "resource-display",
             "blank",
             "prestige-button",
@@ -98,7 +128,6 @@ addLayer("r", {
          ],
         },
      },
-    layerShown(){return true},
     upgrades: {
         11: {
             title: "Discover Rocket Fuel",
@@ -106,75 +135,75 @@ addLayer("r", {
             cost: new Decimal(1),
         },
         12: {
-            title: "Small Rocket Fuel Factory",
+            title: "Rocket Fuel Factory",
             description: "2x Money",
             unlocked() { return (hasUpgrade(this.layer, 11))},
             cost: new Decimal(2),
         },
         13: {
-            title: "Upgrade Rocket Fuel Factory",
+            title: "Basic Research Lab",
             description: "Money gain is increased based on your Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 12))},
-            cost: new Decimal(5),
+            cost: new Decimal(4),
             effect() {
                 return player[this.layer].points.add(1).pow(0.28)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
         14: {
-            title: "New Rocket Fuel Recipe",
+            title: "Basic Rocket Fuel Formula",
             description: "1.75x Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 13))},
             cost: new Decimal(10),
         },
         15: {
-            title: "Better Rocket Fuel",
+            title: "Basic Rocket Fuel Refinery",
             description: "Rocket Fuel gain is increased based on money",
             unlocked() { return (hasUpgrade(this.layer, 14))},
-            cost: new Decimal(25),
+            cost: new Decimal(20),
             effect() {
                 return player.points.add(1).pow(0.1)
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
         21: {
-            title: "Rocket Fuel Factory+",
+            title: "Improve Rocket Fuel Formula",
             description: "1.5x Rocket Fuel and 2x Money",
             unlocked() { return (hasUpgrade(this.layer, 15))},
             cost: new Decimal(40),
         },
         22: {
-            title: "lueF tekcoR",
-            description: "1.2x Rocket Fuel lol",
+            title: "Mega Rocket Fuel Factory",
+            description: "1.2x Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 21))},
-            cost: new Decimal(69),
+            cost: new Decimal(50),
         },
         23: {
-            title: "Hire Rocket Fuel Scientists",
+            title: "Enhanced Research Lab",
             description: "1.5x Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 22))},
             cost: new Decimal(80),
         },
         24: {
-            title: "Prepare...",
+            title: "Enchaned Rocket Fuel Formula",
             description: "^1.05 Money",
             unlocked() { return (hasUpgrade(this.layer, 23))},
             cost: new Decimal(150),
         },
         25: {
-            title: "Unlock something new",
-            description: "3x Money & a new feature..",
+            title: "Advanced Rocket Fuel Refinery",
+            description: "Unlock Rockets & 3x Money",
             unlocked() { return (hasUpgrade(this.layer, 24))},
-            cost: new Decimal(400),
+            cost: new Decimal(250),
         },
         31: {
-            title: "Fuel the Rockets",
+            title: "Discover Superfuel",
             description: "5x Money",
             unlocked() { return (hasMilestone('ro', 2)) && (hasUpgrade(this.layer, 25))},
             cost: new Decimal(1000),
         },
         32: {
-            title: "Enhance Rocket Fuel",
+            title: "Superfuel Factory",
             description: "Rocket Fuel gain is increased based Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 31))},
             cost: new Decimal(2200),
@@ -184,19 +213,19 @@ addLayer("r", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
         33: {
-            title: "Superfuel the Rockets",
+            title: "Advanced Research Lab",
             description: "10x Money",
             unlocked() { return (hasMilestone('ro', 3)) && (hasUpgrade(this.layer, 32))},
             cost: new Decimal(10000),
         },
         34: {
-            title: "Superfuel the Rockets",
+            title: "Basic Superfuel Formula",
             description: "4x Rocket Fuel",
             unlocked() { return (hasUpgrade(this.layer, 33))},
             cost: new Decimal(70000),
         },
         35: {
-            title: "Rocketed Rocket Fuel",
+            title: "Superfuel Engine",
             description: "Rocket Fuel gain is increased based on Money",
             unlocked() { return (hasMilestone('ro', 6)) && (hasUpgrade(this.layer, 34))},
             cost: new Decimal(100000000),
@@ -206,7 +235,7 @@ addLayer("r", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
          41: {
-            title: "MOAR Rocket Fuel!",
+            title: "Improve Superfuel Formula",
             description: "Rocket Fuel gain is increased based on Astronauts",
             unlocked() { return (hasMilestone("ro", 16)) && (hasUpgrade(this.layer, 35))},
             cost: new Decimal(1e39),
@@ -216,7 +245,7 @@ addLayer("r", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
         42: {
-            title: "I SAID MORE",
+            title: "Mega Superfuel Factory",
             description: "Rocket Fuel gain is increased based on Rockets",
             unlocked() {return (hasUpgrade(this.layer, 41))},
             cost: new Decimal(5e43),
@@ -226,19 +255,19 @@ addLayer("r", {
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
         43: {
-            title: "maybe a little bit more",
+            title: "Next-gen Research Lab",
             description: "1.1x Rocket Fuel",
             unlocked() { return (hasMilestone("ro", 18)) && (hasUpgrade(this.layer, 42))},
             cost: new Decimal(1e46),
         },
         44: {
-            title: "a tiny bit more",
+            title: "Enhanced Superfuel Formula",
             description: "1.01x Rocket Fuel",
             unlocked() {return (hasUpgrade(this.layer, 43))},
             cost: new Decimal(4e46),
         },
         45: {
-            title: "MOREEEEEE!!!!",
+            title: "Superfuel Engine v3000",
             description: "Rocket Fuel gain is increased based on Rocket Fuel",
             unlocked() {return (hasUpgrade(this.layer, 44))},
             cost: new Decimal(1e48),
@@ -247,5 +276,49 @@ addLayer("r", {
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
         },
+        51: {
+            title: "Discover Ultrafuel",
+            description: "1e9x Money",
+            unlocked() {return (hasUpgrade(this.layer, 45) && hasUpgrade("x", 12))},
+            cost: new Decimal(1e100),
+        },
+        52: {
+            title: "Ultrafuel Factory",
+            description: "1,000,000x Rocket Fuel",
+            unlocked() {return (hasUpgrade(this.layer, 51) && hasUpgrade("x", 12))},
+            cost: new Decimal(1e140),
+        },
+        53: {
+            title: "Futuristic Research Lab",
+            description: "10x Stardust & Planetoids",
+            unlocked() {return (hasUpgrade(this.layer, 52) && hasUpgrade("x", 12))},
+            cost: new Decimal(1e170),
+        },
+        54: {
+            title: "Basic Ultrafuel Formula",
+            description: "1e10x Rocket Fuel",
+            unlocked() {return (hasUpgrade(this.layer, 53) && hasUpgrade("x", 12))},
+            cost: new Decimal(1e200),
+        },
+        55: {
+            title: "Ultrafuel Engine",
+            description: "Rocket cost is decreased based on Rocket Fuel",
+            unlocked() {return (hasUpgrade(this.layer, 54) && hasUpgrade("x", 12))},
+            cost: new Decimal(1e250),
+            effect() {
+                return player.r.points.add(1).pow(0.04)
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect 
+        },
     },
+    infoboxes: {
+        main: {
+            title: "Welcome!",
+            body() { return "Thank you for checking out this game. What you are reading right now is called an infobox. these will help you through out the game. To start playing, read the infobox below me and click on 'Upgrades' at the top" },
+        },
+        main2: {
+            title: "Introducing: Rocket Fuel", 
+            body() { return "Welcome to Chapter 0! At this stage, it's fairly simple, just click the red button and you will earn Rocket Fuel. you can spend Rocket Fuel on upgrades. Try getting 500 Rocket Fuel!" },
+        },
+    }
 })

@@ -6,7 +6,7 @@ function getStartOptions() {
 	return {
 		autosave: true,
 		msDisplay: "always",
-		theme: "space",
+		theme: "default",
 		hqTree: false,
 		offlineProd: false,
 		hideChallenges: false,
@@ -14,7 +14,16 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
+		musicToggle: true,
+		musicVolume: 10,
 	}
+}
+const audio = new Audio()
+function updateMusicVolume() {
+    const input = document.getElementById("volume");
+    options.musicVolume = parseInt(input.value);
+
+	audio.volume = options.musicVolume / 10;
 }
 
 function toggleOpt(name) {

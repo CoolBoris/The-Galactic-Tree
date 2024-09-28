@@ -25,3 +25,8 @@ felt cute might delete later
 https://raw.githack.com/CoolBoris/The-Modding-Tree/master/index.html
 
 grass cutting incremental tree
+
+Planet sizes:
+[alt text](image.png)
+
+Planet X: special layer, 3 currencies, use main currency (X) to buy buyables that generate XPO, XLA or XGE, each has a special boost
