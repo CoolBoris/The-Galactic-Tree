@@ -7,6 +7,8 @@ for (file in modInfo.modFiles) {
     document.head.insertBefore(script, document.getElementById("temp"));
 }
 
-console.log("what are you doing here? you filthy hacker!");
-console.log("Reward: Secret Role)");
+console.log("dont listen to whatever galaxy says");
+console.log("cheating is not fun and is bad!");
 console.log("don't cheat you lazy person!");
+console.log("thanks for reading me, enjoy this:")
+console.log("Reward: Secret Role)");

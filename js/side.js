@@ -455,7 +455,7 @@ addLayer("sa", {
         11: {
             name: "The First one is always free",
             done() {return player.sa.points.gte(0)},
-            tooltip: "Free Achievement",
+            tooltip: "Free Achievement<br>Reward: Secrets",
             onComplete() {addPoints("sa",1)},
             goalTooltip: "you can't see me?", // Shows when achievement is not completed
         },
