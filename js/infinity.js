@@ -45,7 +45,7 @@ tabFormat: {
 infoboxes: {
     main: {
         title: "Introducing: Infinity",
-        body() { return "Infinity resets EVERYTHING, even space and the solar system! This layer is not required to progress, you've basically beat the game. Infinity is just a way to replay the game, but it will make the game easier in the future! <br> Infinity will get revamped in v1.0.1!!!" },
+        body() { return "Infinity resets EVERYTHING, even space and the solar system! This layer is not required to progress, you've basically beat the game. Infinity is just a way to replay the game, but it will make the game easier in the future!"},
     },
     },
  branches: ["x"], 
