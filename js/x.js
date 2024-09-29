@@ -123,7 +123,7 @@ addLayer("x", {
 
     layerShown(){
         let visible = false
-        if (hasChallenge('planets', 11) || player.x.unlocked) visible = true
+        if (hasChallenge('planets', 11)) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
