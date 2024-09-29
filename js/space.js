@@ -355,7 +355,7 @@ addLayer("s", {
          16: {
             requirementDescription: "3e15 Space Distance (20,054 Astronomical Units) & 300 XGE",
             effectDescription: "5e13 Space Distance/s & /1e12 Rocket Cost & Better Planets Formula",
-            unlocked() { return (hasMilestone(this.layer, 15) && hasUpgrade("x", 24))},
+            unlocked() { return (hasMilestone(this.layer, 12) && hasUpgrade("x", 24))},
             done() {return player.s.points.gte(3e15) && player.xge.points.gte(300) && hasUpgrade("x", 24)}
          },
     },

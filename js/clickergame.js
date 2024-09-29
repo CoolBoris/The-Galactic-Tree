@@ -63,7 +63,7 @@ if (layers.sun.buyables[11].canAfford()) {
 };
 },
 passiveGeneration() {
-    if (hasMilestone('sun', 4)) return getBuyableAmount('sun', 12) /100
+    if (hasMilestone('sun', 1)) return getBuyableAmount('sun', 12) /100
     return 0
 },
 tabFormat: {
@@ -1712,7 +1712,7 @@ effect(x) {
     let eff = base1.pow(Decimal.times(base2, expo))
     return eff
 },
-display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Light" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/50<br>" + "<br>Effect: " + format(buyableEffect(this.layer, this.id)) + "x"},
+display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Helium" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/50<br>" + "<br>Effect: " + format(buyableEffect(this.layer, this.id)) + "x"},
 canAfford() { return player.saturn.points.gte(this.cost()) },
 buy() {
     player.saturn.points = player.saturn.points.sub(this.cost())
