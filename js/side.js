@@ -853,6 +853,98 @@ addLayer("blob", {
     shouldNotify: false,
     gainMult() {
         let mult = new Decimal(1)
+        if (hasUpgrade('blob', 12)) mult = mult.times(5)
         return mult
     },
+    tabFormat: {
+        "blob 1": {
+            content: [
+                ["display-text",
+                    function(){
+                        let txt = ""
+                        txt = txt + `You have 
+                        <h2><span style="color: Purple; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
+                            ${(player.blob.points)}</span></h2> blobs`
+                        return txt
+                    }
+                ],
+            "blank",
+           "prestige-button",
+           "blank",
+            "achievements",
+            ]
+        },
+        "blob 2": {
+            content: [
+                ["display-text",
+                    function(){
+                        let txt = ""
+                        txt = txt + `You have 
+                        <h2><span style="color: Purple; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
+                            ${(player.blob.points)}</span></h2> blobs`
+                        return txt
+                    }
+                ],
+            "blank",
+           "prestige-button",
+           "blank",
+            "upgrades",
+            ["display-text",
+                'more blobbing coming soon maybe probably not bye',
+                { "color": "green", "font-size": "13px",}],
+                "blank",
+            ],
+            unlocked() {return player.blob.points.gte(1006969)}
+        },
+    },
+    achievements: {
+        11: {
+            name: "blobber pro",
+            done() {return player.blob.points.gte(100)},
+            tooltip: "100 blob",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+        12: {
+            name: "blobber god",
+            done() {return player.blob.points.gte(1000)},
+            tooltip: "1000 blob",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+        13: {
+            name: "blobber king",
+            done() {return player.blob.points.gte(10000)},
+            tooltip: "10000 blob",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+        14: {
+            name: "blobber beast",
+            done() {return player.blob.points.gte(100000)},
+            tooltip: "100000 blob",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+        15: {
+            name: "blobber winner",
+            done() {return player.blob.points.gte(1000000)},
+            tooltip: "1000000 blob",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+        16: {
+            name: "blob 2",
+            done() {return player.blob.points.gte(1006969)},
+            tooltip: "1006969 blob<br>Reward: Blob 2",
+            goalTooltip: "amount of blobs", // Shows when achievement is not completed
+        },
+    },
+    upgrades: {
+        11: {
+            title: "infinity blob",
+            description: "+1 Infinity",
+            cost: new Decimal(1e6),
+        },
+        12: {
+            title: "blobber blob",
+            description: "5x blob",
+            cost: new Decimal(1e6),
+        },
+    }
 },)
