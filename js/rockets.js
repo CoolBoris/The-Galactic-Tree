@@ -8,7 +8,7 @@ addLayer("ro", {
     }},
     layerShown(){
         let visible = false
-        if (hasUpgrade('r', 25) || player.ro.unlocked) visible = true
+        if (hasUpgrade('r', 25) || player.ro.points.gte(1) || player.as.unlocked) visible = true
         if (inChallenge('c', 13) || (inChallenge("ast", 13))) visible = false
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible

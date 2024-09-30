@@ -48,7 +48,7 @@ addLayer("stars", {
     }},
     layerShown(){
         let visible = false
-        if (hasChallenge('ast', 14) || player.stars.unlocked) visible = true
+        if (hasChallenge('ast', 14) || player.stars.points.gte(1) || player.x.unlocked) visible = true
        return visible
      },
      doReset(reset) {

@@ -14,7 +14,7 @@ addLayer("ast", {
     },
     layerShown(){
         let visible = false
-        if (hasMilestone('as', 4) || player.ast.unlocked) visible = true
+        if (hasMilestone('as', 4) || player.ast.points.gte(1) || player.stars.unlocked) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },

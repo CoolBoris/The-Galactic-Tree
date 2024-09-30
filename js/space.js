@@ -43,7 +43,7 @@ addLayer("s", {
     },
     layerShown(){
         let visible = false
-        if (hasMilestone('ro', 15) || player.s.unlocked) visible = true
+        if (hasMilestone('ro', 15) || player.ast.points.gte(1) || player.c.unlocked || player.ast.unlocked ) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },
