@@ -123,7 +123,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.1",
+	num: "1.0.2",
 	name: "Outer Space",
 }
 
@@ -131,6 +131,10 @@ let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
+		<h2 style="color:Violet;">v1.0.2</h2><br>
+		- Bug Fixes<br>
+		- Blobbing<br>
+		<br>
 		<h2 style="color:Violet;">v1.0.1</h2><br>
 		- Bug Fixes<br>
 		<br>
