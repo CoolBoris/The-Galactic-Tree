@@ -14,6 +14,7 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
+		milestonePopupSetting: true,
 		musicToggle: true,
 		musicVolume: 10,
 	}

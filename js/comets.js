@@ -9,7 +9,7 @@ addLayer("c", {
     }},
     layerShown(){
         let visible = false
-        if (hasMilestone('ro', 20) || player.c.points.gte(1) || player.stars.unlocked) visible = true
+        if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },

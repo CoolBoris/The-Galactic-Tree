@@ -19,7 +19,7 @@ addLayer("s", {
     },
 
     passiveGeneration() {
-        if (hasMilestone('s', 15)) return 5e13
+        if (hasMilestone('s', 16)) return 5e13
         if (hasMilestone('s', 15)) return 2.5e12
         if (hasMilestone('s', 14)) return 2.5e11
         if (hasMilestone('s', 13)) return 1e10
@@ -43,7 +43,7 @@ addLayer("s", {
     },
     layerShown(){
         let visible = false
-        if (hasMilestone('ro', 15) || player.ast.points.gte(1) || player.c.unlocked || player.ast.unlocked ) visible = true
+        if (hasMilestone('ro', 15) || player.s.unlocked ) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
        return visible
      },

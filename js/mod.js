@@ -12,7 +12,7 @@ let modInfo = {
 	],
 	pointsName: "Money",
 	discordName: "CoolBoris' Server",
-	discordLink: "https://discord.gg/tRDV4qUf",
+	discordLink: "https://discord.gg/Rs5cKF75WB",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	offlineLimit: 0.0000001,  // In hours
 }
