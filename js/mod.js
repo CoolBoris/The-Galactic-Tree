@@ -30,6 +30,10 @@ function canGenPoints(){
 	return true
 }
 
+function music(){
+["raw-html", options.musicToggle ? "<audio controls autoplay loop hidden><source src=music/chapter2.mp3 type<=audio/mp3>loop=true hidden=false autostart=true</audio>" : ""]
+
+}
 
 
 // Calculate points/sec!
@@ -127,7 +131,8 @@ let VERSION = {
 	name: "Outer Space",
 }
 
-let changelog = `<h1 style="color:Aquamarine;">UPDATES</h1><br>
+let changelog = 
+`<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 

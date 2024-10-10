@@ -44,7 +44,7 @@ addLayer("planets", {
     }},
     layerShown(){
         let visible = false
-        if (hasChallenge('stars', 11) || player.planets.points.gte(1) || player.x.unlocked) visible = true
+        if (hasChallenge('stars', 11)) visible = true
        return visible
      },
      autoUpgrade() {
