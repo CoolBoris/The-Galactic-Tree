@@ -7,6 +7,8 @@ Features:
 - Comets & Asteroids
 - Stars & Stardust
 - Planets & Solar System
+- X
+- Unstable Rocket Fuel
 - Galaxy
 - Cosmic Dust & Cosmic Rays
 - Universe

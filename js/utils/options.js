@@ -14,17 +14,10 @@ function getStartOptions() {
 		forceOneTab: false,
 		oldStyle: false,
 		tooltipForcing: true,
-		milestonePopupSetting: true,
-		musicToggle: true,
-		musicVolume: 10,
+		RocketMilestonePopup: true,
+		AstronautMilestonePopup: true,
+		ComAstMilestonePopup: true,
 	}
-}
-const audio = new Audio()
-function updateMusicVolume() {
-    const input = document.getElementById("volume");
-    options.musicVolume = parseInt(input.value);
-
-	audio.volume = options.musicVolume / 10;
 }
 
 function toggleOpt(name) {

@@ -7,7 +7,12 @@ addLayer("as", {
         unlocked: false,
 		points: new Decimal(0),
     }},
-
+    milestonePopups(){
+        let popup = true
+        if (options.AstronautsMilestonePopup == true) popup = true;
+        else popup = false
+        return popup
+    },
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 8) || player.as.unlocked) visible = true
@@ -15,6 +20,8 @@ addLayer("as", {
        return visible
      },
      passiveGeneration() {
+        if (inChallenge('x', 11)) return 0
+
         if (inChallenge("stars", 11) || inChallenge("planets", 11)) return 0
         if (hasMilestone('s', 10)) return 1
         if (hasMilestone('ast', 4)) return 0.5
@@ -28,6 +35,8 @@ addLayer("as", {
         if (layers[reset].row > this.row) layerDataReset("as", keep)
     },
     autoUpgrade() {
+        if (inChallenge('x', 11)) return false
+        
         if (hasMilestone("stars", 5)) return true
         if (hasMilestone("omegainf", 4)) return true
         else return false

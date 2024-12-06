@@ -7,7 +7,15 @@ addLayer("ast", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+    milestonePopups(){
+        let popup = true
+        if (options.ComAstMilestonePopup == true) popup = true;
+        else popup = false
+        return popup
+    },
     passiveGeneration() {
+        if (inChallenge('x', 11)) return 0
+
         if (hasMilestone('planets', 1)) return getBuyableAmount('planets', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
@@ -19,6 +27,8 @@ addLayer("ast", {
        return visible
      },
      autoUpgrade() {
+        if (inChallenge('x', 11)) return false
+
         if (hasMilestone("planets", 5)) return true
         if (hasMilestone("omegainf", 7)) return true
         else return false
@@ -26,7 +36,7 @@ addLayer("ast", {
     doReset(reset) {
         let keep = [];
         if (hasMilestone("planets", 3)) keep.push("challenges")
-        if (hasMilestone("x", 3)) keep.push("milestones")
+        if (hasMilestone("x", 3) && !!inChallenge("x", 11)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("ast", keep)
     },
      color: "#F1DD4A",

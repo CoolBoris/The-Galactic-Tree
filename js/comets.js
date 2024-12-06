@@ -7,6 +7,12 @@ addLayer("c", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+    milestonePopups(){
+        let popup = true
+        if (options.ComAstMilestonePopup == true) popup = true;
+        else popup = false
+        return popup
+    },
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
@@ -14,11 +20,15 @@ addLayer("c", {
        return visible
      },
      passiveGeneration() {
+        if (inChallenge('x', 11)) return 0
+
         if (hasMilestone('stars', 1)) return getBuyableAmount('stars', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
     },
     autoUpgrade() {
+        if (inChallenge('x', 11)) return false
+        
         if (hasMilestone("planets", 4)) return true
         if (hasMilestone("omegainf", 6)) return true
         else return false
@@ -26,7 +36,7 @@ addLayer("c", {
     doReset(reset) {
         let keep = [];
         if (hasMilestone("planets", 2)) keep.push("challenges")
-        if (hasMilestone("x", 3)) keep.push("milestones")
+        if (hasMilestone("x", 3)  && !!inChallenge("x", 11)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("c", keep)
     },
      color: "#2D6CD3",

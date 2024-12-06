@@ -84,6 +84,8 @@ function getPointGen() {
 	if (hasMilestone('megainf', 7)) gain = gain.times(5)
 
 	// Challenges
+	if (inChallenge('x', 11)) gain = gain.pow(0.2)
+
 	if (inChallenge('c', 11)) gain = gain.pow(0.5)
 	if (inChallenge('c', 14)) gain = gain.pow(0.12)
 	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
@@ -107,7 +109,7 @@ function isEndgame() {
 	
 }
 
-let winText = `Congratulations! You have beaten The Galactic Tree!`
+let winText = `Congratulations! You have completed The Galactic Tree!`
 // Less important things beyond this point!
 
 // Style for the background, can be a function
@@ -127,7 +129,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.2",
+	num: "1.0.3",
 	name: "Outer Space",
 }
 
@@ -135,6 +137,12 @@ let changelog =
 `<h1 style="color:Aquamarine;">UPDATES</h1><br>
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
+
+		<h2 style="color:Violet;">v1.0.3</h2><br>
+		- QOL Popup settings<br>
+		- More blobbings<br>
+		- 3 more themes<br>
+		<br>
 
 		<h2 style="color:Violet;">v1.0.2</h2><br>
 		- Bug Fixes<br>

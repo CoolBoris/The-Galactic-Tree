@@ -13,6 +13,8 @@ addLayer("r", {
        return visible
      },
     passiveGeneration() {
+        if (inChallenge('x', 11)) return 0
+
         if (hasMilestone('s', 11)) return 10
         if (hasMilestone('s', 8)) return 5
         if (hasMilestone('ro', 14)) return 2.5
@@ -29,6 +31,8 @@ addLayer("r", {
         if (layers[reset].row > this.row) layerDataReset("r", keep)
     },
     autoUpgrade() {
+        if (inChallenge('x', 11)) return false
+
         if (inChallenge("stars", 11) || inChallenge("planets", 11)) return false
         if (hasMilestone("stars", 4)) return true
         if (hasMilestone("omegainf", 2)) return true
@@ -75,6 +79,7 @@ addLayer("r", {
         if (hasUpgrade('x', 11)) mult = mult.times(upgradeEffect('x', 11))
         if (hasUpgrade('r', 52)) mult = mult.times(1e6)
         if (hasUpgrade('r', 54)) mult = mult.times(1e10)
+        if (hasUpgrade('charge', 11)) mult = mult.times(100)
 
         // Inf
 	    if (hasMilestone('inf', 3)) mult = mult.times(3)
@@ -82,6 +87,8 @@ addLayer("r", {
         if (hasMilestone('megainf', 8)) mult = mult.times(5)
 
 	    // Challenges
+        if (inChallenge('x', 11)) mult = mult.pow(0.001)
+
         if (inChallenge('c', 11)) mult = mult.pow(0.45)
         if (inChallenge('c', 12)) mult = mult.pow(0.01)
         if (inChallenge('ast', 11)) mult = mult.pow(0.22)

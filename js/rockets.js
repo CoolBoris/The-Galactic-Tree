@@ -8,7 +8,7 @@ addLayer("ro", {
     }},
     milestonePopups(){
         let popup = true
-        if (options.milestonePopupSetting == true) popup = true;
+        if (options.RocketsMilestonePopup == true) popup = true;
         else popup = false
         return popup
     },
@@ -22,16 +22,20 @@ addLayer("ro", {
      },
      canBuyMax(){
         let buyMaxRockets = false
+        if (inChallenge('x', 11)) buyMaxRockets = false
+
         if (hasMilestone("ro", 7) || hasMilestone("stars", 2)) buyMaxRockets = true
        return buyMaxRockets
      },
      doReset(reset) {
         let keep = [];
         if (hasMilestone("c", 3) ) keep.push("upgrades")
-        if (hasMilestone("x", 1) ) keep.push("milestones")
+        if (hasMilestone("x", 1) && !!inChallenge("x", 11)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("ro", keep)
     },
     autoUpgrade() {
+        if (inChallenge('x', 11)) return false
+
         if (hasMilestone("stars", 3)) return true
         if (hasMilestone("omegainf", 3)) return true
         else return false

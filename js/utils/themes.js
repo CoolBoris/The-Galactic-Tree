@@ -1,5 +1,5 @@
 // ************ Themes ************
-var themes = ["default", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "dragonfruit", "blackberry"]
+var themes = ["default", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "dragonfruit", "blackberry", "infinity", "mega infinity", "omega infinity"]
 
 var colors = {
 	default: {
@@ -118,6 +118,39 @@ var colors = {
 		points: "#ffffff",
 		locked: "#bf8f8f",
 		background: "#0f0f0f",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
+	},
+	infinity: {
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#e73c7e",
+		points: "#ff3172",
+		locked: "#bf8f8f",
+		background: "#23a6d5",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
+	},
+	"mega infinity": {
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#00afff",
+		points: "#005dff",
+		locked: "#bf8f8f",
+		background: "#00d914",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
+	},
+	"omega infinity": {
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#FF5100",
+		points: "#ff1300",
+		locked: "#bf8f8f",
+		background: "#e30083",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 		tint: "#ffffff00",
 	},

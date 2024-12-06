@@ -63,7 +63,7 @@ var systemComponents = {
 		`
 	},
 
-	
+
 	'layer-tab': {
 		props: ['layer', 'back', 'spacing', 'embedded'],
 		template: `<div v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]" class="noBackground">
@@ -120,10 +120,10 @@ var systemComponents = {
 		<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
 	</div>
 	`
-    },
+	},
 
-    'info-tab': {
-        template: `
+	'info-tab': {
+		template: `
         <div>
         <h2>{{modInfo.name}}</h2>
         <br>
@@ -146,10 +146,10 @@ var systemComponents = {
         <h3>Hotkeys</h3><br>
         <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
     `
-    },
+	},
 
-    'options-tab': {
-        template: `
+	'options-tab': {
+		template: `
         <table>
             <tr>
                 <td><button class="opt" onclick="save()">Save</button></td>
@@ -171,27 +171,29 @@ var systemComponents = {
                 <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{ options.forceOneTab?"ALWAYS":"AUTO" }}</button></td>
 				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
 				</tr> 
-				 <tr>
-			<td><button class="opt" onclick="toggleOpt('musicToggle'); needsCanvasUpdate = true">Toggle Music: {{ options.musicToggle?"Unmute":"Mute" }}</button></td>
-				</tr>
+			<tr>
+				<td><button class="opt" onclick="toggleOpt('RocketMilestonePopup'); needsCanvasUpdate = true">Rocket Milestone Popups: {{ options.RocketMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('AstronautMilestonePopup'); needsCanvasUpdate = true">Astronaut Milestone Popups: {{ options.AstronautMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
+				<td><button class="opt" onclick="toggleOpt('ComAstMilestonePopup'); needsCanvasUpdate = true">Comet & Asteroid Milestone Popups: {{ options.ComAstMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
+				</tr> 
         </table>`
-    },
+	},
 
-    'back-button': {
-        template: `
+	'back-button': {
+		template: `
         <button v-bind:class="back" onclick="goBack()">←</button>
         `
-    },
+	},
 
 
-	'tooltip' : {
+	'tooltip': {
 		props: ['text'],
 		template: `<div class="tooltip" v-html="text"></div>
 		`
 	},
 
 	'node-mark': {
-		props: {'layer': {}, data: {}, offset: {default: 0}, scale: {default: 1}},
+		props: { 'layer': {}, data: {}, offset: { default: 0 }, scale: { default: 1 } },
 		template: `<div v-if='data'>
 			<div v-if='data === true' class='star' v-bind:style='{position: "absolute", left: (offset-10) + "px", top: (offset-10) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}'></div>
 			<img v-else class='mark' v-bind:style='{position: "absolute", left: (offset-22) + "px", top: (offset-15) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}' v-bind:src="data"></div>
@@ -220,14 +222,3 @@ var systemComponents = {
 	}
 
 }
-
-/*
-				<td>
-				<div style="margin: 0 10px">
-					<input type="range" id="volume" name="Music Volume" min="1" max="10" value="10" oninput="updateMusicVolume()">
-					<br>
-					<p>Music Volume: {{ options.musicVolume }}</p>
-				</div>
-			</td>
-				<tr>
-				*/
