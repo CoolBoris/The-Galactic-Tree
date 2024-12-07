@@ -85,7 +85,6 @@ function getPointGen() {
 
 	// Challenges
 	if (inChallenge('x', 11)) gain = gain.pow(0.2)
-
 	if (inChallenge('c', 11)) gain = gain.pow(0.5)
 	if (inChallenge('c', 14)) gain = gain.pow(0.12)
 	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
@@ -129,7 +128,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.3",
+	num: "1.0.4",
 	name: "Outer Space",
 }
 
@@ -138,6 +137,9 @@ let changelog =
 	<br>
 		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
 
+		<h2 style="color:Violet;">v1.0.4</h2><br>
+		- Bug fixes<br>
+		<br>
 		<h2 style="color:Violet;">v1.0.3</h2><br>
 		- QOL Popup settings<br>
 		- More blobbings<br>

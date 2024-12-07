@@ -11,12 +11,12 @@ addLayer("s", {
     },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("stars", 1) && !!inChallenge("x", 11)) keep.push("upgrades")
-        if (hasMilestone("stars", 1) && !!inChallenge("x", 11)) keep.push("points")
-        if (hasMilestone("stars", 1) && !!inChallenge("x", 11)) keep.push("milestones")
-        if (hasMilestone("jupiter", 1) && !!inChallenge("x", 11)) keep.push("upgrades")
-        if (hasMilestone("jupiter", 1) && !!inChallenge("x", 11)) keep.push("points")
-        if (hasMilestone("jupiter", 1) && !!inChallenge("x", 11)) keep.push("milestones")
+        if (hasMilestone("stars", 1) &&  !inChallenge("x", 11)) keep.push("upgrades")
+        if (hasMilestone("stars", 1) && !inChallenge("x", 11)) keep.push("points")
+        if (hasMilestone("stars", 1) && !inChallenge("x", 11)) keep.push("milestones")
+        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("upgrades")
+        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("points")
+        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
 
