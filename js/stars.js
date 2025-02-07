@@ -46,19 +46,31 @@ addLayer("stars", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "🌟"
+        else symbol = "ST"
+        return symbol
+    },
     layerShown(){
         let visible = false
         if (hasChallenge('ast', 14) || player.stars.points.gte(1) || player.x.unlocked) visible = true
+        if (inChallenge("x", 11)) visible = false
        return visible
      },
      doReset(reset) {
         let keep = [];
         if (hasMilestone("jupiter", 1)) keep.push("challenges")
-        if (layers[reset].row > this.row) layerDataReset("planets", keep)
+        if (layers[reset].row > this.row) layerDataReset("stars", keep)
     },
     autoUpgrade() {
         if (hasMilestone("omegainf", 8)) return true
         else return false
+    },
+    cap() {
+        if (player.stars.points > 30) { 
+            player.stars.points = new Decimal(30);
+        }
     },
      nodeStyle() {return {
         "width": "100px",
@@ -75,6 +87,7 @@ addLayer("stars", {
     gainMult() {
         let mult = new Decimal(1)
         if (hasMilestone('s', 15)) mult = mult.times(1.5)
+        if (player.stars.points.gte(30)) mult = mult.times("-1e9999999999999999999")
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -98,6 +111,14 @@ addLayer("stars", {
                         txt = txt + `You have 
                         <h2><span style="color: #FF6FCB; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
                             ${format(player.stardust.points)}</span></h2> Stardust`
+                        return txt
+                    }
+                ],
+                ["display-text",
+                    function(){
+                        let txt = ""
+                        let resetgain = getResetGain("stardust")
+                        txt = txt + `You are gaining ${format(resetgain)}</span></h2> Stardust per second`
                         return txt
                     }
                 ],
@@ -164,7 +185,7 @@ addLayer("stars", {
     content: [
         "challenges",
  ],
- unlocked() {return (hasMilestone("s", 13))}
+ unlocked() {return (hasMilestone("s", 13) || hasChallenge("stars", 11))}
 },
   },
   challenges: {
@@ -174,6 +195,7 @@ addLayer("stars", {
         goalDescription: "???",
         rewardDescription: "Unlock Planets",
         style() {return {
+            'background-image': "none",
             "width": "500px",
             "height": "500px",
             "color": "#880000", 
@@ -221,7 +243,7 @@ addLayer("stars", {
   milestones: {
     1: {
         requirementDescription: "1 Star",
-        effectDescription: "Start Forming Stardust based on Stars",
+        effectDescription: "Begin forming Stardust based on Stars",
         done() {return player.stars.points.gte(1)},
     },
     2: {

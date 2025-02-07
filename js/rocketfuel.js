@@ -1,20 +1,25 @@
 addLayer("r", {
     name: "Rocket Fuel", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "⛽", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     row: 0,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "⛽"
+        else symbol = "RF"
+        return symbol
+    },
     layerShown(){
         let visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('x', 11)) visible = false
        return visible
      },
     passiveGeneration() {
         if (inChallenge('x', 11)) return 0
-
         if (hasMilestone('s', 11)) return 10
         if (hasMilestone('s', 8)) return 5
         if (hasMilestone('ro', 14)) return 2.5
@@ -32,7 +37,6 @@ addLayer("r", {
     },
     autoUpgrade() {
         if (inChallenge('x', 11)) return false
-
         if (inChallenge("stars", 11) || inChallenge("planets", 11)) return false
         if (hasMilestone("stars", 4)) return true
         if (hasMilestone("omegainf", 2)) return true
@@ -64,22 +68,27 @@ addLayer("r", {
         if (hasUpgrade('r', 43)) mult = mult.times(1.1)
         if (hasUpgrade('r', 44)) mult = mult.times(1.01)
         if (hasUpgrade('r', 45)) mult = mult.times(upgradeEffect('r', 45))
-        if (hasUpgrade('s', 12)) mult = mult.times(5)
-        if (hasUpgrade('s', 22)) mult = mult.times(10)
-        if (hasUpgrade('s', 32)) mult = mult.times(20)
-        if (hasUpgrade('s', 43)) mult = mult.times(50)
+        if (hasUpgrade('s', 12) && ! inChallenge("x", 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 22) && ! inChallenge("x", 11)) mult = mult.times(10)
+        if (hasUpgrade('s', 32) && ! inChallenge("x", 11)) mult = mult.times(20)
+        if (hasUpgrade('s', 43) && ! inChallenge("x", 11)) mult = mult.times(50)
         if (hasUpgrade('as', 11)) mult = mult.times(2)
         if (hasUpgrade('as', 13)) mult = mult.times(5)
         if (hasUpgrade('as', 25)) mult = mult.times(10)
-        if (hasUpgrade('s', 51)) mult = mult.times(200)
+        if (hasUpgrade('s', 51) && ! inChallenge("x", 11)) mult = mult.times(200)
         if (hasUpgrade('c', 12)) mult = mult.times(10)
         if (hasUpgrade('ast', 12)) mult = mult.times(10)
         if (hasUpgrade('stars', 12)) mult = mult.times(upgradeEffect('stars', 12))
         if (hasUpgrade('planets', 12)) mult = mult.times(upgradeEffect('planets', 12))
-        if (hasUpgrade('x', 11)) mult = mult.times(upgradeEffect('x', 11))
+        if (hasUpgrade('x', 11) && ! inChallenge("x", 11)) mult = mult.times(upgradeEffect('x', 11))
         if (hasUpgrade('r', 52)) mult = mult.times(1e6)
         if (hasUpgrade('r', 54)) mult = mult.times(1e10)
-        if (hasUpgrade('charge', 11)) mult = mult.times(100)
+        if (hasUpgrade('boosts', 11) && inChallenge("x", 11)) mult = mult.times(3)
+        if (hasUpgrade('boosts', 12) && inChallenge("x", 11)) mult = mult.times(3)
+        if (hasUpgrade('as', 31)) mult = mult.times(10000)
+        if (hasUpgrade('as', 32)) mult = mult.times(100)
+        if (hasUpgrade('boosts', 21) && inChallenge("x", 11)) mult = mult.times(10)
+        if (hasUpgrade('boosts', 31) && inChallenge("x", 11)) mult = mult.times(10)
 
         // Inf
 	    if (hasMilestone('inf', 3)) mult = mult.times(3)
@@ -87,18 +96,18 @@ addLayer("r", {
         if (hasMilestone('megainf', 8)) mult = mult.times(5)
 
 	    // Challenges
-        if (inChallenge('x', 11)) mult = mult.pow(0.001)
-
         if (inChallenge('c', 11)) mult = mult.pow(0.45)
         if (inChallenge('c', 12)) mult = mult.pow(0.01)
         if (inChallenge('ast', 11)) mult = mult.pow(0.22)
         if (inChallenge('ast', 12)) mult = mult.pow(0.1)
+
 
         // Softcaps
         if (player.r.points.gte(1e60)) mult = mult.pow(0.88)
 
         return mult
     },
+
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
@@ -110,7 +119,7 @@ addLayer("r", {
     "Main": {
             content: [
             ["display-text",
-            'Chapter 0: Earth!', { "color": "LightBlue", "font-size": "32px", "text-shadow": "0px 0px 20px LightBlue"}],
+            'Reality I: Launch', { "color": "LightBlue", "font-size": "32px", "text-shadow": "0px 0px 20px LightBlue"}],
             "blank",
             "blank",
             "main-display",
@@ -127,12 +136,11 @@ addLayer("r", {
             content: [
             "main-display",
             "blank",
-            "resource-display",
-            "blank",
             "prestige-button",
             "blank",
            "upgrades",
          ],
+         unlocked() {return player.r.points.gte(1)},
         },
      },
     upgrades: {
@@ -321,7 +329,7 @@ addLayer("r", {
     infoboxes: {
         main: {
             title: "Welcome!",
-            body() { return "Thank you for checking out this game. What you are reading right now is called an infobox. these will help you through out the game. To start playing, read the infobox below me and click on 'Upgrades' at the top" },
+            body() { return "<b>Welcome to The Galactic Tree</b>.<br>What you are reading right now is called an infobox. these will help you through out the game. To start playing, read the infobox below me and click on 'Upgrades' at the top" },
         },
         main2: {
             title: "Introducing: Rocket Fuel", 

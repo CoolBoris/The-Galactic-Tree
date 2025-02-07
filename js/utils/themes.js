@@ -1,25 +1,37 @@
 // ************ Themes ************
-var themes = ["default", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "dragonfruit", "blackberry", "infinity", "mega infinity", "omega infinity"]
+var themes = ["space", "strawberry", "cherry", "orange", "banana", "kiwi", "blueberry", "grape", "prune", "dragonfruit"]
 
 var colors = {
 	default: {
-		1: "#C66EFF",
-		2: "#C66EFF",
-		3: "#C66EFF",
-		color: "#C66EFF",
-		points: "#9211E7",
-		locked: "#BB9CB3",
-		background: "#24003F",
-		background_tooltip: "rgba(0, 15, 31, 0.75)",
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#dfdfdf",
+		points: "#44004d",
+		locked: "#bf8f8f",
+		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
 	},
-	space: {
+	blackberry: {
+		1: "#ffffff",//Branch color 1
+		2: "#bfbfbf",//Branch color 2
+		3: "#7f7f7f",//Branch color 3
+		color: "#dfdfdf",
+		points: "#44004d",
+		locked: "#bf8f8f",
+		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
+		background_tooltip: "rgba(0, 0, 0, 0.75)",
+		tint: "#ffffff00",
+	},
+	prune: {
 		1: "#C66EFF",
 		2: "#C66EFF",
 		3: "#C66EFF",
 		color: "#C66EFF",
 		points: "#9211E7",
 		locked: "#BB9CB3",
-		background: "#24003F",
+		background: "linear-gradient(45deg, #24003F, #361054, #15156b)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 	},
 	blueberry: {
@@ -29,7 +41,7 @@ var colors = {
 		color: "#bfdfff",
 		points: "#1A55E6",
 		locked: "#c4a7b3",
-		background: "#001f3f",
+		background: "linear-gradient(45deg, #001f3f, #004080, #0074d9)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#0080ff80",
 	},
@@ -40,7 +52,7 @@ var colors = {
 		color: "#f5c1c1",
 		points: "#A0150F",
 		locked: "#c4a7b3",
-		background: "#3f0000",
+		background: "linear-gradient(45deg, #3f0000, #b30000, #ff6666)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ff757580",
 	},
@@ -51,7 +63,7 @@ var colors = {
 		color: "#A71818",
 		points: "#FF008F",
 		locked: "#c4a7b3",
-		background: "#FF3737",
+		background: "linear-gradient(45deg, #FF3737, #FF6969, #FF9B9B)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ff000080",
 	},
@@ -62,7 +74,7 @@ var colors = {
 		color: "#ccffce",
 		points: "#26E61A",
 		locked: "#c4a7b3",
-		background: "#002905",
+		background: "linear-gradient(45deg, #002905, #005f0b, #00a819)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#65ff5780",
 	},
@@ -73,7 +85,7 @@ var colors = {
 		color: "#A7A518",
 		points: "#FFB900",
 		locked: "#c4a7b3",
-		background: "#F0E55B",
+		background: "linear-gradient(45deg, #F0E55B, #FFE066, #FFEA99)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#fffa7880",
 	},
@@ -84,7 +96,7 @@ var colors = {
 		color: "#A75518",
 		points: "#FF4600",
 		locked: "#c4a7b3",
-		background: "#E0841C",
+		background: "linear-gradient(45deg, #E0841C, #FF9F3F, #FFC266)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ffb57880",
 	},
@@ -95,7 +107,7 @@ var colors = {
 		color: "#ffccff",
 		points: "#841CE0",
 		locked: "#c4a7b3",
-		background: "#270029",
+		background: "linear-gradient(45deg, #270029, #5A0062, #8C0093)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ff78ef80",
 	},
@@ -106,18 +118,18 @@ var colors = {
 		color: "#901755",
 		points: "#DF0A78",
 		locked: "#6F4F6D",
-		background: "#F78FC4",
+		background: "linear-gradient(45deg, #F78FC4, #FFA0D4, #FFB3E4)",
 		background_tooltip: "rgba(0, 15, 31, 0.75)",
 		tint: "#ff78ef80",
 	},
-	blackberry: {
+	space: {
 		1: "#ffffff",//Branch color 1
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#dfdfdf",
-		points: "#ffffff",
+		points: "#44004d",
 		locked: "#bf8f8f",
-		background: "#0f0f0f",
+		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 		tint: "#ffffff00",
 	},
@@ -126,9 +138,9 @@ var colors = {
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#e73c7e",
-		points: "#ff3172",
+		points: "#ff31f3",
 		locked: "#bf8f8f",
-		background: "#23a6d5",
+		background: "linear-gradient(45deg, #23a6d5, #5fc5ed, #91e4ff)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 		tint: "#ffffff00",
 	},
@@ -139,7 +151,7 @@ var colors = {
 		color: "#00afff",
 		points: "#005dff",
 		locked: "#bf8f8f",
-		background: "#00d914",
+		background: "linear-gradient(45deg, #00d914, #33e643, #66f16f)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 		tint: "#ffffff00",
 	},
@@ -148,9 +160,9 @@ var colors = {
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#FF5100",
-		points: "#ff1300",
+		points: "#ffab31",
 		locked: "#bf8f8f",
-		background: "#e30083",
+		background: "linear-gradient(45deg, #e30083, #ff4da6, #ff87c4)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
 		tint: "#ffffff00",
 	},

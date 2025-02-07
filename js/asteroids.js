@@ -7,6 +7,12 @@ addLayer("ast", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "☄️"
+        else symbol = "AS"
+        return symbol
+    },
     milestonePopups(){
         let popup = true
         if (options.ComAstMilestonePopup == true) popup = true;
@@ -15,7 +21,6 @@ addLayer("ast", {
     },
     passiveGeneration() {
         if (inChallenge('x', 11)) return 0
-
         if (hasMilestone('planets', 1)) return getBuyableAmount('planets', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
@@ -23,12 +28,11 @@ addLayer("ast", {
     layerShown(){
         let visible = false
         if (hasMilestone('as', 4) || player.ast.unlocked) visible = true
-        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("x", 11)) visible = false
        return visible
      },
      autoUpgrade() {
         if (inChallenge('x', 11)) return false
-
         if (hasMilestone("planets", 5)) return true
         if (hasMilestone("omegainf", 7)) return true
         else return false
@@ -36,7 +40,7 @@ addLayer("ast", {
     doReset(reset) {
         let keep = [];
         if (hasMilestone("planets", 3)) keep.push("challenges")
-        if (hasMilestone("x", 3) && !!inChallenge("x", 11)) keep.push("milestones")
+        if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
         if (layers[reset].row > this.row) layerDataReset("ast", keep)
     },
      color: "#F1DD4A",
@@ -52,17 +56,17 @@ addLayer("ast", {
     exponent: 0.4, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
-        if (hasUpgrade('s', 15)) mult = mult.times(3)
-        if (hasUpgrade('s', 25)) mult = mult.times(5)
-        if (hasUpgrade('s', 35)) mult = mult.times(10)
-        if (hasUpgrade('s', 45)) mult = mult.times(25)
-        if (hasUpgrade('s', 44)) mult = mult.times(5)        
-        if (hasMilestone('s', 7)) mult = mult.times(3)
+        if (hasUpgrade('s', 15) && ! inChallenge("x", 11)) mult = mult.times(3)
+        if (hasUpgrade('s', 25) && ! inChallenge("x", 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 35) && ! inChallenge("x", 11)) mult = mult.times(10)
+        if (hasUpgrade('s', 45) && ! inChallenge("x", 11)) mult = mult.times(25)
+        if (hasUpgrade('s', 44) && ! inChallenge("x", 11)) mult = mult.times(5)        
+        if (hasMilestone('s', 7) && ! inChallenge("x", 11)) mult = mult.times(3)
         if (hasUpgrade('c', 15)) mult = mult.times(upgradeEffect('c', 15))
         if (hasChallenge('ast', 12)) mult = mult.times(100)
         if (hasMilestone('planets', 1)) mult = mult.times(buyableEffect("planets", 12))
         if (hasUpgrade('planets', 15)) mult = mult.times(upgradeEffect('planets', 15))
-        if (hasUpgrade('x', 15)) mult = mult.times(1000)   
+        if (hasUpgrade('x', 15) && ! inChallenge("x", 11)) mult = mult.times(1000)   
 
         // Inf
 	    if (hasMilestone('inf', 9)) mult = mult.times(3)
@@ -99,8 +103,6 @@ addLayer("ast", {
             content: [
             "main-display",
             "blank",
-            "resource-display",
-            "blank",
             "prestige-button",
             "blank",
             "milestones",
@@ -109,8 +111,6 @@ addLayer("ast", {
         "Upgrades": {
             content: [
             "main-display",
-            "blank",
-            "resource-display",
             "blank",
             "prestige-button",
             "blank",

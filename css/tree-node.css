@@ -5,7 +5,7 @@
 	border: var(--hqProperty1);
 	border-color: rgba(0, 0, 0, 0.125);
 	border-radius: 50%;
-	box-shadow: var(--hqProperty2a), var(--hqProperty2b);
+	box-shadow: var(--hqProperty2a);
 	font-size: 40px;
 	font-family: "Lucida Console", "Courier New", monospace;
 	color: rgba(0, 0, 0, 0.5);
@@ -25,7 +25,7 @@
 	border: var(--hqProperty1);
 	border-color: rgba(0, 0, 0, 0.125);
 	border-radius: 33%;
-	box-shadow: var(--hqProperty2a), var(--hqProperty2b);
+	box-shadow: var(--hqProperty2a);
 	font-size: 40px;
 	font-family: "Lucida Console", "Courier New", monospace;
 	color: rgba(0, 0, 0, 0.5);

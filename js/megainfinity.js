@@ -6,6 +6,13 @@ addLayer("megainf", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "♾️"
+        else symbol = "MINF"
+        return symbol
+    },
+
     layerShown(){
         let visible = false
         if (player.inf.points.gte(10) || player.megainf.unlocked) visible = true
@@ -30,12 +37,7 @@ tabFormat: {
         "blank",
         "prestige-button",
         "blank",
-        ["display-text",
-            'IMPORTANT:', { "color": "red", "font-size": "32px"}],
-        ["display-text",
-            'This Layer will reset everything, even space and infinity', { "color": "white", "font-size": "16px"}],
-        ["display-text",
-            "This reset is not needed to progress, it will just make the game easier in the future", { "color": "white", "font-size": "16px"}],
+        ["infobox", "main"],
         ],
  },
     "Perks": {
@@ -46,8 +48,15 @@ tabFormat: {
      ],
  },
 },
+
+infoboxes: {
+    main: {
+        title: "Introducing: Mega Infinity",
+        body() { return "Mega Infinity is the same as Infinity but it also resets Infinity! Again, infinity is not required to progress."},
+    },
+    },
  branches: ["inf",], 
- row: 26, // Row the layer is in on the tree (0 is the first row)
+ row: 7, // Row the layer is in on the tree (0 is the first row)
      color: "#05ff0e",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Mega Infinities", // Name of prestige currency

@@ -7,7 +7,7 @@ function getStartOptions() {
 		autosave: true,
 		msDisplay: "always",
 		theme: "default",
-		hqTree: false,
+		hqTree: true,
 		offlineProd: false,
 		hideChallenges: false,
 		showStory: true,
@@ -16,7 +16,10 @@ function getStartOptions() {
 		tooltipForcing: true,
 		RocketMilestonePopup: true,
 		AstronautMilestonePopup: true,
+		SpaceMilestonePopup: true,
 		ComAstMilestonePopup: true,
+		AchievementPopup: true,
+		emojisEnabled: true,
 	}
 }
 
@@ -30,6 +33,7 @@ function toggleOpt(name) {
 	if (name == "oldStyle")
 		updateStyle();
 }
+
 var styleCooldown = 0;
 function updateStyle() {
 	styleCooldown = 1;
@@ -49,12 +53,12 @@ function toggleAuto(toggle) {
 	needCanvasUpdate=true
 }
 
-const MS_DISPLAYS = ["ALL", "LAST, AUTO, INCOMPLETE", "AUTOMATION, INCOMPLETE", "INCOMPLETE", "NONE"];
+const MS_DISPLAYS = ["ALL", "NONE"];
 
-const MS_SETTINGS = ["always", "last", "automation", "incomplete", "never"];
+const MS_SETTINGS = ["always", "never"];
 
 function adjustMSDisp() {
-	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % 5];
+	options.msDisplay = MS_SETTINGS[(MS_SETTINGS.indexOf(options.msDisplay) + 1) % 2];
 }
 function milestoneShown(layer, id) {
 	complete = player[layer].milestones.includes(id);

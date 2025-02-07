@@ -8,10 +8,11 @@ let modInfo = {
 		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
 		"space.js", "comets.js", "asteroids.js", "stars.js", "planets.js",
 		"clickergame.js", "x.js",
-		"infinity.js", "megainfinity.js", "omegainfinity.js"
+		"infinity.js", "megainfinity.js", "omegainfinity.js",
+		"unstablerocketfuel.js", "galaxy.js", "darkmatter.js", "supernova.js"
 	],
 	pointsName: "Money",
-	discordName: "CoolBoris' Server",
+	discordName: "CoolBoris Studio",
 	discordLink: "https://discord.gg/Rs5cKF75WB",
 	initialStartPoints: new Decimal (10), // Used for hard resets and new players
 	offlineLimit: 0.0000001,  // In hours
@@ -42,6 +43,8 @@ function getPointGen() {
 		return new Decimal(0)
 
 	let gain = new Decimal(0)
+
+	// Reality I
 	if (hasUpgrade('r', 11)) gain = gain.add(1)
 	if (hasUpgrade('r', 12)) gain = gain.times(2)
 	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
@@ -56,13 +59,13 @@ function getPointGen() {
 	if (hasUpgrade('ro', 15)) gain = gain.times(upgradeEffect('ro', 15))
 	if (hasMilestone('ro', 10)) gain = gain.times(2)
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
-	if (hasMilestone('s', 1)) gain = gain.times(3)
-	if (hasUpgrade('s', 43)) gain = gain.times(100)
+	if (hasMilestone('s', 1)  && ! inChallenge("x", 11)) gain = gain.times(3)
+	if (hasUpgrade('s', 43)  && ! inChallenge("x", 11)) gain = gain.times(100)
 	if (hasUpgrade('as', 11)) gain = gain.times(5)
 	if (hasUpgrade('as', 12)) gain = gain.times(10)
 	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
 	if (hasUpgrade('as', 25)) gain = gain.times(100)
-	if (hasUpgrade('s', 51)) gain = gain.times(500)
+	if (hasUpgrade('s', 51)  && ! inChallenge("x", 11)) gain = gain.times(500)
 	if (hasUpgrade('ast', 21)) gain = gain.times(upgradeEffect('ast', 21))
 	if (hasUpgrade('c', 21)) gain = gain.times(1000)
 	if (hasUpgrade('ast', 22)) gain = gain.times(1000)
@@ -72,23 +75,48 @@ function getPointGen() {
 	if (hasUpgrade('stars', 11)) gain = gain.times(upgradeEffect('stars', 11))
 	if (hasUpgrade('planets', 11)) gain = gain.times(upgradeEffect('planets', 11))
 	if (hasUpgrade('r', 51)) gain = gain.times(1e9)
-	if (hasUpgrade('x', 21)) gain = gain.times(upgradeEffect('x', 21))
+	if (hasUpgrade('x', 21)  && !inChallenge("x", 11)) gain = gain.times(upgradeEffect('x', 21))
 	if (hasUpgrade('ro', 22)) gain = gain.times(upgradeEffect('ro', 22))
-	if (hasUpgrade('ro', 23)) gain = gain.times(upgradeEffect('ro', 23))
 	if (hasMilestone('ro', 21)) gain = gain.times(1e20)
 	
+
+	// Challenges Reality I
+	if (inChallenge('c', 11)) gain = gain.pow(0.5)
+	if (inChallenge('c', 14)) gain = gain.pow(0.12)
+	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
+	if (inChallenge('ast', 14)) gain = gain.pow(0.108)
+	if (inChallenge('x', 11)) gain = gain.times(0)
+
+	// Reality II
+	if (hasUpgrade('unstablefuel', 11)) gain = gain.add(1)
+	if (hasUpgrade('unstablefuel', 12)) gain = gain.add(2)
+	if (hasUpgrade('unstablefuel', 13)) gain = gain.add(3)
+	if (hasUpgrade('unstablefuel', 14)) gain = gain.add(4)
+	if (hasUpgrade('unstablefuel', 24)) gain = gain.add(upgradeEffect('unstablefuel', 24))
+	if (hasUpgrade('galaxy', 11)) gain = gain.add(upgradeEffect('galaxy', 11))
+	if (hasUpgrade('unstablefuel', 42)) gain = gain.add(upgradeEffect('unstablefuel', 42))
+	if (hasUpgrade('unstablefuel', 43)) gain = gain.add(upgradeEffect('unstablefuel', 43))
+	if (hasMilestone('unstablefuel', 1)) gain = gain.add(getBuyableAmount('darkmatter', 11))
+	if (hasUpgrade('unstablefuel', 51)) gain = gain.add(upgradeEffect('unstablefuel', 51))
+	if (hasUpgrade('unstablefuel', 53)) gain = gain.add(upgradeEffect('unstablefuel', 53))
+	if (hasUpgrade('galaxy', 44)) gain = gain.add(upgradeEffect('galaxy', 44))
+	if (hasUpgrade('supernova', 12)) gain = gain.add(upgradeEffect('supernova', 12))
+	if (hasUpgrade('unstablefuel', 62)) gain = gain.add(upgradeEffect('unstablefuel', 62))
+	if (hasUpgrade('unstablefuel', 63)) gain = gain.add(upgradeEffect('unstablefuel', 63))
+	if (hasUpgrade('supernova', 22)) gain = gain.add(upgradeEffect('supernova', 22))
+	if (hasUpgrade('supernova', 32)) gain = gain.add(upgradeEffect('supernova', 32))
+
+
+
+
+
+
+
 
 	// Inf
 	if (hasMilestone('inf', 1)) gain = gain.times(3)
 	if (hasMilestone('megainf', 1)) gain = gain.times(5)
 	if (hasMilestone('megainf', 7)) gain = gain.times(5)
-
-	// Challenges
-	if (inChallenge('x', 11)) gain = gain.pow(0.2)
-	if (inChallenge('c', 11)) gain = gain.pow(0.5)
-	if (inChallenge('c', 14)) gain = gain.pow(0.12)
-	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
-	if (inChallenge('ast', 14)) gain = gain.pow(0.108)
 	return gain
 
 }
@@ -99,7 +127,7 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Endgame: 1e350 Money",
+	"Endgame: Unstable Milestone XIV in Reality II",
 ]
 
 // Determines when the game "ends"
@@ -128,15 +156,41 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.4",
-	name: "Outer Space",
+	num: "2.0",
+	name: "Fracture",
 }
 
-let changelog = 
-`<h1 style="color:Aquamarine;">UPDATES</h1><br>
+let changelog =
+`<changelog>
+<h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
-		<h4 style="color:gray;">Check out 10+ Themes in the settings tab!</h1><br>
+		<h2 style="color:#ff3200;">v2.0 </h2><br>
+		- Fracture<br>
+		- Second Reality<br>
+		- Unstable Rocket Fuel<br>
+		- Galaxies<br>
+		- The Cosmos<br>
+		- Dark Matter<br>
+		- Supernova<br>
+		- Energy<br>
+		- Game UI changes<br>
+		- More Achievements<br>
+		- More Secret Achievements<br>
+		- Chapters changed to Realities<br>
+		- Hardcaps<br>
+		- Reality I Changes<br>
 
+		- QOL Reality I Changes<br>
+		- Better Settings Menu<br>
+		- Better Info Menu<br>
+		- Better Savebank<br>
+		- Better Softcaps<br>
+		- Animated Background<br>
+		- Theme Changes<br>
+		- Better Achievements<br>
+		- Changelog Changes<br>
+		- Bug fixes<br>
+		<br>
 		<h2 style="color:Violet;">v1.0.4</h2><br>
 		- Bug fixes<br>
 		<br>
@@ -183,7 +237,7 @@ let changelog =
 		- Asteroids & Comets Balancing<br>
 		- More Achievements<br>
 		- Endgame changes<br>
-		- minor bug fixes<br>
+		- Minor bug fixes<br>
 		<br>
 		<h2 style="color:DeepPink;">v0.2.0 </h2><br>
 		- Secret Achievements<br>
@@ -193,7 +247,7 @@ let changelog =
 		- Achievements rework<br>
 		- BIG Balance Changes<br>
 		- QOL<br>
-		- crazy amount of bug fixes<br>
+		- Major bug fixes<br>
 		- Full Astronauts Rework<br>
 		- 1 new theme<br>
 		- Space Rework<br>
@@ -219,7 +273,6 @@ let changelog =
 		<br>
 		<h2 style="color:Violet;">v0.0.13</h2><br>
 		- More Astronaut Upgrades <br>
-		- ASTRONAUTS ARE FINALLY BALANCED<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.12</h2><br>
 		- 7 NEW THEMES!! <br>
@@ -238,52 +291,40 @@ let changelog =
 		- Reward: Secret role<br>
 		- Softcaps<br>
 		- 4 Achievements <br>
-		- ...<br>
-		4 new versions in 1 day yippee!<br>
 		<br>
 		<h2 style="color:Violet;">v0.0.9</h2><br>
 		- Balanced Astronaut stuff <br>
 		- Space Theme<br>
-	     Github is so annoying ong<br>
 		 <br>
 		<h2 style="color:Violet;">v0.0.8 [Alpha Release]</h2><br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
 		- More Rocket Milestones<br>
-		- Balancing!!!!! (astronauts aren't yet)<br>
-		- **SOFTCAPPED**<br>
+		- Balancing<br>
 		- 4 Achievements <br>
-		- ...<br>
-		4 new versions in 1 day yippee!<br>
-		also test release on github for friends<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.7</h2><br>
 		- Rockets Upgrades <br>
 		- More Rocket Milestones<br>
 		- More Rocket Fuel Upgrades<br>
-		- Balancing!!!!!<br>
+		- Balancing<br>
 		- Astronauts (nothing yet)<br>
 		- More achievements<br>
-		- ...<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.6</h2><br>
 		- Balanced everything<br>
 		- More Achievements<br>
-		- Rockets content<br>
+		- More Rocket Content<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.5</h2><br>
 		- Balanced Rocket Fuel<br>
 		- Achievements<br>
-		- Rockets (nothing but it works)<br>
-		- space theme removed :(<br>
-	    finally understandig this stuff<br>
+		- Rockets<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.4</h2><br>
 		- Balanced Rocket  Fuel<br>
-		- NEW LAYERS ARE SO HARD TO MAKE!!!<br>
 		<br>
 	<h2 style="color:Violet;">v0.0.3</h2><br>
-		- Removed Rockets (will be back next update)<br>
 		- Added Money<br>
 		- Added 6 Rocket Upgrades<br>
 		- 1 New Theme<br>
@@ -292,7 +333,7 @@ let changelog =
 		- Added Rockets<br>
 		- Added 4 Rocket Upgrades<br>
 		<br>
-	<h2 style="color:Violet;">v0.0.1 [Early Alpha Release]</h2><br>
-		- Added Rocket Fuel
-		- basically nothing<br>`
-	
+	<h2 style="color:Violet;">v0.0.1 [Private Release]</h2><br>
+		- Added Rocket Fuel<br>
+		<br>
+</changelog>`

@@ -5,7 +5,15 @@ body {
 	--background: #0f0f0f;
 	--color: #dfdfdf;
 	--points: #ffffff;
-	background: var(--background)
+	background: var(--background);
+	width: 100vw;
+    height: 100vh;
+    background-size: 300% 300%; /* Allows for smoother animation */
+    animation: gradient-animation 8s ease infinite;
+}
+
+changelog {
+	font-family: "Geist";
 }
 
 /* General text */
@@ -31,11 +39,107 @@ h1, h2, h3, b, input {
 }
 
 .bought {
-	background-color: #77bf5f;
+	background-color: #88df6b;
 	cursor: default;
 }
 
 #points {
 	color: var(--points);
-	text-shadow: 0 0 10px var(--points);
+	text-shadow: 0 0 100px var(--points);
+}
+
+/* Keyframes for the gradient animation */
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Table layout and alignment */
+.options-table {
+    width: 100%;
+    border-spacing: 0.2em;
+    text-align: center;
+	align-items: center;
+}
+
+/* Header styling */
+.options-header {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.2em;
+    padding: 0.5em 0;
+}
+
+/* Spacer row for vertical spacing */
+.spacer-row td {
+    height: 1em;
+}
+
+.on {
+    color: green;
+    font-weight: bold;
+    font-family: "Geist";
+}
+
+.off {
+    color: red;
+    font-weight: bold;
+    font-family: "Geist";
+}
+
+.theme {
+    color: var(--color);
+    font-weight: bold;
+    background-color: var(--points);
+    padding: 0.2em 0.4em; /* Add padding for spacing */
+    border-radius: 4px; /* Rounded corners */
+    font-family: "Geist";
+}
+
+.fullreset {
+    color: red;
+    font-weight: bolder;
+    font-family: "Geist";
+}
+
+@keyframes rainbow {
+    0% { 
+        color: rgb(255, 0, 0); 
+        text-shadow: 0px 0px 20px rgb(255, 0, 0); /* Red shadow */
+    }
+    16% { 
+        color: rgb(255, 165, 0); 
+        text-shadow: 0px 0px 20px rgb(255, 165, 0); /* Orange shadow */
+    }
+    33% { 
+        color: rgb(255, 255, 0); 
+        text-shadow: 0px 0px 20px rgb(255, 255, 0); /* Yellow shadow */
+    }
+    50% { 
+        color: rgb(0, 128, 0); 
+        text-shadow: 0px 0px 20px rgb(0, 128, 0); /* Green shadow */
+    }
+    66% { 
+        color: rgb(0, 0, 255); 
+        text-shadow: 0px 0px 20px rgb(0, 0, 255); /* Blue shadow */
+    }
+    83% { 
+        color: rgb(75, 0, 130); 
+        text-shadow: 0px 0px 20px rgb(75, 0, 130); /* Indigo shadow */
+    }
+    100% { 
+        color: rgb(238, 130, 238); 
+        text-shadow: 0px 0px 20px rgb(238, 130, 238); /* Violet shadow */
+    }
+}
+
+.rainbow-text {
+    animation: rainbow 6s linear infinite; /* Adjust duration for speed */
 }

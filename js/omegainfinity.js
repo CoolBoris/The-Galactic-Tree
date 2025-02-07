@@ -6,6 +6,13 @@ addLayer("omegainf", {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "♾️"
+        else symbol = "OINF"
+        return symbol
+    },
+
     layerShown(){
         let visible = false
         if (player.megainf.points.gte(10) || player.omegainf.unlocked) visible = true
@@ -30,12 +37,7 @@ tabFormat: {
         "blank",
         "prestige-button",
         "blank",
-        ["display-text",
-            'IMPORTANT:', { "color": "red", "font-size": "32px"}],
-        ["display-text",
-            'This Layer will reset everything, even space and infinity', { "color": "white", "font-size": "16px"}],
-        ["display-text",
-            "This reset is not needed to progress, it will just make the game easier in the future", { "color": "white", "font-size": "16px"}],
+        ["infobox", "main"],
         ],
  },
     "Perks": {
@@ -46,8 +48,15 @@ tabFormat: {
      ],
  },
 },
+
+infoboxes: {
+    main: {
+        title: "Introducing: Omega Infinity",
+        body() { return "Omega Infinity is the same as Mega Infinity but it also resets Mega Infinity! Again, infinity is not required to progress."},
+    },
+    },
  branches: ["megainf",], 
- row: 27, // Row the layer is in on the tree (0 is the first row)
+ row: 8, // Row the layer is in on the tree (0 is the first row)
      color: "#FF5100",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
     resource: "Omega Infinities", // Name of prestige currency

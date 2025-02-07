@@ -117,9 +117,9 @@ addLayer("xla", {
 })
 
 
-addLayer("charge", {
+addLayer("boosts", {
     position: 3, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 5,
+    row: 6,
     startData() {
         return {
             unlocked: true,
@@ -129,16 +129,20 @@ addLayer("charge", {
 
     layerShown() {
         let visible = false
-        if (inChallenge('x', 11)) visible = true
         return visible
     },
-    name: "Charge", // This is optional, only used in a few places, If absent it just uses the layer id.
-    resource: "Charge", // Name of prestige currency
+    name: "Boosts", // This is optional, only used in a few places, If absent it just uses the layer id.
+    resource: "Boosts", // Name of prestige currency
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
     baseResource: "Rocket Fuel", // Name of resource prestige is based on
-    baseAmount() { return player.r.points }, // Get the current amount of baseResource
+    baseAmount() { return player.boosts.points }, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.16, // Prestige currency exponent
+    color: "ffba3a",
+    symbol: "⚡",
+    nodeStyle() {return {
+        "background": "radial-gradient(#fff03a, #ffba3a)",         
+    }},
     passiveGeneration() {
         return 1
     },
@@ -149,14 +153,75 @@ addLayer("charge", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+    tabFormat: {
+        "Main": {
+            content: [
+              "upgrades",
+            ],
+        },
+    },
     upgrades: {
         11: {
-            title: "Charged Fuel",
-            description: "100x Rocket Fuel",
-            cost: new Decimal(25),
+            title: "Boost 1x",
+            description: "3x Rocket Fuel",
+            cost: new Decimal(100),
             currencyDisplayName: "Rocket Fuel",
-            currencyLocation() { return player.r },
+            currencyLocation() {return player.r},
             currencyInternalName: "points",
+        },
+        12: {
+            title: "Boost 2x",
+            description: "3x Rocket Fuel",
+            cost: new Decimal(3),
+            currencyDisplayName: "Rockets",
+            currencyLocation() {return player.ro},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 11))},
+        },
+        13: {
+            title: "Boost 3x",
+            description: "10x Astronauts",
+            cost: new Decimal(1000),
+            currencyDisplayName: "Rockets",
+            currencyLocation() {return player.as},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 12))},
+        },
+        14: {
+            title: "Boost 4x",
+            description: "Unlock 1 New Astronaut Upgrade (Permanent)",
+            cost: new Decimal(5e15),
+            currencyDisplayName: "Astronauts",
+            currencyLocation() {return player.as},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 13))},
+        },
+        15: {
+            title: "Boost 5x",
+            description: "Unlock 1 New Astronaut Upgrade (Permanent)",
+            cost: new Decimal(5e21),
+            currencyDisplayName: "Astronauts",
+            currencyLocation() {return player.as},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 14))},
+        },
+        21: {
+            title: "Boost 1y",
+            description: "10x Rocket Fuel",
+            cost: new Decimal(1),
+            currencyDisplayName: "Comets",
+            currencyLocation() {return player.c},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 14))},
+        },
+        31: {
+            title: "Boost 1z",
+            description: "10x Rocket Fuel",
+            cost: new Decimal(1),
+            currencyDisplayName: "Asteroids",
+            currencyLocation() {return player.ast},
+            currencyInternalName: "points",
+            unlocked() { return (hasUpgrade(this.layer, 14))},
         },
     }
 })
@@ -175,10 +240,16 @@ addLayer("x", {
         }
     },
 
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "🌑"
+        else symbol = "X"
+        return symbol
+    },
     layerShown() {
         let visible = false
         if (hasChallenge('planets', 11)) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge("x", 11)) visible = false
         return visible
     },
     hotkeys: [
@@ -300,13 +371,13 @@ addLayer("x", {
             ],
             unlocked() { return player.x.points.gte(1) }
         },
-        "X-Ultimate": {
+        "Fracture": {
             content: [
                 "main-display",
                 "blank",
                 "challenges",
             ],
-            unlocked() { return player.x.points.gte(100000)}
+            unlocked() { return player.x.points.gte(3)}
         },
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -315,11 +386,11 @@ addLayer("x", {
     infoboxes: {
         main: {
             title: "Introducing: Planet X",
-            body() { return "Wow! you made it to Outer Space. This is a really big layer (not currently). It has tons of upgrades, milestones, buyables, and more! Good luck!<br> This does not reset The Sun & The Solar System! <br>don't complain, the layer is meant to be weird. You're on your own now!" },
+            body() { return "Wow! You made it to X. This is a really big layer. It has tons of upgrades, milestones, buyables, and more!<br>You're on your own now. Good Luck!" },
         },
         respec: {
             title: "Respec Info",
-            body() { return "The Respec Button is really dangerous! it will do a layer 5 reset and it will also reset some features of X!" },
+            body() { return "The Respec button is really dangerous! it will do an 'X' reset and it will also reset some features of X!" },
         },
     },
     milestones: {
@@ -347,31 +418,35 @@ addLayer("x", {
         },
         5: {
             requirementDescription: "XXX-ULT",
-            effectDescription: "Unlock X-Ultimate",
+            effectDescription: "Unlock Fracture",
             unlocked() { return (hasMilestone("x", 3)) },
-            done() { return player.x.points.gte(3) },
+            done() { return player.x.points.gte(3)},
         },
     },
     challenges: {
         11: {
-            name: "X-Ultimate",
+            name: "Fracture",
             canComplete: function () { return player.sun.points.gte("1e53100") },
-            challengeDescription: "Disables all automation, Unlocks Charge, Nerfs to almost everything",
+            challengeDescription: "Reality cracks, Fractured.<br>",
             goalDescription: "???",
-            rewardDescription: "Unlock Unstable Fuel",
+            rewardDescription: "???",
             style() {
                 return {
-                    "width": "500px",
-                    "height": "500px",
-                    "color": "#861951",
-                    "text-shadow": "#861951 0px 0px 20px",
-                    "font-size": "32px",
-                    "font-family": "Lucida Console",
-                    "TextSize": 50,
-                    "backgroundColor": "Black",
-                    resetsNothing: true,
+                    "width": "450px",
+                    "height": "450px",
+                    "color": "#7f05a8", // Bright pink for better pop
+                    "text-shadow": "0 0 15px #5c05a8, 0 0 30px #7f05a8, 0 0 45px #24115c", // Multilayer glow effect
+                    "font-size": "30px", // Slightly larger text
+                    "line-height": "1.2", // Better text spacing
+                    "background": "#0F2027",
+                    "border": "5px solid #194859", // Border to define the container
+                    "border-radius": "12px", // Rounded corners
+                    "box-shadow": "0px 20px 60px rgba(0, 0, 0, 0.7)", // Subtle shadow for depth
+                    "align-items": "center",
+                    "justify-content": "center",
+                    "animation": "borderAnimation 3s infinite alternate", // Adding border animation
                 }
-            },
+            }
         },
     },
     buyables: {

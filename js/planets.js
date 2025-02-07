@@ -45,11 +45,23 @@ addLayer("planets", {
     layerShown(){
         let visible = false
         if (hasChallenge('stars', 11)) visible = true
+        if (inChallenge("x", 11)) visible = false
        return visible
      },
+
+     symbol(){
+        if (options.emojisEnabled == true) symbol = "🪐"
+        else symbol = "P"
+        return symbol
+    },
      autoUpgrade() {
         if (hasMilestone("omegainf", 9)) return true
         else return false
+    },
+    cap() {
+        if (player.planets.points > 40) { 
+            player.planets.points = new Decimal(40);
+        }
     },
      nodeStyle() {return {
         "width": "100px",
@@ -67,6 +79,7 @@ addLayer("planets", {
         let mult = new Decimal(1)
         if (hasMilestone('s', 15)) mult = mult.times(1.5)
         if (hasMilestone('s', 16)) mult = mult.divide(10000)
+        if (player.planets.points.gte(40)) mult = mult.times("-1e9999999999999999999")
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -77,11 +90,11 @@ addLayer("planets", {
         if (hasMilestone("x", 4)) buyMax = true
        return buyMax
      },
-        doReset(reset) {
-            let keep = [];
-            if (hasMilestone("sun", 8)) keep.push("challenges")
-            if (layers[reset].row > this.row) layerDataReset("stars", keep)
-        },
+    doReset(reset) {
+        let keep = [];
+        if (hasMilestone("sun", 8)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("planets", keep)
+    },
     hotkeys: [
         {key: "p", description: "P: Press for Planet Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
@@ -95,6 +108,14 @@ addLayer("planets", {
                         txt = txt + `You have 
                         <h2><span style="color: #ca11a0; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
                             ${format(player.planetoid.points)}</span></h2> Planetoids`
+                        return txt
+                    }
+                ],
+                ["display-text",
+                    function(){
+                        let txt = ""
+                        let resetgain = getResetGain("planetoid")
+                        txt = txt + `You are gaining ${format(resetgain)}</span></h2> Planetoids per second`
                         return txt
                     }
                 ],
@@ -161,7 +182,7 @@ addLayer("planets", {
     content: [
         "challenges",
  ],
- unlocked() {return (hasMilestone("planets", 6))}
+ unlocked() {return (hasMilestone("planets", 6)) || (hasChallenge("planets", 11))}
 },
   },
   challenges: {
@@ -171,6 +192,7 @@ addLayer("planets", {
         goalDescription: "???",
         rewardDescription: "Unlock X",
         style() {return {
+            'background-image': "none",
             "width": "500px",
             "height": "500px",
             "color": "#F80BFF", 
@@ -187,7 +209,7 @@ addLayer("planets", {
   milestones: {
     1: {
         requirementDescription: "1 Planet",
-        effectDescription: "Start Forming Planetoids based on Planets",
+        effectDescription: "Begin forming Planetoids based on Planets",
         done() {return player.planets.points.gte(1)},
      },
      2: {

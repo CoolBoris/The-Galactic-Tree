@@ -1,14 +1,19 @@
 addLayer("ro", {
     name: "Rockets", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "🚀", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
         unlocked: false,
 		points: new Decimal(0),
     }},
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "🚀"
+        else symbol = "R"
+        return symbol
+    },
     milestonePopups(){
         let popup = true
-        if (options.RocketsMilestonePopup == true) popup = true;
+        if (options.RocketMilestonePopup == true) popup = true;
         else popup = false
         return popup
     },
@@ -17,7 +22,7 @@ addLayer("ro", {
         let visible = false
         if (hasUpgrade('r', 25) || player.ro.unlocked) visible = true
         if (inChallenge('c', 13) || (inChallenge("ast", 13))) visible = false
-        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("x", 11)) visible = false
        return visible
      },
      canBuyMax(){
@@ -29,16 +34,28 @@ addLayer("ro", {
      },
      doReset(reset) {
         let keep = [];
-        if (hasMilestone("c", 3) ) keep.push("upgrades")
-        if (hasMilestone("x", 1) && !!inChallenge("x", 11)) keep.push("milestones")
-        if (layers[reset].row > this.row) layerDataReset("ro", keep)
+        if (hasMilestone("c", 3)) keep.push("upgrades");
+        if (hasMilestone("x", 1) && !inChallenge("x", 11)) {
+            keep.push("milestones");
+        }
+        if (layers[reset].row > this.row) {
+            layerDataReset("ro", keep);
+        }
     },
+    
     autoUpgrade() {
         if (inChallenge('x', 11)) return false
 
         if (hasMilestone("stars", 3)) return true
         if (hasMilestone("omegainf", 3)) return true
+
+        
         else return false
+    },
+    cap() {
+        if (player.ro.points > 50) { 
+            player.ro.points = new Decimal(50);
+        }
     },
  branches: ["r"], 
  row: 1, // Row the layer is in on the tree (0 is the first row)
@@ -53,14 +70,14 @@ addLayer("ro", {
         let mult = new Decimal(1)
         if (hasUpgrade('ro', 11)) mult = mult.divide(upgradeEffect('ro', 11))
         if (hasUpgrade('ro', 21)) mult = mult.divide(upgradeEffect('ro', 21))
-        if (hasUpgrade('s', 13)) mult = mult.divide(3)
-        if (hasUpgrade('s', 23)) mult = mult.divide(5)
-        if (hasUpgrade('s', 33)) mult = mult.divide(10)
-        if (hasUpgrade('s', 43)) mult = mult.divide(25)
+        if (hasUpgrade('s', 13) && ! inChallenge("x", 11)) mult = mult.divide(3)
+        if (hasUpgrade('s', 23) && ! inChallenge("x", 11)) mult = mult.divide(5)
+        if (hasUpgrade('s', 33) && ! inChallenge("x", 11)) mult = mult.divide(10)
+        if (hasUpgrade('s', 43) && ! inChallenge("x", 11)) mult = mult.divide(25)
         if (hasMilestone('c', 1)) mult = mult.divide(5)
         if (hasUpgrade('as', 14)) mult = mult.divide(upgradeEffect('as', 14))
         if (hasUpgrade('as', 24)) mult = mult.divide(upgradeEffect('as', 24))
-        if (hasUpgrade('s', 51)) mult = mult.divide(100)
+        if (hasUpgrade('s', 51) && ! inChallenge("x", 11)) mult = mult.divide(100)
         if (hasUpgrade('c', 13)) mult = mult.divide(upgradeEffect('c', 13))
         if (hasUpgrade('c', 14)) mult = mult.divide(10)
         if (hasUpgrade('c', 22)) mult = mult.divide(upgradeEffect('c', 22))
@@ -69,28 +86,30 @@ addLayer("ro", {
         if (hasUpgrade('stars', 13)) mult = mult.divide(upgradeEffect('stars', 13))
         if (hasUpgrade('planets', 13)) mult = mult.divide(upgradeEffect('planets', 13))
         if (hasUpgrade('r', 55)) mult = mult.divide(upgradeEffect('r', 55))
-        if (hasUpgrade('x', 23)) mult = mult.divide(upgradeEffect('x', 23))
-        if (hasMilestone('s', 16)) mult = mult.divide(1e12)
-        if (hasUpgrade('x', 25)) mult = mult.divide(upgradeEffect('x', 25))
-        if (hasUpgrade('x', 31)) mult = mult.divide(upgradeEffect('x', 31))
-        if (hasUpgrade('x', 32)) mult = mult.divide(upgradeEffect('x', 32))
-        if (hasUpgrade('x', 33)) mult = mult.divide(upgradeEffect('x', 33))
-        if (hasUpgrade('x', 34)) mult = mult.divide(upgradeEffect('x', 34))
-        if (hasUpgrade('x', 35)) mult = mult.divide(upgradeEffect('x', 35))
+        if (hasUpgrade('x', 23) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 23))
+        if (hasMilestone('s', 16) && ! inChallenge("x", 11)) mult = mult.divide(1e12)
+        if (hasUpgrade('x', 25) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 25))
+        if (hasUpgrade('x', 31) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 31))
+        if (hasUpgrade('x', 32) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 32))
+        if (hasUpgrade('x', 33) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 33))
+        if (hasUpgrade('x', 34) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 34))
+        if (hasUpgrade('x', 35) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 35))
 
         // Inf
 	    if (hasMilestone('inf', 5)) mult = mult.divide(3)
         if (hasMilestone('megainf', 9)) mult = mult.divide(5)
 
-            //Softcaps
-        if (player.ro.points.gte(50)) mult = mult.times(-1e99999999999999)
 
-            //Challenges
-        if (inChallenge('c', 13)) mult = mult.times(9e9999)
-        if (inChallenge('ast', 13)) mult = mult.times(9e9999)
+        //Challenges
+        if (inChallenge('c', 13)) mult = mult.times("-1e9999999999999999999")
+        if (inChallenge('ast', 13)) mult = mult.times("-1e9999999999999999999")
+        
+        if (player.ro.points.gte(50)) mult = mult.times("-1e9999999999999999999")
+
         return mult
 
     },
+
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
@@ -249,7 +268,7 @@ addLayer("ro", {
         },
         21: {
             requirementDescription: "50 Rockets",
-            effectDescription: "1e20x Money & No more rockets.",
+            effectDescription: "1e20x Money & Hardcaps Rockets",
             unlocked() { return (hasMilestone(this.layer, 21))},
             done() {return player.ro.points.gte(50)}
         },
@@ -319,7 +338,7 @@ addLayer("ro", {
             title: "Rocket Market Deluxe",
             description: "Money gain is greatly increased based on Rockets",
             cost: new Decimal(30),
-            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasUpgrade("x", 22))},
+            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasUpgrade("x", 22)  && ! (inChallenge("x", 11)))},
             effect() {
                 return player.ro.points.add(1).pow(4)
             },
@@ -329,7 +348,7 @@ addLayer("ro", {
             title: "Buy the Rocket Market",
             description: "Money gain is greatly increased based on X",
             cost: new Decimal(46),
-            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasUpgrade("x", 22))},
+            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasUpgrade("x", 22) && ! (inChallenge("x", 11)))},
             effect() {
                 return player.x.points.add(1).pow(35)
             },
@@ -339,7 +358,7 @@ addLayer("ro", {
     infoboxes: {
         main: {
             title: "Introducing: Rockets",
-            body() { return "Oh wow! a new feature already? This reset layer is a little bit different, instead of Money it costs Rocket Fuel and it will reset all progress you made so far. The price of Rockets increase each Rocket. To see what benefits you get from Rockets, go to the 'Milestones' tab at the top" },
+            body() { return "Oh wow! a new feature already? This reset layer is a little bit different, instead of Money it costs Rocket Fuel and it will reset all progress you have made so far. The price of Rockets increase each Rocket. To see what benefits you get from Rockets, go to the 'Milestones' tab at the top" },
         },
     }
   })

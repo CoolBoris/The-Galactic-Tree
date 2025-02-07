@@ -362,7 +362,7 @@ var popupID = 0;
 function doPopup(type = "none", text = "This is a test popup.", title = "", timer = 3, color = "") {
 	switch (type) {
 		case "achievement":
-			popupTitle = "Achievement Unlocked!";
+			popupTitle = "Achievement!";
 			popupType = "achievement-popup"
 			break;
 		case "challenge":

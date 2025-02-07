@@ -11,11 +11,12 @@ Features:
 - Unstable Rocket Fuel
 - Galaxy
 - Cosmic Dust & Cosmic Rays
-- Universe
 - Supernova
+- Energy & Dark Energy (dark energy is negative, dark energy produces dark matter in log or sum)
 - Black Hole & Void
+- Antimatter
+- Universe
 - Multiverse
-- Dark Matter & Antimatter
 - Dimension
 - ... (new words that i invented in Dimension X)
 

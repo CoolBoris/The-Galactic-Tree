@@ -1,5 +1,5 @@
 * {
-	transition-duration: 0.5s;
+	transition-duration: 0.3s;
 	text-align: center;
 	font-family: "Inconsolata", monospace;
 	font-weight: bold;
@@ -248,4 +248,3 @@ button > * {
 	background-image: none !important;
 	--background: transparent !important;
 }
-

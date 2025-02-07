@@ -1,9 +1,27 @@
 .upg {
 	min-height: 120px;
 	width: 120px;
-	border-radius: 25%;
+	border-radius: 10px;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
+	font-size: 10px;
+	overflow: visible;
+}
+
+.upgDone {
+	min-height: 120px;
+	width: 120px;
+	border-radius: 10px;
+	background-image: repeating-linear-gradient(
+		-49deg,
+		#88df6b,
+		#88df6b 25px,
+		#7dd75f 25px,
+		#7dd75f 50px
+	);
+	background-clip: padding-box;
+	border: 2px solid;
+	border-color: #77c35e;
 	font-size: 10px;
 	overflow: visible;
 }
@@ -11,7 +29,7 @@
 .achievement {
 	height: 90px;
 	width: 90px;
-	border-radius: 25%;
+	border-radius: 18%;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 	font-size: 10px;
@@ -20,43 +38,72 @@
 }
 .achievement:hover {
 	box-shadow: 0 0 10px var(--points);
+	transform: scale(1.1, 1.1);
 	z-index: 7;
 }
+
 
 .buyable {
 	height: 200px;
 	width: 200px;
-	border-radius: 25%;
+	border-radius: 20px;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
+	font-size: 10px;
+	position:relative;
+	color: rgba(0, 0, 0, 0.5);
+}
+
+.buyableDone {
+	height: 200px;
+	width: 200px;
+	border-radius: 20px;
+	border: 2px solid;
+	background-image: repeating-linear-gradient(
+		-49deg,               /* Diagonal angle for stripes */
+		#88df6b,             /* Stripe color */
+		#88df6b 25px,        /* Start of stripe */
+		#7dd75f 25px,        /* Second stripe color */
+		#7dd75f 50px         /* End of stripe */
+	);
+	background-clip: padding-box; /* Prevents background from extending into the border */
+	border-color: #77c35e;
 	font-size: 10px;
 	position:relative;
 }
 
 .milestone {
-	width: 100%;
+	width: 90%;
 	min-width: 120px;
 	padding-left: 5px;
 	padding-right: 5px;
 	height: 75px;
+	border-radius: 10px;
 	background-color: #bf8f8f;
 	border: 4px solid;
-	border-radius: 4px;
 	border-color: rgba(0, 0, 0, 0.125);
 	color: rgba(0, 0, 0, 0.5);
 }
 
+
 .milestoneDone {
-	width: 100%;
+	width: 90%;
 	min-width: 120px;
 	padding-left: 5px;
 	padding-right: 5px;
-
 	height: 75px;
-	background-color: #77bf5f;
+	border-radius: 10px;
+	background-color: #88df6b;
+	background-image: repeating-linear-gradient(
+		-49deg,               /* Diagonal angle for stripes */
+		#88df6b,             /* Stripe color */
+		#88df6b 25px,        /* Start of stripe */
+		#7dd75f 25px,        /* Second stripe color */
+		#7dd75f 50px         /* End of stripe */
+	);
+	background-clip: padding-box; /* Prevents background from extending into the border */
 	border: 4px solid;
-	border-radius: 4px;
-	border-color: rgba(0, 0, 0, 0.125);
+	border-color: #77c35e;
 	color: rgba(0, 0, 0, 0.5);
 }
 
@@ -65,19 +112,25 @@
 	position: relative;
 	border: 4px solid;
 	border-color: rgba(0, 0, 0, 0.125);
-	color: rgba(0, 0, 0, 0.5);
 	width: 300px;
 	height: 300px;
 	font-size: 15px;
-	border-radius: 33.33%;
+	border-radius: 15px;
+	color: rgba(0, 0, 0, 0.5);
 }
 
 .challenge.done {
-	background-color: #77bf5f;
+	background-image: repeating-linear-gradient(
+		-49deg,               /* Diagonal angle for stripes */
+		#88df6b,             /* Stripe color */
+		#88df6b 25px,        /* Start of stripe */
+		#7dd75f 25px,        /* Second stripe color */
+		#7dd75f 50px         /* End of stripe */
+	);
 }
 
 .challenge.canComplete {
-	background-color: #ffc37e;
+	background-color: #f1be11;
 }
 
 /* Infoboxes */
@@ -122,9 +175,9 @@
 
 /* Tiles are gridables */
 .tile {
-	height: 80px;
-	width: 80px;
-	border-radius: 15%;
+	height: 100px;
+	width: 100px;
+	border-radius: 10px;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 	font-size: 10px;
@@ -140,7 +193,7 @@
 .upgBig {
 	height: 200px;
 	width: 200px;
-	border-radius: 25%;
+	border-radius: 20%;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 }
@@ -150,7 +203,7 @@
 	height: 50px;
 	width: 120px;
 	background: var(--points);
-	border-radius: 50%;
+	border-radius: 20px;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 	font-size: 10px;
@@ -159,7 +212,7 @@
 .smallUpg {
 	height: 40px;
 	width: 40px;
-	border-radius: 25%;
+	border-radius: 20%;
 	border: 2px solid;
 	border-color: rgba(0, 0, 0, 0.125);
 }

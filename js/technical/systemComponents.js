@@ -80,7 +80,7 @@ var systemComponents = {
 			<div v-if="Array.isArray(tmp[layer].midsection)">
 				<column :layer="layer" :data="tmp[layer].midsection" :key="this.$vnode.key + '-mid'"></column>
 			</div>
-			<clickables v-bind:style="tmp[layer].componentStyles['clickables']" :layer="layer"></clickables>
+			<clickables v-bind:style="tmp[layer].componentStyles.clickables" :layer="layer"></clickables>
 			<buyables v-bind:style="tmp[layer].componentStyles.buyables" :layer="layer"></buyables>
 			<upgrades v-bind:style="tmp[layer].componentStyles['upgrades']" :layer="layer"></upgrades>
 			<challenges v-bind:style="tmp[layer].componentStyles['challenges']" :layer="layer"></challenges>
@@ -124,60 +124,148 @@ var systemComponents = {
 
 	'info-tab': {
 		template: `
-        <div>
-        <h2>{{modInfo.name}}</h2>
-        <br>
+        <div class = "info-tab">
+        <h1>{{modInfo.name}}</h1>
+		<br>
         <h3>{{VERSION.withName}}</h3>
-        <span v-if="modInfo.author">
-            <br>
-            Made by {{modInfo.author}}	
+		<br>
+		<br>
+		<br>
+		<br>
+        Made by {{modInfo.author}}
+		<span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
+		<img src="coolboris.png" alt="CoolBoris" width="200"><br><br>
         </span>
-        <br>
-        The Modding Tree <a v-bind:href="'https://github.com/Acamaeda/The-Modding-Tree/blob/master/changelog.md'" target="_blank" class="link" v-bind:style = "{'font-size': '14px', 'display': 'inline'}" >{{TMT_VERSION.tmtNum}}</a> by Acamaeda
-        <br>
-        The Prestige Tree made by Jacorb and Aarex
-		<br><br>
-		<div class="link" onclick="showTab('changelog-tab')">Changelog</div><br>
-        <span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
+		The Prestige Tree made by Jacorb and Aarex
+		<a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
+
+        The Modding Tree v{{TMT_VERSION.tmtNum}} by Acamaeda
         <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree Discord</a><br>
-        <a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
-		<br><br>
+		<br>
+		<div class="link" onclick="showTab('changelog-tab')">Changelog</div><br>
         Time Played: {{ formatTime(player.timePlayed) }}<br><br>
-        <h3>Hotkeys</h3><br>
-        <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked"><br>{{key.description}}</span></div>
+		Thank you for playing!
     `
 	},
 
-	'options-tab': {
-		template: `
-        <table>
+'options-tab': {
+    template: `
+        <table class="options-table">
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td colspan="5" class="options-header">Main Settings</td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
             <tr>
                 <td><button class="opt" onclick="save()">Save</button></td>
-                <td><button class="opt" onclick="toggleOpt('autosave')">Autosave: {{ options.autosave?"ON":"OFF" }}</button></td>
-                <td><button class="opt" onclick="hardReset()">HARD RESET</button></td>
-            </tr>
-            <tr>
-                <td><button class="opt" onclick="exportSave()">Export to clipboard</button></td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('autosave')">
+                        Autosave: <span :class="options.autosave ? 'on' : 'off'">{{ options.autosave ? "ON" : "OFF" }}</span>
+                    </button>
+                </td>
+                <td><button class="opt" onclick="exportSave()">Export Save to clipboard</button></td>
                 <td><button class="opt" onclick="importSave()">Import</button></td>
-                <td><button class="opt" onclick="toggleOpt('offlineProd')">Offline Prod: {{ options.offlineProd?"DISABLED":"DISABLED" }}</button></td>
+                <td><button class="opt" onclick="hardReset()"><span class = "fullreset">FULL RESET</span></button></td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td colspan="5" class="options-header">Visual Settings</td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td>
+                    <button class="opt" onclick="switchTheme()">
+                        Theme:<br><span class= "theme">{{ getThemeName() }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('hqTree')">
+                        High-Quality Tree: <span :class="options.hqTree ? 'on' : 'off'">{{ options.hqTree ? "ON" : "OFF" }}</span>
+                    </button>
+                </td>
+                <td>
+				<button class="opt" onclick="toggleOpt('emojisEnabled')">
+                       Layer Emojis: <span :class="options.emojisEnabled ? 'on' : 'off'">{{ options.emojisEnabled ? "ON" : "OFF" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('hideChallenges')">
+                        Completed Challenges: <span :class="options.hideChallenges ? 'off' : 'on'">{{ options.hideChallenges ? "HIDDEN" : "SHOWN" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">
+                        Single-Tab Mode: <span :class="options.forceOneTab ? 'off' : 'on'">{{ options.forceOneTab ? "ALWAYS" : "AUTO" }}</span>
+                    </button>
+                </td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td colspan="5" class="options-header">Popup Settings</td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td>
+                    <button class="opt" onclick="toggleOpt('RocketMilestonePopup'); needsCanvasUpdate = true">
+                        Rocket Milestone Popups: <span :class="options.RocketMilestonePopup ? 'on' : 'off'">{{ options.RocketMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('AstronautMilestonePopup'); needsCanvasUpdate = true">
+                        Astronaut Milestone Popups: <span :class="options.AstronautMilestonePopup ? 'on' : 'off'">{{ options.AstronautMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('SpaceMilestonePopup'); needsCanvasUpdate = true">
+                        Space Milestone Popups: <span :class="options.SpaceMilestonePopup ? 'on' : 'off'">{{ options.SpaceMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('ComAstMilestonePopup'); needsCanvasUpdate = true">
+                        Comet & Asteroid Milestone Popups: <span :class="options.ComAstMilestonePopup ? 'on' : 'off'">{{ options.ComAstMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+                    </button>
+                </td>
+                <td>
+                    <button class="opt" onclick="toggleOpt('AchievementPopup'); needsCanvasUpdate = true">
+                        Achievement Popups: <span :class="options.AchievementPopup ? 'on' : 'off'">{{ options.AchievementPopup ? "ENABLED" : "DISABLED" }}</span>
+                    </button>
+                </td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td colspan="5" class="options-header">Extra Settings</td>
+            </tr>
+            <tr class="spacer-row"><td colspan="5"></td></tr>
+            <tr>
+                <td colspan="5">
+                    <button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">
+                        Shift-Click to Toggle Tooltips: <span :class="options.forceTooltips ? 'on' : 'off'">{{ options.forceTooltips ? "ON" : "OFF" }}</span>
+                    </button>
+                </td>
+            </tr>
+            <tr></tr>
+            <tr>
+                <td colspan="5" class="options-header">Hotkeys</td>
             </tr>
             <tr>
-                <td><button class="opt" onclick="switchTheme()">Theme: {{ getThemeName() }}</button></td>
-                <td><button class="opt" onclick="adjustMSDisp()">Show Milestones: {{ MS_DISPLAYS[MS_SETTINGS.indexOf(options.msDisplay)]}}</button></td>
-                <td><button class="opt" onclick="toggleOpt('hqTree')">High-Quality Tree: {{ options.hqTree?"ON":"OFF" }}</button></td>
+                <td colspan="5">
+                    <div class="hotkey-section">
+                        <span v-for="key in hotkeys" v-if="player[key.layer].unlocked && tmp[key.layer].hotkeys[key.id].unlocked">
+                            <br>{{key.description}}
+                        </span>
+                    </div>
+                </td>
             </tr>
-            <tr>
-                <td><button class="opt" onclick="toggleOpt('hideChallenges')">Completed Challenges: {{ options.hideChallenges?"HIDDEN":"SHOWN" }}</button></td>
-                <td><button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">Single-Tab Mode: {{ options.forceOneTab?"ALWAYS":"AUTO" }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">Shift-Click to Toggle Tooltips: {{ options.forceTooltips?"ON":"OFF" }}</button></td>
-				</tr> 
-			<tr>
-				<td><button class="opt" onclick="toggleOpt('RocketMilestonePopup'); needsCanvasUpdate = true">Rocket Milestone Popups: {{ options.RocketMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('AstronautMilestonePopup'); needsCanvasUpdate = true">Astronaut Milestone Popups: {{ options.AstronautMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
-				<td><button class="opt" onclick="toggleOpt('ComAstMilestonePopup'); needsCanvasUpdate = true">Comet & Asteroid Milestone Popups: {{ options.ComAstMilestonePopup?"ENABLED":"DISABLED" }}</button></td>
-				</tr> 
-        </table>`
-	},
+            <tr class="spacer-row"><td colspan="5" style="height: 50px;"></td></tr> <!-- Extra space at bottom -->
+        </table>
+    `
+},
+
+
+
+
+
+
 
 	'back-button': {
 		template: `

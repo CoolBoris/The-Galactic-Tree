@@ -1,6 +1,6 @@
 addLayer("s", {
     name: "Space", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "🌌", // This appears on the layer's node. Default is the id with the first letter capitalized
+    symbol: "", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     row: 3,
     startData() {
@@ -9,14 +9,26 @@ addLayer("s", {
             points: new Decimal(0),
         }
     },
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "🌌"
+        else symbol = "S"
+        return symbol
+    },
+    milestonePopups(){
+        let popup = true
+        if (options.SpaceMilestonePopup == true) popup = true;
+        else popup = false
+        return popup
+    },
     doReset(reset) {
         let keep = [];
-        if (hasMilestone("stars", 1) &&  !inChallenge("x", 11)) keep.push("upgrades")
-        if (hasMilestone("stars", 1) && !inChallenge("x", 11)) keep.push("points")
-        if (hasMilestone("stars", 1) && !inChallenge("x", 11)) keep.push("milestones")
-        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("upgrades")
-        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("points")
-        if (hasMilestone("jupiter", 1) && !inChallenge("x", 11)) keep.push("milestones")
+        if (hasMilestone("stars", 1)) keep.push("upgrades")
+        if (hasMilestone("stars", 1)) keep.push("points")
+        if (hasMilestone("stars", 1)) keep.push("milestones")
+        if (hasMilestone("jupiter", 1)) keep.push("upgrades")
+        if (hasMilestone("jupiter", 1)) keep.push("points")
+        if (hasMilestone("jupiter", 1)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
 
@@ -46,7 +58,7 @@ addLayer("s", {
     layerShown() {
         let visible = false
         if (hasMilestone('ro', 15) || player.s.unlocked) visible = true
-        if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge('x', 11)) visible = false
         return visible
     },
     branches: ["ro", "as", "r"],
@@ -81,10 +93,6 @@ addLayer("s", {
         },
         "Main": {
             content: [
-                ["display-text",
-                    'Chapter 1: Space!', { "color": "MediumOrchid", "font-size": "32px", "text-shadow": "0px 0px 20px #AD6F69" }],
-                "blank",
-                "blank",
                 "main-display",
                 "resource-display",
                 "blank",

@@ -1,6 +1,6 @@
 addLayer("sun", {
     position: 2, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 23,
+    row: 10,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -379,7 +379,7 @@ main: {
 
 addLayer("mercury", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 22,
+    row: 9,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -531,7 +531,7 @@ buyables: {
 
 addLayer("mars", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 23,
+    row: 10,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -684,7 +684,7 @@ upgrades: {
 
 addLayer("venus", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 22,
+    row: 9,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -850,7 +850,7 @@ upgrades: {
 
 addLayer("earth", {
     position: 3, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 24,
+    row: 11,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -1095,7 +1095,7 @@ tabFormat: {
 
 addLayer("neptune", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 24,
+    row: 11,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -1287,7 +1287,7 @@ upgrades: {
 
 addLayer("uranus", {
     position: 3, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 23,
+    row: 10,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -1518,7 +1518,7 @@ upgrades: {
 
 addLayer("saturn", {
     position: 2, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 24,
+    row: 11,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -1786,7 +1786,7 @@ unlocked() {return (hasMilestone("saturn", 5))},
 
 addLayer("jupiter", {
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
-    row: 22,
+    row: 9,
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
