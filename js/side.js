@@ -534,7 +534,7 @@ addLayer("a", {
         },
         96: {
             name: "Insane Gain",
-            done() {return hasUpgrade("unstablefuel", 53)},
+            done() {return hasUpgrade("unstablefuel", 63)},
             tooltip: "Unstable Rocket Fuel Upgrade 28",
             goalTooltip: "Get Unstable Rocket Fuel Upgrade 28", // Shows when achievement is not completed
             onComplete() { addPoints("a", 1) }
@@ -804,9 +804,9 @@ addLayer("sa", {
         46: {
             name: "R2 Mega Endgame",
             done() { return player.darkmatter.points.gte(1e20) },
-            tooltip: "You definitely beat Reality I now..",
+            tooltip: "You definitely beat Reality II now..",
             onComplete() { addPoints("sa", 1) },
-            goalTooltip: "1e366 Money (changes every update)", // Shows when achievement is not completed
+            goalTooltip: "1e20 Darkmatter (changes every update)", // Shows when achievement is not completed
         },
     },
 },)

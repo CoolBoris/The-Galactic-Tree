@@ -164,7 +164,7 @@ addLayer("galaxy", {
     },
 
     hotkeys: [
-        {key: "G", description: "G: Press for Galaxy Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "g", description: "G: Press for Galaxy Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
 
     effect() {
@@ -228,7 +228,7 @@ addLayer("galaxy", {
             },
             3: {
                 requirementDescription: "Sombrero Galaxy (10)",
-                effectDescription: "Unlock Dark Matter & Harcaps Galaxies",
+                effectDescription: "Unlock Dark Matter & Hardcaps Galaxies",
                 unlocked() {return hasMilestone("galaxy", 2)},
                 done() {return player.galaxy.points.gte(10)}
             },

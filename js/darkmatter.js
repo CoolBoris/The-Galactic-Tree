@@ -46,7 +46,7 @@ addLayer("darkmatter", {
         return exp
     },
     hotkeys: [
-        {key: "D", description: "D: Press for Dark Matter Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "d", description: "D: Press for Dark Matter Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     tabFormat: {
     "Main": {

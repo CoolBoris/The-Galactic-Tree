@@ -26,9 +26,9 @@ addLayer("s", {
         if (hasMilestone("stars", 1)) keep.push("upgrades")
         if (hasMilestone("stars", 1)) keep.push("points")
         if (hasMilestone("stars", 1)) keep.push("milestones")
-        if (hasMilestone("jupiter", 1)) keep.push("upgrades")
-        if (hasMilestone("jupiter", 1)) keep.push("points")
-        if (hasMilestone("jupiter", 1)) keep.push("milestones")
+        if (hasMilestone("x", 1)) keep.push("upgrades")
+        if (hasMilestone("x", 1)) keep.push("points")
+        if (hasMilestone("x", 1)) keep.push("milestones")
         if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
 

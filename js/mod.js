@@ -156,7 +156,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.0",
+	num: "2.0.1",
 	name: "Fracture",
 }
 
@@ -164,6 +164,11 @@ let changelog =
 `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
+
+		<h2 style="color:Violet;">v2.0.1</h2><br>
+		- Bug Fixes<br>
+		- Minor Reality II Changes<br>
+		<br>
 		<h2 style="color:#ff3200;">v2.0 </h2><br>
 		- Fracture<br>
 		- Second Reality<br>

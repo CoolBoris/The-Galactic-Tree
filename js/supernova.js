@@ -120,7 +120,7 @@ addLayer("supernova", {
     },
 
     hotkeys: [
-        {key: "U", description: "U: Press for Supernova Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "u", description: "U: Press for Supernova Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
 
     effect() {

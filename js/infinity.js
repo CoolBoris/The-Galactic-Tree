@@ -55,7 +55,7 @@ infoboxes: {
         body() { return "Infinity resets <b>EVERYTHING</b>, even Space, but it keeps The Sun and The Solar System. Infinity is not required to progress, you've basically beat the game. Infinity is just a way to replay the game, but it will make the game easier in the future!"},
     },
     },
- branches: ["supernova"], 
+ branches: ["supernova", "x"], 
  row: 6, // Row the layer is in on the tree (0 is the first row)
      color: "#e73c7e",
     requires: new Decimal(1e28), // Can be a function that takes requirement increases into account
