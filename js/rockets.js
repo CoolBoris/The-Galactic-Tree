@@ -343,7 +343,7 @@ addLayer("ro", {
             title: "Rocket Market Deluxe",
             description: "Money gain is greatly increased based on Rockets",
             cost: new Decimal(30),
-            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasUpgrade("x", 22)  && ! (inChallenge("x", 11)))},
+            unlocked() { return (hasUpgrade(this.layer, 21)) && (hasUpgrade("x", 22))},
             effect() {
                 return player.ro.points.add(1).pow(4)
             },
@@ -353,7 +353,7 @@ addLayer("ro", {
             title: "Buy the Rocket Market",
             description: "Money gain is greatly increased based on X",
             cost: new Decimal(46),
-            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasUpgrade("x", 22) && ! (inChallenge("x", 11)))},
+            unlocked() { return (hasUpgrade(this.layer, 22)) && (hasUpgrade("x", 22))},
             effect() {
                 return player.x.points.add(1).pow(35)
             },
