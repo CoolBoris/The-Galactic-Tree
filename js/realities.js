@@ -58,7 +58,7 @@ addLayer("real", {
             challengeDescription: "Reality cracks, Fractured.<br>",
             goalDescription: "???",
             rewardDescription: "???",
-            onEnter() { player.points = new Decimal(0) },
+            onEnter() { player.points = new Decimal(10) },
             style() {
                 return {
                     "width": "450px",
