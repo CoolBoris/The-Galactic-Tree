@@ -602,7 +602,7 @@ addLayer("a", {
         106: {
             name: "Green Win",
             done() {
-                if (player.blackhole.betColor == "GREEN" && player.blackhole.rolledColor == "GREEN") return true
+                if (player.blackhole.betColor == "GREEN" && player.blackhole.rolledColor == "GREEN" && player.blackhole.totalRolls >= 1) return true
             },
             tooltip: "Win with Green",
             goalTooltip: "Bet on green and win.", // Shows when achievement is not completed

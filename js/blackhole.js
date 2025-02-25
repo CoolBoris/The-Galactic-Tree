@@ -650,7 +650,7 @@ addLayer("blackhole", {
                     onClick() {
                        if (player.blackhole.betAmount == 1) player.blackhole.betAmount = 0.001
                        if (player.blackhole.betAmount == 0.5) player.blackhole.betAmount = 1
-                       if (player.blackhole.betAmount == 0.25) player.blackhole.betAmount = 0.5
+                       if (player.blackhole.betAmount == 0.1) player.blackhole.betAmount = 0.5
                        if (player.blackhole.betAmount == 0.05) player.blackhole.betAmount = 0.1
                        if (player.blackhole.betAmount == 0.01) player.blackhole.betAmount = 0.05
                        if (player.blackhole.betAmount == 0.001) player.blackhole.betAmount = 0.01

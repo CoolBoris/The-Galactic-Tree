@@ -604,7 +604,7 @@ addLayer("galaxy", {
             },
             65: {
                 title: "Milestone",
-                description: "Unlock Unstable Milestone XVII",
+                description: "Unlock Unstable Milestone XVIII",
                 cost: new Decimal(20000),
                 currencyDisplayName: "Cosmic Rays",
                 currencyLocation() { return player.cosmicrays },

@@ -1,6 +1,5 @@
 addLayer("darkmatter", {
     name: "Dark Matter", // This is optional, only used in a few places, If absent it just uses the layer id.
-    symbol: "⚫", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 2, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     row: 1,
     branches: ["galaxy", "unstablefuel"],
@@ -17,6 +16,12 @@ addLayer("darkmatter", {
         if (! inChallenge("real", 11)) keep.push("milestones")
         if (! inChallenge("real", 11)) keep.push("buyables")
         if (layers[reset].row > this.row) layerDataReset("darkmatter", keep)
+    },
+
+    symbol(){
+        if (options.emojisEnabled == true) symbol = "⚫"
+        else symbol = "DM"
+        return symbol
     },
 
     automate() {
@@ -50,11 +55,6 @@ addLayer("darkmatter", {
         return 0
     },
 
-    symbol(){
-        if (options.emojisEnabled == true) symbol = "⚫"
-        else symbol = "DM"
-        return symbol
-    },
     layerShown(){
         let visible = false
         if (inChallenge('real', 11) && hasMilestone("galaxy", 3) || inChallenge('real', 11) && player.supernova.points.gte(1)) visible = true

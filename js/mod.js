@@ -120,8 +120,8 @@ function getPointGen() {
 
 
 	// Inf Reality II
-	if (hasMilestone('negativeinf', 1)) gain = gain.times(3)
-	if (hasMilestone('negativeinf', 6)) gain = gain.times(2)
+	if (hasMilestone('negativeinf', 1) && inChallenge("real", 11)) gain = gain.times(3)
+	if (hasMilestone('negativeinf', 6) && inChallenge("real", 11)) gain = gain.times(2)
 
 
 	return gain
@@ -175,7 +175,9 @@ let changelog =
 `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
-
+		<h2 style="color:Violet;">v2.1.1</h2><br>
+		- Bug Fixes<br>
+		<br>
 		<h2 style="color:DeepPink;">v2.1</h2><br>
 		- Void Roulette<br>
 		- Black Hole<br>
