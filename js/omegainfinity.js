@@ -17,6 +17,7 @@ addLayer("omegainf", {
         let visible = false
         if (player.megainf.points.gte(10) || player.omegainf.unlocked) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('x', 11)) visible = false
        return visible
      },
      nodeStyle() {return {
@@ -24,6 +25,15 @@ addLayer("omegainf", {
         "width": "175px",
         "height": "175px",
 }
+},
+doReset(reset) {
+    let keep = [];
+    if ( inChallenge("real", 11)) keep.push("upgrades")
+    if ( inChallenge("real", 11)) keep.push("points")
+    if ( inChallenge("real", 11)) keep.push("milestones")
+    if ( inChallenge("real", 11)) keep.push("buyables")
+    if ( inChallenge("real", 11)) keep.push("challenges")
+    if (layers[reset].row > this.row) layerDataReset("omegainf", keep)
 },
 componentStyles: {
     "prestige-button"() {return { "background": "radial-gradient( #FF5100, #FF0093)",

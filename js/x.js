@@ -36,6 +36,15 @@ addLayer("xpo", {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("xpo", keep)
+    },
 })
 
 addLayer("xge", {
@@ -73,6 +82,15 @@ addLayer("xge", {
         let generation = (base1.times(base2))
         if (hasMilestone('x', 1)) generation
         return generation
+    },
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("xge", keep)
     },
 })
 addLayer("xla", {
@@ -113,6 +131,15 @@ addLayer("xla", {
         let generation = (base1.times(base2))
         if (hasMilestone('x', 1)) generation
         return generation
+    },
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("xla", keep)
     },
 })
 
@@ -249,7 +276,8 @@ addLayer("x", {
         let visible = false
         if (hasChallenge('planets', 11)) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
-        if (inChallenge("x", 11)) visible = false
+        if (inChallenge("real", 11)) visible = false
+
         return visible
     },
     hotkeys: [
@@ -276,13 +304,19 @@ addLayer("x", {
         if (player.x.points.gte(3)) mult = mult.times(-1e99999999999999)
         return mult
     },
+
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("x", keep)
+    },
     tabFormat: {
         "Main": {
             content: [
-                ["display-text",
-                    'Chapter 2: Outer Space!', { "color": "#A1004C", "font-size": "32px", "text-shadow": "0px 0px 20px #A1004C" }],
-                "blank",
-                "blank",
                 "main-display",
                 "blank",
                 "prestige-button",
@@ -371,17 +405,28 @@ addLayer("x", {
             ],
             unlocked() { return player.x.points.gte(1) }
         },
-        "Fracture": {
+        "Fracture fix": {
             content: [
                 "main-display",
                 "blank",
                 "challenges",
+                ["infobox", "fracture"],
             ],
-            unlocked() { return player.x.points.gte(3)}
+           unlocked() { return (inChallenge("x", 12))},
+           buttonStyle() { return {"border-color": "red", width: "150px"} },
         },
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
+    },
+    challenges: {
+        11: {
+            name: "Fix Fracture",
+            canComplete: function () { return player.points.gte("1e30000000") },
+            challengeDescription: "read infobox<br>",
+            goalDescription: "???",
+            rewardDescription: "???",
+        },
     },
     infoboxes: {
         main: {
@@ -392,6 +437,10 @@ addLayer("x", {
             title: "Respec Info",
             body() { return "The Respec button is really dangerous! it will do an 'X' reset and it will also reset some features of X!" },
         },
+        fracture: {
+            title: "Fracture fix info",
+            body() { return "Since the Fracture challenge has moved to the 'Realities' tab, you need to exit this first. i dont know if this does anything but you should leave for sure.<br>When you leave you might get a message saying something like invalid points bla bla.. Ignore this and just try to enter reality II. i dont know why and how this happens but if you keep trying this will work." },
+        },
     },
     milestones: {
         1: {
@@ -401,7 +450,7 @@ addLayer("x", {
         },
         2: {
             requirementDescription: "X-STB",
-            effectDescription: "Bulk buy Stars",
+            effectDescription: "Bulk buy Planets",
             done() { return player.x.points.gte(1) },
         },
         3: {
@@ -412,41 +461,21 @@ addLayer("x", {
         },
         4: {
             requirementDescription: "XX-PL4",
-            effectDescription: "Bulk buy Planets",
+            effectDescription: "Bulk buy Stars",
             unlocked() { return (hasMilestone("x", 1)) },
             done() { return player.x.points.gte(2) },
         },
         5: {
             requirementDescription: "XXX-ULT",
-            effectDescription: "Unlock Fracture",
+            effectDescription: "Unlock Fracture (side)",
             unlocked() { return (hasMilestone("x", 3)) },
             done() { return player.x.points.gte(3)},
         },
-    },
-    challenges: {
-        11: {
-            name: "Fracture",
-            canComplete: function () { return player.sun.points.gte("1e53100") },
-            challengeDescription: "Reality cracks, Fractured.<br>",
-            goalDescription: "???",
-            rewardDescription: "???",
-            style() {
-                return {
-                    "width": "450px",
-                    "height": "450px",
-                    "color": "#7f05a8", // Bright pink for better pop
-                    "text-shadow": "0 0 15px #5c05a8, 0 0 30px #7f05a8, 0 0 45px #24115c", // Multilayer glow effect
-                    "font-size": "30px", // Slightly larger text
-                    "line-height": "1.2", // Better text spacing
-                    "background": "#0F2027",
-                    "border": "5px solid #194859", // Border to define the container
-                    "border-radius": "12px", // Rounded corners
-                    "box-shadow": "0px 20px 60px rgba(0, 0, 0, 0.7)", // Subtle shadow for depth
-                    "align-items": "center",
-                    "justify-content": "center",
-                    "animation": "borderAnimation 3s infinite alternate", // Adding border animation
-                }
-            }
+        6: {
+            requirementDescription: "XXX-INF",
+            effectDescription: "Unlock Infinity",
+            unlocked() { return (hasMilestone("x", 3)) },
+            done() { return player.x.points.gte(3)},
         },
     },
     buyables: {

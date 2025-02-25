@@ -22,12 +22,12 @@ addLayer("ro", {
         let visible = false
         if (hasUpgrade('r', 25) || player.ro.unlocked) visible = true
         if (inChallenge('c', 13) || (inChallenge("ast", 13))) visible = false
-        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("x", 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("real", 11)) visible = false
        return visible
      },
      canBuyMax(){
         let buyMaxRockets = false
-        if (inChallenge('x', 11)) buyMaxRockets = false
+        if (inChallenge('real', 11)) buyMaxRockets = false
 
         if (hasMilestone("ro", 7) || hasMilestone("stars", 2)) buyMaxRockets = true
        return buyMaxRockets
@@ -35,8 +35,11 @@ addLayer("ro", {
      doReset(reset) {
         let keep = [];
         if (hasMilestone("c", 3)) keep.push("upgrades");
-        if (hasMilestone("x", 1) && !inChallenge("x", 11)) {
-            keep.push("milestones");
+        if (hasMilestone("x", 1) && !inChallenge("real", 11)) {
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
         }
         if (layers[reset].row > this.row) {
             layerDataReset("ro", keep);
@@ -44,7 +47,7 @@ addLayer("ro", {
     },
     
     autoUpgrade() {
-        if (inChallenge('x', 11)) return false
+        if (inChallenge('real', 11)) return false
 
         if (hasMilestone("stars", 3)) return true
         if (hasMilestone("omegainf", 3)) return true
@@ -70,14 +73,14 @@ addLayer("ro", {
         let mult = new Decimal(1)
         if (hasUpgrade('ro', 11)) mult = mult.divide(upgradeEffect('ro', 11))
         if (hasUpgrade('ro', 21)) mult = mult.divide(upgradeEffect('ro', 21))
-        if (hasUpgrade('s', 13) && ! inChallenge("x", 11)) mult = mult.divide(3)
-        if (hasUpgrade('s', 23) && ! inChallenge("x", 11)) mult = mult.divide(5)
-        if (hasUpgrade('s', 33) && ! inChallenge("x", 11)) mult = mult.divide(10)
-        if (hasUpgrade('s', 43) && ! inChallenge("x", 11)) mult = mult.divide(25)
+        if (hasUpgrade('s', 13) && ! inChallenge("real", 11)) mult = mult.divide(3)
+        if (hasUpgrade('s', 23) && ! inChallenge("real", 11)) mult = mult.divide(5)
+        if (hasUpgrade('s', 33) && ! inChallenge("real", 11)) mult = mult.divide(10)
+        if (hasUpgrade('s', 43) && ! inChallenge("real", 11)) mult = mult.divide(25)
         if (hasMilestone('c', 1)) mult = mult.divide(5)
         if (hasUpgrade('as', 14)) mult = mult.divide(upgradeEffect('as', 14))
         if (hasUpgrade('as', 24)) mult = mult.divide(upgradeEffect('as', 24))
-        if (hasUpgrade('s', 51) && ! inChallenge("x", 11)) mult = mult.divide(100)
+        if (hasUpgrade('s', 51) && ! inChallenge("real", 11)) mult = mult.divide(100)
         if (hasUpgrade('c', 13)) mult = mult.divide(upgradeEffect('c', 13))
         if (hasUpgrade('c', 14)) mult = mult.divide(10)
         if (hasUpgrade('c', 22)) mult = mult.divide(upgradeEffect('c', 22))
@@ -86,14 +89,16 @@ addLayer("ro", {
         if (hasUpgrade('stars', 13)) mult = mult.divide(upgradeEffect('stars', 13))
         if (hasUpgrade('planets', 13)) mult = mult.divide(upgradeEffect('planets', 13))
         if (hasUpgrade('r', 55)) mult = mult.divide(upgradeEffect('r', 55))
-        if (hasUpgrade('x', 23) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 23))
-        if (hasMilestone('s', 16) && ! inChallenge("x", 11)) mult = mult.divide(1e12)
-        if (hasUpgrade('x', 25) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 25))
-        if (hasUpgrade('x', 31) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 31))
-        if (hasUpgrade('x', 32) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 32))
-        if (hasUpgrade('x', 33) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 33))
-        if (hasUpgrade('x', 34) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 34))
-        if (hasUpgrade('x', 35) && ! inChallenge("x", 11)) mult = mult.divide(upgradeEffect('x', 35))
+        if (hasUpgrade('x', 23) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 23))
+        if (hasMilestone('s', 16) && ! inChallenge("real", 11)) mult = mult.divide(1e12)
+        if (hasUpgrade('x', 25) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 25))
+        if (hasUpgrade('x', 31) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 31))
+        if (hasUpgrade('x', 32) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 32))
+        if (hasUpgrade('x', 33) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 33))
+        if (hasUpgrade('x', 34) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 34))
+        if (hasUpgrade('x', 35) && ! inChallenge("real", 11)) mult = mult.divide(upgradeEffect('x', 35))
+        if (hasMilestone('s', 16) && ! inChallenge("real", 11)) mult = mult.divide(1e29)
+
 
         // Inf
 	    if (hasMilestone('inf', 5)) mult = mult.divide(3)
@@ -358,7 +363,7 @@ addLayer("ro", {
     infoboxes: {
         main: {
             title: "Introducing: Rockets",
-            body() { return "Oh wow! a new feature already? This reset layer is a little bit different, instead of Money it costs Rocket Fuel and it will reset all progress you have made so far. The price of Rockets increase each Rocket. To see what benefits you get from Rockets, go to the 'Milestones' tab at the top" },
+            body() { return "Oh wow! A new feature already? This reset layer is a little bit different, instead of Money it costs Rocket Fuel and it will reset all progress you have made so far. The price of Rockets increase each Rocket. To see what benefits you get from Rockets, go to the 'Milestones' tab at the top" },
         },
     }
   })

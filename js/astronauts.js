@@ -21,11 +21,11 @@ addLayer("as", {
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 8) || player.as.unlocked) visible = true
-        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("x", 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("real", 11)) visible = false
        return visible
      },
      passiveGeneration() {
-        if (inChallenge('x', 11)) return 0
+        if (inChallenge('real', 11)) return 0
         if (inChallenge("stars", 11) || inChallenge("planets", 11)) return 0
         if (hasMilestone('s', 10)) return 1
         if (hasMilestone('ast', 4)) return 0.5
@@ -36,10 +36,14 @@ addLayer("as", {
     doReset(reset) {
         let keep = [];
         if (hasMilestone("ast", 3)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
         if (layers[reset].row > this.row) layerDataReset("as", keep)
     },
     autoUpgrade() {
-        if (inChallenge('x', 11)) return false
+        if (inChallenge('real', 11)) return false
         
         if (hasMilestone("stars", 5)) return true
         if (hasMilestone("omegainf", 4)) return true
@@ -60,19 +64,19 @@ addLayer("as", {
         if (hasMilestone('ro', 12)) mult = mult.times(2)
         if (hasMilestone('ro', 17)) mult = mult.times(2)
         if (hasMilestone('ro', 19)) mult = mult.times(3)
-        if (hasMilestone('s', 2) && ! inChallenge("x", 11)) mult = mult.times(2)
+        if (hasMilestone('s', 2) && ! inChallenge("real", 11)) mult = mult.times(2)
         if (hasUpgrade('ro', 14)) mult = mult.times(upgradeEffect('ro', 14))
-        if (hasUpgrade('s', 14)  && ! inChallenge("x", 11)) mult = mult.times(2)
-        if (hasUpgrade('s', 24) && ! inChallenge("x", 11)) mult = mult.times(4)
-        if (hasUpgrade('s', 34) && ! inChallenge("x", 11)) mult = mult.times(10)
-        if (hasUpgrade('s', 43) && ! inChallenge("x", 11)) mult = mult.times(25)
-        if (hasMilestone('s', 2) && ! inChallenge("x", 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 14)  && ! inChallenge("real", 11)) mult = mult.times(2)
+        if (hasUpgrade('s', 24) && ! inChallenge("real", 11)) mult = mult.times(4)
+        if (hasUpgrade('s', 34) && ! inChallenge("real", 11)) mult = mult.times(10)
+        if (hasUpgrade('s', 43) && ! inChallenge("real", 11)) mult = mult.times(25)
+        if (hasMilestone('s', 2) && ! inChallenge("real", 11)) mult = mult.times(5)
         if (hasUpgrade('as', 12)) mult = mult.times(3)
         if (hasUpgrade('as', 13)) mult = mult.times(5)
         if (hasUpgrade('as', 14)) mult = mult.times(3)
         if (hasUpgrade('as', 22)) mult = mult.times(5)
         if (hasUpgrade('as', 23)) mult = mult.times(8)
-        if (hasUpgrade('s', 51) && ! inChallenge("x", 11)) mult = mult.times(75)
+        if (hasUpgrade('s', 51) && ! inChallenge("real", 11)) mult = mult.times(75)
         if (hasUpgrade('ast', 11)) mult = mult.times(5) 
         if (hasUpgrade('ast', 13)) mult = mult.times(upgradeEffect('ast', 13))
         if (hasUpgrade('ast', 14)) mult = mult.times(10)
@@ -80,9 +84,7 @@ addLayer("as", {
         if (hasUpgrade('ast', 24)) mult = mult.times(100)
         if (hasUpgrade('stars', 14)) mult = mult.times(upgradeEffect('stars', 14))
         if (hasUpgrade('planets', 14)) mult = mult.times(upgradeEffect('planets', 14))
-        if (hasMilestone('s', 14) && ! inChallenge("x", 11)) mult = mult.times(1e6)
-        if (hasUpgrade('boosts', 13) && inChallenge("x", 11)) mult = mult.times(10)
-
+        if (hasMilestone('s', 14) && ! inChallenge("real", 11)) mult = mult.times(1e6)
 
         // Inf
 	    if (hasMilestone('inf', 7)) mult = mult.times(3)
@@ -249,7 +251,7 @@ addLayer("as", {
 infoboxes: {
     main: {
         title: "Introducing: Astronauts",
-        body() { return "This layer is nothing new, it's the same as Rocket Fuel. Astronauts also use Rocket Fuel instead of Money." },
+        body() { return "This layer is nothing new, it's the same as Rocket Fuel. Astronauts also use  Rocket Fuel instead of Money." },
     },
 }
 })

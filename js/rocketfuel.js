@@ -15,11 +15,11 @@ addLayer("r", {
     layerShown(){
         let visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
-        if (inChallenge('x', 11)) visible = false
+        if (inChallenge('real', 11)) visible = false
        return visible
      },
     passiveGeneration() {
-        if (inChallenge('x', 11)) return 0
+        if (inChallenge('real', 11)) return 0
         if (hasMilestone('s', 11)) return 10
         if (hasMilestone('s', 8)) return 5
         if (hasMilestone('ro', 14)) return 2.5
@@ -33,10 +33,14 @@ addLayer("r", {
     doReset(reset) {
         let keep = [];
         if (hasMilestone("as", 2) ) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
         if (layers[reset].row > this.row) layerDataReset("r", keep)
     },
     autoUpgrade() {
-        if (inChallenge('x', 11)) return false
+        if (inChallenge('real', 11)) return false
         if (inChallenge("stars", 11) || inChallenge("planets", 11)) return false
         if (hasMilestone("stars", 4)) return true
         if (hasMilestone("omegainf", 2)) return true
@@ -68,27 +72,27 @@ addLayer("r", {
         if (hasUpgrade('r', 43)) mult = mult.times(1.1)
         if (hasUpgrade('r', 44)) mult = mult.times(1.01)
         if (hasUpgrade('r', 45)) mult = mult.times(upgradeEffect('r', 45))
-        if (hasUpgrade('s', 12) && ! inChallenge("x", 11)) mult = mult.times(5)
-        if (hasUpgrade('s', 22) && ! inChallenge("x", 11)) mult = mult.times(10)
-        if (hasUpgrade('s', 32) && ! inChallenge("x", 11)) mult = mult.times(20)
-        if (hasUpgrade('s', 43) && ! inChallenge("x", 11)) mult = mult.times(50)
+        if (hasUpgrade('s', 12) && ! inChallenge("real", 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 22) && ! inChallenge("real", 11)) mult = mult.times(10)
+        if (hasUpgrade('s', 32) && ! inChallenge("real", 11)) mult = mult.times(20)
+        if (hasUpgrade('s', 43) && ! inChallenge("real", 11)) mult = mult.times(50)
         if (hasUpgrade('as', 11)) mult = mult.times(2)
         if (hasUpgrade('as', 13)) mult = mult.times(5)
         if (hasUpgrade('as', 25)) mult = mult.times(10)
-        if (hasUpgrade('s', 51) && ! inChallenge("x", 11)) mult = mult.times(200)
+        if (hasUpgrade('s', 51) && ! inChallenge("real", 11)) mult = mult.times(200)
         if (hasUpgrade('c', 12)) mult = mult.times(10)
         if (hasUpgrade('ast', 12)) mult = mult.times(10)
         if (hasUpgrade('stars', 12)) mult = mult.times(upgradeEffect('stars', 12))
         if (hasUpgrade('planets', 12)) mult = mult.times(upgradeEffect('planets', 12))
-        if (hasUpgrade('x', 11) && ! inChallenge("x", 11)) mult = mult.times(upgradeEffect('x', 11))
+        if (hasUpgrade('x', 11) && ! inChallenge("real", 11)) mult = mult.times(upgradeEffect('x', 11))
         if (hasUpgrade('r', 52)) mult = mult.times(1e6)
         if (hasUpgrade('r', 54)) mult = mult.times(1e10)
-        if (hasUpgrade('boosts', 11) && inChallenge("x", 11)) mult = mult.times(3)
-        if (hasUpgrade('boosts', 12) && inChallenge("x", 11)) mult = mult.times(3)
+        if (hasUpgrade('boosts', 11) && inChallenge("real", 11)) mult = mult.times(3)
+        if (hasUpgrade('boosts', 12) && inChallenge("real", 11)) mult = mult.times(3)
         if (hasUpgrade('as', 31)) mult = mult.times(10000)
         if (hasUpgrade('as', 32)) mult = mult.times(100)
-        if (hasUpgrade('boosts', 21) && inChallenge("x", 11)) mult = mult.times(10)
-        if (hasUpgrade('boosts', 31) && inChallenge("x", 11)) mult = mult.times(10)
+        if (hasUpgrade('boosts', 21) && inChallenge("real", 11)) mult = mult.times(10)
+        if (hasUpgrade('boosts', 31) && inChallenge("real", 11)) mult = mult.times(10)
 
         // Inf
 	    if (hasMilestone('inf', 3)) mult = mult.times(3)
@@ -329,11 +333,11 @@ addLayer("r", {
     infoboxes: {
         main: {
             title: "Welcome!",
-            body() { return "<b>Welcome to The Galactic Tree</b>.<br>What you are reading right now is called an infobox. these will help you through out the game. To start playing, read the infobox below me and click on 'Upgrades' at the top" },
+            body() { return "<b>Welcome to The Galactic Tree</b>.<br>What you are reading right now is called an infobox. these will help you throughout the game. To start playing, read the infobox below me and click on 'Upgrades' at the top" },
         },
         main2: {
             title: "Introducing: Rocket Fuel", 
-            body() { return "Welcome to Chapter 0! At this stage, it's fairly simple, just click the red button and you will earn Rocket Fuel. you can spend Rocket Fuel on upgrades. Try getting 500 Rocket Fuel!" },
+            body() { return "Welcome to Chapter 0! At this stage, it's fairly simple, just click the red button and you will earn Rocket Fuel. You can spend Rocket Fuel on upgrades. Try getting 500 Rocket Fuel!" },
         },
     }
 })

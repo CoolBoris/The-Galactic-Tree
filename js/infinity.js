@@ -15,9 +15,10 @@ addLayer("inf", {
     }},
     layerShown(){
         let visible = false
-        if (hasMilestone("unstablefuel", 14) || player.inf.unlocked) visible = true
-        if (player.inf.unlocked) visible = true
+        if (hasMilestone("x", 6) || player.inf.unlocked) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
+        if (inChallenge('real', 11)) visible = false
+
        return visible
      },
      nodeStyle() {return {
@@ -49,19 +50,20 @@ tabFormat: {
      ],
  },
 },
+
 infoboxes: {
     main: {
         title: "Introducing: Infinity",
-        body() { return "Infinity resets <b>EVERYTHING</b>, even Space, but it keeps The Sun and The Solar System. Infinity is not required to progress, you've basically beat the game. Infinity is just a way to replay the game, but it will make the game easier in the future!"},
+        body() { return "Infinity resets <b>EVERYTHING from Reality I</b>, even Space, but it keeps The Sun and The Solar System. Infinity is not required to progress, you've basically beaten Reality I. Infinity is just a way to replay the game, but it will make the game easier."},
     },
     },
- branches: ["supernova", "x"], 
+ branches: ["x"], 
  row: 6, // Row the layer is in on the tree (0 is the first row)
      color: "#e73c7e",
-    requires: new Decimal(1e28), // Can be a function that takes requirement increases into account
+    requires: new Decimal("1.79e308"), // Can be a function that takes requirement increases into account
     resource: "Infinities", // Name of prestige currency
-    baseResource: "Unstable Rocket Fuel", // Name of resource prestige is based on
-    baseAmount() {return player.unstablefuel.points}, // Get the current amount of baseResource
+    baseResource: "Money", // Name of resource prestige is based on
+    baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.0000001, // Prestige currency exponent
     gainMult() {
@@ -75,6 +77,16 @@ infoboxes: {
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
+    },
+
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("inf", keep)
     },
     hotkeys: [
         {key: "i", description: "I: Press for Infinity Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},

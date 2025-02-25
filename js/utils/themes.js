@@ -7,7 +7,7 @@ var colors = {
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#dfdfdf",
-		points: "#44004d",
+		points: "#9900ac",
 		locked: "#bf8f8f",
 		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
@@ -18,7 +18,7 @@ var colors = {
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#dfdfdf",
-		points: "#44004d",
+		points: "#9900ac",
 		locked: "#bf8f8f",
 		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",
@@ -127,7 +127,7 @@ var colors = {
 		2: "#bfbfbf",//Branch color 2
 		3: "#7f7f7f",//Branch color 3
 		color: "#dfdfdf",
-		points: "#44004d",
+		points: "#9900ac",
 		locked: "#bf8f8f",
 		background: "linear-gradient(45deg, #0f0f0f, #1b072a, #0e0019)",
 		background_tooltip: "rgba(0, 0, 0, 0.75)",

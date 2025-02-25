@@ -9,7 +9,9 @@ let modInfo = {
 		"space.js", "comets.js", "asteroids.js", "stars.js", "planets.js",
 		"clickergame.js", "x.js",
 		"infinity.js", "megainfinity.js", "omegainfinity.js",
-		"unstablerocketfuel.js", "galaxy.js", "darkmatter.js", "supernova.js"
+		"unstablerocketfuel.js", "galaxy.js", "darkmatter.js", 
+		"supernova.js", "blackhole.js",
+		"negative infinity.js", "realities.js",
 	],
 	pointsName: "Money",
 	discordName: "CoolBoris Studio",
@@ -30,12 +32,6 @@ function getStartPoints(){
 function canGenPoints(){
 	return true
 }
-
-function music(){
-["raw-html", options.musicToggle ? "<audio controls autoplay loop hidden><source src=music/chapter2.mp3 type<=audio/mp3>loop=true hidden=false autostart=true</audio>" : ""]
-
-}
-
 
 // Calculate points/sec!
 function getPointGen() {
@@ -59,13 +55,13 @@ function getPointGen() {
 	if (hasUpgrade('ro', 15)) gain = gain.times(upgradeEffect('ro', 15))
 	if (hasMilestone('ro', 10)) gain = gain.times(2)
 	if (hasMilestone('ro', 11)) gain = gain.times(2)
-	if (hasMilestone('s', 1)  && ! inChallenge("x", 11)) gain = gain.times(3)
-	if (hasUpgrade('s', 43)  && ! inChallenge("x", 11)) gain = gain.times(100)
+	if (hasMilestone('s', 1)  && ! inChallenge("real", 11)) gain = gain.times(3)
+	if (hasUpgrade('s', 43)  && ! inChallenge("real", 11)) gain = gain.times(100)
 	if (hasUpgrade('as', 11)) gain = gain.times(5)
 	if (hasUpgrade('as', 12)) gain = gain.times(10)
 	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
 	if (hasUpgrade('as', 25)) gain = gain.times(100)
-	if (hasUpgrade('s', 51)  && ! inChallenge("x", 11)) gain = gain.times(500)
+	if (hasUpgrade('s', 51)  && ! inChallenge("real", 11)) gain = gain.times(500)
 	if (hasUpgrade('ast', 21)) gain = gain.times(upgradeEffect('ast', 21))
 	if (hasUpgrade('c', 21)) gain = gain.times(1000)
 	if (hasUpgrade('ast', 22)) gain = gain.times(1000)
@@ -75,7 +71,7 @@ function getPointGen() {
 	if (hasUpgrade('stars', 11)) gain = gain.times(upgradeEffect('stars', 11))
 	if (hasUpgrade('planets', 11)) gain = gain.times(upgradeEffect('planets', 11))
 	if (hasUpgrade('r', 51)) gain = gain.times(1e9)
-	if (hasUpgrade('x', 21)  && !inChallenge("x", 11)) gain = gain.times(upgradeEffect('x', 21))
+	if (hasUpgrade('x', 21)  && !inChallenge("real", 11)) gain = gain.times(upgradeEffect('x', 21))
 	if (hasUpgrade('ro', 22)) gain = gain.times(upgradeEffect('ro', 22))
 	if (hasMilestone('ro', 21)) gain = gain.times(1e20)
 	
@@ -85,8 +81,14 @@ function getPointGen() {
 	if (inChallenge('c', 14)) gain = gain.pow(0.12)
 	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
 	if (inChallenge('ast', 14)) gain = gain.pow(0.108)
-	if (inChallenge('x', 11)) gain = gain.times(0)
 
+	// Inf Reality I
+	if (hasMilestone('inf', 1)) gain = gain.times(3)
+	if (hasMilestone('megainf', 1)) gain = gain.times(5)
+	if (hasMilestone('megainf', 7)) gain = gain.times(5)
+
+
+	if (inChallenge('real', 11)) gain = new Decimal(0)
 	// Reality II
 	if (hasUpgrade('unstablefuel', 11)) gain = gain.add(1)
 	if (hasUpgrade('unstablefuel', 12)) gain = gain.add(2)
@@ -105,6 +107,11 @@ function getPointGen() {
 	if (hasUpgrade('unstablefuel', 63)) gain = gain.add(upgradeEffect('unstablefuel', 63))
 	if (hasUpgrade('supernova', 22)) gain = gain.add(upgradeEffect('supernova', 22))
 	if (hasUpgrade('supernova', 32)) gain = gain.add(upgradeEffect('supernova', 32))
+	if (hasUpgrade('supernova', 42)) gain = gain.add(upgradeEffect('supernova', 42))
+	if (hasUpgrade('supernova', 52)) gain = gain.add(upgradeEffect('supernova', 52))
+	if (hasUpgrade('unstablefuel', 72)) gain = gain.add(upgradeEffect('unstablefuel', 72))
+	if (hasUpgrade('blackhole', 13)) gain = gain.times(10)
+	if (hasMilestone('unstablefuel', 22)) gain = gain.times(1e12)
 
 
 
@@ -112,14 +119,17 @@ function getPointGen() {
 
 
 
+	// Inf Reality II
+	if (hasMilestone('negativeinf', 1)) gain = gain.times(3)
+	if (hasMilestone('negativeinf', 6)) gain = gain.times(2)
 
-	// Inf
-	if (hasMilestone('inf', 1)) gain = gain.times(3)
-	if (hasMilestone('megainf', 1)) gain = gain.times(5)
-	if (hasMilestone('megainf', 7)) gain = gain.times(5)
+
 	return gain
 
+
 }
+
+
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
 function addedPlayerData() { return {
@@ -127,12 +137,13 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	"Endgame: Unstable Milestone XIV in Reality II",
+	"Endgame: Unstable Milestone XXIII in Reality II",
 ]
+
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.omegainf.points.gte(new Decimal(10))
+	return player.omegainf.points.gte(new Decimal(50))
 	
 }
 
@@ -156,8 +167,8 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.0.1",
-	name: "Fracture",
+	num: "2.1",
+	name: "Darkness",
 }
 
 let changelog =
@@ -165,11 +176,26 @@ let changelog =
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
 
+		<h2 style="color:DeepPink;">v2.1</h2><br>
+		- Void Roulette<br>
+		- Black Hole<br>
+		- Dark Energy<br>
+		- More Supernova Tiers<br>
+		- Negative Infinity<br>
+		- Better Reality Switching<br>
+		- Better Sun & Solar System<br>
+		- Theme Changes<br>
+		- More Achievements<br>
+		- More Secret Achievements<br>
+		- Reality I Changes<br>
+		- Tab Format Changes<br>
+		- Bug Fixes<br>
+		<br>
 		<h2 style="color:Violet;">v2.0.1</h2><br>
 		- Bug Fixes<br>
 		- Minor Reality II Changes<br>
 		<br>
-		<h2 style="color:#ff3200;">v2.0 </h2><br>
+		<h2 style="color:#ff3200;">v2.0</h2><br>
 		- Fracture<br>
 		- Second Reality<br>
 		- Unstable Rocket Fuel<br>
@@ -244,7 +270,7 @@ let changelog =
 		- Endgame changes<br>
 		- Minor bug fixes<br>
 		<br>
-		<h2 style="color:DeepPink;">v0.2.0 </h2><br>
+		<h2 style="color:DeepPink;">v0.2</h2><br>
 		- Secret Achievements<br>
 		- Savebank<br>
 		- Softcaps<br>
@@ -263,7 +289,7 @@ let changelog =
 		- More Space Content<br>
 		- Big Balance Changes<br>
 		<br>
-		<h2 style="color:DeepPink;">v0.1.0 [Beta Release]</h2><br>
+		<h2 style="color:DeepPink;">v0.1 [Beta Release]</h2><br>
 		- Space Layer<br>
 		- ~20 New Upgrades<br>
 		- ~10 New Milestones<br>
@@ -338,7 +364,7 @@ let changelog =
 		- Added Rockets<br>
 		- Added 4 Rocket Upgrades<br>
 		<br>
-	<h2 style="color:Violet;">v0.0.1 [Private Release]</h2><br>
+	<h2 style="color:Violet;">v0.0.1</h2><br>
 		- Added Rocket Fuel<br>
 		<br>
 </changelog>`

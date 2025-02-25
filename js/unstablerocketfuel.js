@@ -3,7 +3,6 @@ addLayer("unstablefuel", {
     symbol: "⛽", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 1, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     row: 0,
-    branches: ["x"],
     startData() { return {
         unlocked: true,
 		points: new Decimal(0),
@@ -16,25 +15,30 @@ addLayer("unstablefuel", {
     },
     layerShown(){
         let visible = false
-        if (inChallenge('x', 11)) visible = true
+        if (inChallenge('real', 11)) visible = true
        return visible
      },
 
      autoUpgrade() {
-        if (hasMilestone("supernova", 4)) return true
+        if (hasMilestone("supernova", 3)) return true
         else return false
     },
 
       doReset(reset) {
         let keep = [];
-        if (inChallenge("x", 11)) keep.push("milestones");
+        if (inChallenge("real", 11)) keep.push("milestones");
+        if (! inChallenge("real", 11)) keep.push("upgrades")
+        if (! inChallenge("real", 11)) keep.push("points")
+        if (! inChallenge("real", 11)) keep.push("milestones")
+        if (! inChallenge("real", 11)) keep.push("buyables")
         if (layers[reset].row > this.row) {
             layerDataReset("unstablefuel", keep);
         }
     },
 
      passiveGeneration() {
-        if (hasMilestone('unstablefuel', 7)) return (getBuyableAmount('darkmatter', 21).add(12)) /100
+        if (! inChallenge("real", 11)) return 0
+        if (hasMilestone('unstablefuel', 7)) return (getBuyableAmount('darkmatter', 21).add(12) ?? new Decimal(0)) /100
         if (hasMilestone('unstablefuel', 2)) return 0.12
         return 0
     },
@@ -46,48 +50,61 @@ addLayer("unstablefuel", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     gainMult() {
-        let mult = new Decimal(1)
-        if (layers.galaxy.effect().gte(1)) mult = mult.times(layers.galaxy.effect())
-        if (hasMilestone('unstablefuel', 1)) mult = mult.times(2)
-        if (hasUpgrade('unstablefuel', 21)) mult = mult.times(1.5)
-        if (hasUpgrade('unstablefuel', 22)) mult = mult.times(1.25)
-        if (hasUpgrade('unstablefuel', 23)) mult = mult.times(upgradeEffect('unstablefuel', 23))
-        if (hasUpgrade('unstablefuel', 31)) mult = mult.times(2)
-        if (hasUpgrade('unstablefuel', 32)) mult = mult.times(1.5)
-        if (hasUpgrade('unstablefuel', 33)) mult = mult.times(1.2)
-        if (hasUpgrade('unstablefuel', 34)) mult = mult.times(upgradeEffect('unstablefuel', 34))
-        if (hasUpgrade('unstablefuel', 41)) mult = mult.times(3)
-        if (hasUpgrade('unstablefuel', 44)) mult = mult.times(upgradeEffect('unstablefuel', 44))
-        if (hasUpgrade('galaxy', 14)) mult = mult.times(2)
-        if (hasUpgrade('galaxy', 23)) mult = mult.times(upgradeEffect('galaxy', 23))
-        if (hasMilestone('unstablefuel', 1)) mult = mult.times(buyableEffect("darkmatter", 12))
-        if (hasUpgrade('galaxy', 32)) mult = mult.times(upgradeEffect('galaxy', 32))
-        if (hasUpgrade('unstablefuel', 52)) mult = mult.times(upgradeEffect('unstablefuel', 52))
-        if (hasUpgrade('unstablefuel', 54)) mult = mult.times(upgradeEffect('unstablefuel', 54))
-        if (hasMilestone("supernova", 1)) mult = mult.times(3)
-        if (hasMilestone("supernova", 2)) mult = mult.times(2)
-        if (hasUpgrade('supernova', 14)) mult = mult.times(upgradeEffect('supernova', 14))
-        if (hasUpgrade('galaxy', 53)) mult = mult.times(upgradeEffect('galaxy', 53))
-        if (hasUpgrade('unstablefuel', 61)) mult = mult.times(upgradeEffect('unstablefuel', 61))
-        if (hasUpgrade('unstablefuel', 64)) mult = mult.times(upgradeEffect('unstablefuel', 64))
-        if (hasMilestone('unstablefuel', 11)) mult = mult.times(5)
-        if (hasUpgrade('supernova', 24)) mult = mult.times(upgradeEffect('supernova', 24))
-        if (hasUpgrade('supernova', 34)) mult = mult.times(upgradeEffect('supernova', 34))
-        if (hasMilestone("supernova", 4)) mult = mult.times(5)
-        if (hasUpgrade('galaxy', 54)) mult = mult.times(2000)
-        if (hasMilestone('unstablefuel', 13)) mult = mult.times(1000)
+        let mult = new Decimal(1);
+        if ((layers.galaxy.effect()?.gte(1)) ?? false) mult = mult.times(layers.galaxy.effect());
+        if (hasMilestone('unstablefuel', 1)) mult = mult.times(2);
+        if (hasUpgrade('unstablefuel', 21)) mult = mult.times(1.5);
+        if (hasUpgrade('unstablefuel', 22)) mult = mult.times(1.25);
+        if (hasUpgrade('unstablefuel', 23)) mult = mult.times(upgradeEffect('unstablefuel', 23));
+        if (hasUpgrade('unstablefuel', 31)) mult = mult.times(2);
+        if (hasUpgrade('unstablefuel', 32)) mult = mult.times(1.5);
+        if (hasUpgrade('unstablefuel', 33)) mult = mult.times(1.2);
+        if (hasUpgrade('unstablefuel', 34)) mult = mult.times(upgradeEffect('unstablefuel', 34));
+        if (hasUpgrade('unstablefuel', 41)) mult = mult.times(3);
+        if (hasUpgrade('unstablefuel', 44)) mult = mult.times(upgradeEffect('unstablefuel', 44));
+        if (hasUpgrade('galaxy', 14)) mult = mult.times(2);
+        if (hasUpgrade('galaxy', 23)) mult = mult.times(upgradeEffect('galaxy', 23));
+        if (hasMilestone('unstablefuel', 1)) mult = mult.times(buyableEffect("darkmatter", 12));
+        if (hasUpgrade('galaxy', 32)) mult = mult.times(upgradeEffect('galaxy', 32));
+        if (hasUpgrade('unstablefuel', 52)) mult = mult.times(upgradeEffect('unstablefuel', 52));
+        if (hasUpgrade('unstablefuel', 54)) mult = mult.times(upgradeEffect('unstablefuel', 54));
+        if (hasMilestone("supernova", 1)) mult = mult.times(3);
+        if (hasMilestone("supernova", 2)) mult = mult.times(2);
+        if (hasUpgrade('supernova', 14)) mult = mult.times(upgradeEffect('supernova', 14));
+        if (hasUpgrade('galaxy', 53)) mult = mult.times(upgradeEffect('galaxy', 53));
+        if (hasUpgrade('unstablefuel', 61)) mult = mult.times(upgradeEffect('unstablefuel', 61));
+        if (hasUpgrade('unstablefuel', 64)) mult = mult.times(upgradeEffect('unstablefuel', 64));
+        if (hasMilestone('unstablefuel', 11)) mult = mult.times(5);
+        if (hasUpgrade('supernova', 24)) mult = mult.times(upgradeEffect('supernova', 24));
+        if (hasUpgrade('supernova', 34)) mult = mult.times(upgradeEffect('supernova', 34));
+        if (hasMilestone("supernova", 4)) mult = mult.times(5);
+        if (hasUpgrade('galaxy', 54)) mult = mult.times(2000);
+        if (hasMilestone('unstablefuel', 13)) mult = mult.times(1000);
+        if (hasMilestone("supernova", 5)) mult = mult.times(5);
+        if (hasUpgrade('supernova', 44)) mult = mult.times(upgradeEffect('supernova', 44));
+        if (hasMilestone("supernova", 6)) mult = mult.times(5);
+        if (hasMilestone("supernova", 8)) mult = mult.times(player.darkenergy.points.pow(0.7).add(1));
+        if (hasUpgrade('supernova', 54)) mult = mult.times(upgradeEffect('supernova', 54));
+        if (hasUpgrade('unstablefuel', 71)) mult = mult.times(upgradeEffect('unstablefuel', 71));
+        if (hasMilestone('unstablefuel', 16)) mult = mult.times(1000);
+        if (hasUpgrade('galaxy', 64)) mult = mult.times(5000);
+        if (hasUpgrade('blackhole', 14)) mult = mult.times(100);
+        if (hasMilestone('unstablefuel', 19)) mult = mult.times(100);
+        if (hasUpgrade('blackhole', 53)) mult = mult.times(('blackhole', 53));
+        if (hasUpgrade('unstablefuel', 74)) mult = mult.times(upgradeEffect('unstablefuel', 74));
 
 
 
 
 
-            
-
-
-
-
-        return mult
+    
+        // Inf Reality II
+        if (hasMilestone('negativeinf', 2)) mult = mult.times(3);
+        if (hasMilestone('negativeinf', 7)) mult = mult.times(2);
+    
+        return mult;
     },
+    
     
 
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -107,7 +124,6 @@ addLayer("unstablefuel", {
             "blank",
             "blank",
             "main-display",
-            "blank",
             "resource-display",
             "blank",
             "prestige-button",
@@ -215,9 +231,63 @@ addLayer("unstablefuel", {
         },
         14: {
             requirementDescription: "Unstable Milestone XIV",
-            effectDescription: "Unlock Infinity",
+            effectDescription: "10x Dark Matter",
             unlocked() {return hasUpgrade("unstablefuel", 65) || hasMilestone(this.layer, this.id)},
             done() {return (hasUpgrade("unstablefuel", 65))}
+        },
+        15: {
+            requirementDescription: "Unstable Milestone XV",
+            effectDescription: "Auto-buy Dark Matter Buyables",
+            unlocked() {return hasUpgrade("supernova", 45) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("supernova", 45))}
+        },
+        16: {
+            requirementDescription: "Unstable Milestone XVI",
+            effectDescription: "1000x Unstable Rocket Fuel",
+            unlocked() {return hasUpgrade("supernova", 55) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("supernova", 55))}
+        },
+        17: {
+            requirementDescription: "Unstable Milestone XVII",
+            effectDescription: "2x Void",
+            unlocked() {return hasUpgrade("blackhole", 15) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("blackhole", 15))}
+        },
+        18: {
+            requirementDescription: "Unstable Milestone XVIII",
+            effectDescription: "2x Void",
+            unlocked() {return hasUpgrade("galaxy", 65) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("galaxy", 65))}
+        },
+        19: {
+            requirementDescription: "Unstable Milestone XIX",
+            effectDescription: "3x Void, 100x Unstable Rocket Fuel",
+            unlocked() {return hasUpgrade("blackhole", 25) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("blackhole", 25))}
+        },
+        20: {
+            requirementDescription: "Unstable Milestone XX",
+            effectDescription: "Dark Matter Buyables cost nothing",
+            unlocked() {return hasUpgrade("blackhole", 35) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("blackhole", 35))}
+        },
+        21: {
+            requirementDescription: "Unstable Milestone XXI",
+            effectDescription: "1% of Void/s",
+            unlocked() {return hasUpgrade("blackhole", 45) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("blackhole", 45))}
+        },
+        22: {
+            requirementDescription: "Unstable Milestone XXII",
+            effectDescription: "1e12x Money",
+            unlocked() {return hasUpgrade("blackhole", 55) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("blackhole", 55))}
+        },
+        23: {
+            requirementDescription: "Unstable Milestone XXIII",
+            effectDescription: "Unlock Negative Infinity & Bet Amount is always 100%",
+            unlocked() {return hasUpgrade("unstablefuel", 75) || hasMilestone(this.layer, this.id)},
+            done() {return (hasUpgrade("unstablefuel", 75))}
         },
     },
     upgrades: {
@@ -390,7 +460,7 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 52))},
             cost: new Decimal(989898989),
             effect() {
-                return (Math.log2(player.darkmatter.points)*8)
+                return (Math.log2(player.darkmatter.points)+1)
             },
             effectDisplay() { return "+" + format(upgradeEffect(this.layer, this.id))}, // Add formatting to the effect
         },
@@ -413,7 +483,7 @@ addLayer("unstablefuel", {
         61: {
             title: "Dark Fuel II",
             description: "Unstable Rocket Fuel gain is increased based on your Dark Matter",
-            unlocked() { return (hasUpgrade(this.layer, 55))},
+            unlocked() { return (hasUpgrade(this.layer, 55) && hasUpgrade("galaxy", 21))},
             cost: new Decimal(1.1111e11),
             effect() {
                 return ((Math.log10(player.darkmatter.points)+1)*2.32)
@@ -459,12 +529,12 @@ addLayer("unstablefuel", {
             }
         },
         64: {
-            title: "Dark Fuel",
+            title: "Dark Fuel III",
             description: "Unstable Rocket Fuel gain is increased based on your Dark Matter",
             unlocked() { return (hasUpgrade(this.layer, 63))},
             cost: new Decimal(2.22222e20),
             effect() {
-                return (Math.log2(player.darkmatter.points)+1)*Math.log10(player.darkmatter.points.add(1))
+                return (Math.log2(player.darkmatter.points)+1)*Math.log10(player.darkmatter.points.add(2))
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
         },
@@ -473,6 +543,61 @@ addLayer("unstablefuel", {
             description: "Unlock Unstable Milestone XIV",
             unlocked() { return (hasUpgrade(this.layer, 64))},
             cost: new Decimal(1e27),
+        },
+        71: {
+            title: "Unstable Energy",
+            description: "Unstable Rocket Fuel gain is increased based on your Dark Energy",
+            unlocked() { return (hasUpgrade(this.layer, 55) && hasMilestone("darkmatter", 3))},
+            cost: new Decimal(1e37),
+            effect() {
+                return (player.darkenergy.points.add(1))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
+        },
+        72: {
+            title: "Unstable Money IV",
+            description: "Money gain is increased based on Unstable Rocket Fuel",
+            cost: new Decimal(1e42),
+            unlocked() {return hasUpgrade("unstablefuel", 71)},
+            effect() {
+                let baseEffect = player.unstablefuel.points.add(1).pow(0.195);
+                if (baseEffect.gt(1e10)) {
+                    baseEffect = new Decimal(1e10).plus(baseEffect.minus(1e6).log2());
+                }
+                return baseEffect;
+            },
+            effectDisplay() { 
+                let effectValue = upgradeEffect(this.layer, this.id);
+                let display = "+" + format(effectValue);
+                if (effectValue.gt(1e10)) display += " (Softcapped)";
+                return display;
+            }
+        },
+        73: {
+            title: "Unstable Matter",
+            description: "Dark Matter gain is increased based on your Unstable Rocket Fuel",
+            unlocked() { return (hasUpgrade(this.layer, 72))},
+            cost: new Decimal(5.55e55),
+            effect() {
+                return (Math.log10(player.unstablefuel.points.add(1)))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
+        },
+        74: {
+            title: "Unstable Rolls",
+            description: "Unstable Rocket Fuel gain is increased based on your Total rolls",
+            unlocked() { return (hasUpgrade(this.layer, 73))},
+            cost: new Decimal(1e63),
+            effect() {
+                return ((player.blackhole.totalRolls.pow(0.9).add(1)))
+            },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
+        },
+        75: {
+            title: "Milestone",
+            description: "Unlock Unstable Milestone XXIII",
+            unlocked() { return (hasUpgrade(this.layer, 74))},
+            cost: new Decimal(1e69),
         },
     },
   })

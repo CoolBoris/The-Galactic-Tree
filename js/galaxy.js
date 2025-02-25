@@ -10,6 +10,7 @@ addLayer("cosmicdust", {
         }
     },
     passiveGeneration() {
+        if (! inChallenge('real', 11)) return 0
         if (hasMilestone('unstablefuel', 8)) return 0.07
         if (hasMilestone('unstablefuel', 5)) return 0.04
         return 0.01
@@ -18,6 +19,17 @@ addLayer("cosmicdust", {
         let visible = false
         return visible
     },
+
+
+    doReset(reset) {
+        let keep = [];
+        if (! inChallenge("real", 11)) keep.push("upgrades")
+        if (! inChallenge("real", 11)) keep.push("points")
+        if (! inChallenge("real", 11)) keep.push("milestones")
+        if (! inChallenge("real", 11)) keep.push("buyables")
+        if (layers[reset].row > this.row) layerDataReset("cosmicdust", keep)
+    },
+
     requires: new Decimal(3), // Can be a function that takes requirement increases into account
     resource: "Cosmic Dust", // Name of prestige currency
     baseResource: "Galaxies", // Name of resource prestige is based on
@@ -33,12 +45,18 @@ addLayer("cosmicdust", {
         if (hasMilestone("supernova", 1)) mult = mult.times(3)
         if (hasMilestone("supernova", 2)) mult = mult.times(3)
         if (hasMilestone("unstablefuel", 12)) mult = mult.times(10)
+        if (hasUpgrade('blackhole', 12)) mult = mult.times(10)
+
+
+        // Inf Reality II
+        if (hasMilestone('negativeinf', 3)) mult = mult.times(3)
+        if (hasMilestone('negativeinf', 8)) mult = mult.times(2)
 
         return mult
     },
 
     logCosmicRays() {
-        if (player.cosmicdust.points > 0.99) {
+        if ((player.cosmicdust.points > 0.99) && inChallenge("real", 11)) {
             let baseLog = Math.log10(player.cosmicdust.points);
             let logarithmicValue = baseLog;
     
@@ -64,6 +82,14 @@ addLayer("cosmicdust", {
 
             if (hasUpgrade('supernova', 33)) {
                 logarithmicValue *= upgradeEffect("supernova", 33);
+            }
+
+            if (hasUpgrade('supernova', 43)) {
+                logarithmicValue *= upgradeEffect("supernova", 43);
+            }
+
+            if (hasUpgrade('supernova', 53)) {
+                logarithmicValue *= upgradeEffect("supernova", 53);
             }
     
             player.cosmicrays.points = new Decimal(logarithmicValue);
@@ -116,15 +142,35 @@ addLayer("galaxy", {
         }
     },
 
+    doReset(reset) {
+        let keep = [];
+        if (hasMilestone("supernova", 6)) keep.push("milestones")
+        if (! inChallenge("real", 11)) keep.push("upgrades")
+        if (! inChallenge("real", 11)) keep.push("points")
+        if (! inChallenge("real", 11)) keep.push("milestones")
+        if (! inChallenge("real", 11)) keep.push("buyables")
+        if (layers[reset].row > this.row) layerDataReset("galaxy", keep)
+    },
+
     symbol(){
         if (options.emojisEnabled == true) symbol = "🌌"
         else symbol = "G"
         return symbol
     },
 
+    autoPrestige() {
+        if (hasMilestone("blackhole", 7)) return true
+        else return false
+    },
+
+    autoUpgrade() {
+        if (hasMilestone("blackhole", 1)) return true
+        else return false
+    },
+
     canBuyMax(){
         let buyMax = false
-        if (hasMilestone('supernova', 3)) buyMax = true
+        if (hasMilestone('supernova', 4)) buyMax = true
        return buyMax
      },
 
@@ -133,8 +179,8 @@ addLayer("galaxy", {
     },
     layerShown() {
         let visible = false
-        if (hasMilestone("unstablefuel", 3) && inChallenge("x", 11)) visible = true
-        if (player.galaxy.points.gte(1) && inChallenge("x", 11)) visible = true
+        if (hasMilestone("unstablefuel", 3) && inChallenge("real", 11)) visible = true
+        if (player.galaxy.points.gte(1) && inChallenge("real", 11)) visible = true
         return visible
     },
 
@@ -158,7 +204,9 @@ addLayer("galaxy", {
         if (hasUpgrade('galaxy', 21)) mult = mult.divide(upgradeEffect('galaxy', 21))
 
         if (player.galaxy.points.gte(10)) mult = mult.times("-1e9999999999999999999")
-
+        
+            // Inf Reality II
+        if (hasMilestone('negativeinf', 5)) mult = mult.divide(5)
 
         return mult
     },
@@ -191,8 +239,8 @@ addLayer("galaxy", {
                 "blank",
                 "prestige-button",
                 "blank",
-               "milestones",
-             ],
+                "milestones",
+            ],
              unlocked() {return player.galaxy.points.gte(1)},
             },
             "The Cosmos": {
@@ -211,6 +259,8 @@ addLayer("galaxy", {
                "upgrades",
              ],
              unlocked() {return player.galaxy.points.gte(3)},
+             buttonStyle() { return {"border-color": "rgb(111, 250, 255)"} },
+
             },
          },
 
@@ -507,6 +557,59 @@ addLayer("galaxy", {
                 currencyLocation() { return player.cosmicrays },
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy",54)},
+            },
+            61: {
+                title: "Dark Travel IV",
+                description: "10x Dark Matter<br>",
+                cost: new Decimal(3200),
+                currencyDisplayName: "Cosmic Rays",
+                currencyLocation() { return player.cosmicrays },
+                currencyInternalName: "points",
+                unlocked() {return hasUpgrade("galaxy", 55)},
+            },
+            62: {
+                title: "Cosmic Energy",
+                description: "Dark Energy gain is increased based on Cosmic Rays<br>",
+                cost: new Decimal(4000),
+                currencyDisplayName: "Cosmic Rays",
+                currencyLocation() {return player.cosmicrays},
+                currencyInternalName: "points",
+                unlocked() {return hasUpgrade("galaxy", 61)},
+                effect() {
+                    return ((Math.log10(player.cosmicrays.points)/13)+1)
+                },
+                effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
+            },
+            63: {
+                title: "Cosmic Energy II",
+                description: "Dark Energy gain is increased based on Cosmic Rays<br>",
+                cost: new Decimal(8000),
+                currencyDisplayName: "Cosmic Rays",
+                currencyLocation() {return player.cosmicrays},
+                currencyInternalName: "points",
+                unlocked() {return hasUpgrade("galaxy", 62)},
+                effect() {
+                    return ((Math.log10(player.cosmicrays.points)/9)+1)
+                },
+                effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
+            },
+            64: {
+                title: "Ultimate II",
+                description: "5000x Unstable Rocket Fuel",
+                cost: new Decimal(10000),
+                currencyDisplayName: "Cosmic Rays",
+                currencyLocation() { return player.cosmicrays },
+                currencyInternalName: "points",
+                unlocked() {return hasUpgrade("galaxy", 63)},
+            },
+            65: {
+                title: "Milestone",
+                description: "Unlock Unstable Milestone XVII",
+                cost: new Decimal(20000),
+                currencyDisplayName: "Cosmic Rays",
+                currencyLocation() { return player.cosmicrays },
+                currencyInternalName: "points",
+                unlocked() {return hasUpgrade("galaxy",64)},
             },
             
         },

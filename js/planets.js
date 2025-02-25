@@ -18,8 +18,19 @@ addLayer("planetoid", {
     type: "normal", // normal: cost to gain currency depends on amount ganed. static: cost depends on how much you already have
     exponent: 1.72, // Prestige currency exponent
     passiveGeneration() {
+        if (inChallenge("real", 11)) return 0
         if (hasMilestone('planets', 1)) return 1
         return 0
+    },
+
+    doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("planetoid", keep)
     },
     gainMult() {
         let mult = new Decimal(1)
@@ -45,7 +56,7 @@ addLayer("planets", {
     layerShown(){
         let visible = false
         if (hasChallenge('stars', 11)) visible = true
-        if (inChallenge("x", 11)) visible = false
+        if (inChallenge("real", 11)) visible = false
        return visible
      },
 
@@ -87,12 +98,17 @@ addLayer("planets", {
     },
     canBuyMax(){
         let buyMax = false
-        if (hasMilestone("x", 4)) buyMax = true
+        if (hasMilestone("x", 2)) buyMax = true
        return buyMax
      },
     doReset(reset) {
         let keep = [];
         if (hasMilestone("sun", 8)) keep.push("challenges")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
         if (layers[reset].row > this.row) layerDataReset("planets", keep)
     },
     hotkeys: [
@@ -123,8 +139,8 @@ addLayer("planets", {
                 "prestige-button",
                 "blank",
                 "blank",
-                    "blank",
-                    ["infobox", "main"],
+                "blank",
+                ["infobox", "main"],
          ],
      },
      "Milestones": {
@@ -180,9 +196,13 @@ addLayer("planets", {
 },
 "The Solar System": {
     content: [
+        ["infobox", "solarsystem"],
+        "blank",
         "challenges",
  ],
- unlocked() {return (hasMilestone("planets", 6)) || (hasChallenge("planets", 11))}
+ unlocked() {return (hasMilestone("planets", 6)) || (hasChallenge("planets", 11))},
+ buttonStyle() { return {"border-color": "#620A8A"} },
+
 },
   },
   challenges: {
@@ -277,7 +297,11 @@ addLayer("planets", {
 infoboxes: {
     main: {
         title: "Introducing: Planets",
-        body() { return "Planets are the Same as Stars, but they cost Asteroids. Once you get your first Planet, you start generating Planetoids on a slow rate. the more Planets you have, the more Planetoids you will generate. Planetoids can be spent on Upgrades, Milestones & Buyables." },
+        body() { return "Planets are the same as Stars, but they cost Asteroids. Once you get your first Planet, you start generating Planetoids on a slow rate. The more Planets you have, the more Planetoids you will generate. Planetoids can be spent on Upgrades, Milestones & Buyables." },
+    },
+    solarsystem: {
+        title: "Introducing: The Solar System",
+        body() { return "Welcome to The Solar System! You already know how this works, it's the same as The Sun. Good Luck!" },
     },
 },
     upgrades: {

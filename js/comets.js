@@ -22,17 +22,17 @@ addLayer("c", {
     layerShown(){
         let visible = false
         if (hasMilestone('ro', 20) || player.c.unlocked) visible = true
-        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("x", 11)) visible = false
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge("real", 11)) visible = false
        return visible
      },
      passiveGeneration() {
-        if (inChallenge('x', 11)) return 0
+        if (inChallenge('real', 11)) return 0
         if (hasMilestone('stars', 1)) return getBuyableAmount('stars', 11) /100
         if (hasMilestone('ast', 5)) return 0.01
         return 0
     },
     autoUpgrade() {
-        if (inChallenge('x', 11)) return false
+        if (inChallenge('real', 11)) return false
         if (hasMilestone("planets", 4)) return true
         if (hasMilestone("omegainf", 6)) return true
         else return false
@@ -41,6 +41,11 @@ addLayer("c", {
         let keep = [];
         if (hasMilestone("planets", 2)) keep.push("challenges")
         if (hasMilestone("x", 3)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
         if (layers[reset].row > this.row) layerDataReset("c", keep)
     },
      color: "#2D6CD3",
@@ -56,12 +61,12 @@ addLayer("c", {
     exponent: 19, // Prestige currency exponent
     gainMult() {
         let mult = new Decimal(1)
-        if (hasUpgrade('s', 11) && ! inChallenge("x", 11)) mult = mult.times(3)
-        if (hasUpgrade('s', 21) && ! inChallenge("x", 11)) mult = mult.times(5)
-        if (hasUpgrade('s', 31) && ! inChallenge("x", 11)) mult = mult.times(10)
-        if (hasUpgrade('s', 41) && ! inChallenge("x", 11)) mult = mult.times(25)
-        if (hasUpgrade('s', 42) && ! inChallenge("x", 11)) mult = mult.times(5)      
-        if (hasMilestone('s', 7) && ! inChallenge("x", 11)) mult = mult.times(3)
+        if (hasUpgrade('s', 11) && ! inChallenge("real", 11)) mult = mult.times(3)
+        if (hasUpgrade('s', 21) && ! inChallenge("real", 11)) mult = mult.times(5)
+        if (hasUpgrade('s', 31) && ! inChallenge("real", 11)) mult = mult.times(10)
+        if (hasUpgrade('s', 41) && ! inChallenge("real", 11)) mult = mult.times(25)
+        if (hasUpgrade('s', 42) && ! inChallenge("real", 11)) mult = mult.times(5)      
+        if (hasMilestone('s', 7) && ! inChallenge("real", 11)) mult = mult.times(3)
         if (hasUpgrade('ast', 15)) mult = mult.times(upgradeEffect('ast', 15))
         if (hasChallenge('c', 12)) mult = mult.times(100)
         if (hasMilestone('stars', 1)) mult = mult.times(buyableEffect("stars", 12))
@@ -265,7 +270,7 @@ addLayer("c", {
     infoboxes: {
         main: {
             title: "Introducing: Comets",
-            body() { return "Comets Reset everything from layer 1 & 2. Comets are Used for Upgrades & Milestones. After a while, you will unlock Challenges. Challenges are objectives you need to complete while having a debuf, in return you get rewards!" },
+            body() { return "Comets Reset everything from layer 1 & 2. Comets are used for Upgrades & Milestones. After a while, you will unlock Challenges. Challenges are objectives you need to complete while having a debuf, in return you get rewards!" },
         },
     },
 })

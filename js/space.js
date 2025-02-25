@@ -29,10 +29,16 @@ addLayer("s", {
         if (hasMilestone("x", 1)) keep.push("upgrades")
         if (hasMilestone("x", 1)) keep.push("points")
         if (hasMilestone("x", 1)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
         if (layers[reset].row > this.row) layerDataReset("s", keep)
     },
 
     passiveGeneration() {
+        if (inChallenge('real', 11)) return 0
+        if (hasMilestone('s', 16)) return 5e15
         if (hasMilestone('s', 16)) return 5e13
         if (hasMilestone('s', 15)) return 2.5e12
         if (hasMilestone('s', 14)) return 2.5e11
@@ -57,8 +63,8 @@ addLayer("s", {
     },
     layerShown() {
         let visible = false
-        if (hasMilestone('ro', 15) || player.s.unlocked) visible = true
-        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge('x', 11)) visible = false
+        if (hasMilestone('ro', 15) || player.s.unlocked || inChallenge('real', 11)) visible = true
+        if (inChallenge('stars', 11) || inChallenge('planets', 11) || inChallenge('real', 11)) visible = false
         return visible
     },
     branches: ["ro", "as", "r"],
@@ -90,6 +96,9 @@ addLayer("s", {
                 ["display-text",
                     '(One time reset)', { "color": "white", "font-size": "16px" }],
             ],
+            unlocked() { 
+                return player.s.points.equals(new Decimal(0)); 
+            }
         },
         "Main": {
             content: [
@@ -369,8 +378,14 @@ addLayer("s", {
         16: {
             requirementDescription: "3e15 Space Distance (20,054 Astronomical Units) & 300 XGE",
             effectDescription: "5e13 Space Distance/s & /1e12 Rocket Cost & Better Planets Formula",
-            unlocked() { return (hasMilestone(this.layer, 12) && hasUpgrade("x", 24)) },
+            unlocked() { return (hasMilestone(this.layer, 15) && hasUpgrade("x", 24)) },
             done() { return player.s.points.gte(3e15) && player.xge.points.gte(300) && hasUpgrade("x", 24) }
+        },
+        17: {
+            requirementDescription: "5e16 Space Distance (334,229 Astronomical Units) & 1e250 Money",
+            effectDescription: "5e15 Space Distance/s & /1e20 Rocket Cost",
+            unlocked() { return (hasMilestone(this.layer, 16)) },
+            done() { return player.s.points.gte(5e16) && player.points.gte(1e250)}
         },
     },
     infoboxes: {

@@ -12,6 +12,16 @@ addLayer("stardust", {
         let visible = false
        return visible
      },
+
+     doReset(reset) {
+        let keep = [];
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
+        if (layers[reset].row > this.row) layerDataReset("stardust", keep)
+    },
     name: "Stardust", // This is optional, only used in a few places, If absent it just uses the layer id.
     resource: "Stardust", // Name of prestige currency
     requires: new Decimal(1), // Can be a function that takes requirement increases into account
@@ -20,6 +30,7 @@ addLayer("stardust", {
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 2.68, // Prestige currency exponent
     passiveGeneration() {
+        if (inChallenge("real", 11)) return 0
         if (hasMilestone('stars', 1)) return 1
         return 0
     },
@@ -55,12 +66,17 @@ addLayer("stars", {
     layerShown(){
         let visible = false
         if (hasChallenge('ast', 14) || player.stars.points.gte(1) || player.x.unlocked) visible = true
-        if (inChallenge("x", 11)) visible = false
+        if (inChallenge("real", 11)) visible = false
        return visible
      },
      doReset(reset) {
         let keep = [];
         if (hasMilestone("jupiter", 1)) keep.push("challenges")
+        if ( inChallenge("real", 11)) keep.push("upgrades")
+        if ( inChallenge("real", 11)) keep.push("points")
+        if ( inChallenge("real", 11)) keep.push("milestones")
+        if ( inChallenge("real", 11)) keep.push("buyables")
+        if ( inChallenge("real", 11)) keep.push("challenges")
         if (layers[reset].row > this.row) layerDataReset("stars", keep)
     },
     autoUpgrade() {
@@ -95,7 +111,7 @@ addLayer("stars", {
     },
     canBuyMax(){
         let buyMax = false
-        if (hasMilestone("x", 2)) buyMax = true
+        if (hasMilestone("x", 4)) buyMax = true
        return buyMax
      },
     hotkeys: [
@@ -183,9 +199,12 @@ addLayer("stars", {
 },
 "The Sun": {
     content: [
+        ["infobox", "sun"],
+        "blank",
         "challenges",
  ],
- unlocked() {return (hasMilestone("s", 13) || hasChallenge("stars", 11))}
+ unlocked() {return (hasMilestone("s", 13) || hasChallenge("stars", 11))},
+ buttonStyle() { return {"border-color": "#FFB50B"} },
 },
   },
   challenges: {
@@ -341,6 +360,10 @@ infoboxes: {
     main: {
         title: "Introducing: Stars",
         body() { return "Stars are the Same as Rockets, but they cost Comets. Once you got your first Star, you start generating Stardust. the more Stars you have, the more Stardust you will generate. Stardust can be spent on Upgrades, Milestones & Buyables. Buyables are Upgrades you can buy more than once." },
+    },
+    sun: {
+        title: "Introducing: The Sun",
+        body() { return "Welcome to The Sun! The Sun is basically a clicker game, it contains tons of upgrades, buyables and milestones. Once you beat The Sun, You unlock a new feature.<br> Pro Tip: Hold buyables to Fast buy!<br> CPS = Clicks Per Second<br>Scroll down in the tree to begin playing." },
     },
 }
 })

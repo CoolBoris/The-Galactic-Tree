@@ -75,7 +75,6 @@ tabFormat: {
             "blank",
             "blank",
             "blank",
-            ["infobox", "main"],
      ],
     },
     "Milestones": {
@@ -258,12 +257,6 @@ buy() {
 unlocked() {return (hasMilestone("sun", 6))},
 },
 },
-infoboxes: {
-main: {
-    title: "Introducing: The Sun",
-    body() { return "Welcome to The Sun! The Sun is basically a clicker game, it contains tons of upgrades, buyables and milestones. Once you beat The Sun, You unlock a new feature.<br> Pro Tip: Hold buyables to Fast buy!<br> CPS = Clicks Per Second" },
-},
-},
 "upgrades": {
 11: {
     title: "Double Light",
@@ -401,6 +394,8 @@ startData() { return {
 }},
 symbol: "", // This appears on the layer's node. Default is the id with the first letter capitalized
 branches: ["sun"], 
+resetDescription: "Click me!",
+
 resource: "Iron", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
@@ -428,7 +423,6 @@ tabFormat: {
             "blank",
             "blank",
             "blank",
-            ["infobox", "main"],
      ],
     },
     "Milestones": {
@@ -451,12 +445,7 @@ tabFormat: {
      unlocked() {return (hasMilestone("mercury", 1))}
     },
  },
- infoboxes: {
-    main: {
-        title: "Introducing: The Solar System",
-        body() { return "Welcome to The Solar System! You already know how this works, it's the same as The Sun! Good Luck!" },
-    },
-    },
+
  milestones: {
     1: {
         requirementDescription: "10 Iron",
@@ -557,6 +546,8 @@ startData() { return {
 }},
 image: "https://i.ibb.co/7yFgbW2/mars.png",
 branches: ["sun"], 
+resetDescription: "Click me!",
+
 resource: "Silicon", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
@@ -866,6 +857,8 @@ addLayer("earth", {
 }
 },
 image: "https://i.ibb.co/9Yss9bH/earth.png",
+resetDescription: "Click me!",
+
 //symbol: "🌎", // This appears on the layer's node. Default is the id with the first letter capitalized
 startData() { return {
     unlocked: true,
@@ -1120,7 +1113,9 @@ startData() { return {
     points: new Decimal(0),
 }},
 // symbol: "", // This appears on the layer's node. Default is the id with the first letter capitalized
-branches: ["sun"], 
+branches: ["sun"],
+resetDescription: "Click me!",
+
 resource: "Neon", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
@@ -1307,7 +1302,9 @@ startData() { return {
     points: new Decimal(0),
 }},
 image: "https://i.ibb.co/7ztk9yb/uranus.png", // This appears on the layer's node. Default is the id with the first letter capitalized
-branches: ["sun"], 
+branches: ["sun"],
+resetDescription: "Click me!",
+
 resource: "Carbon", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
@@ -1539,6 +1536,8 @@ startData() { return {
 }},
 image: "https://i.ibb.co/s9NzWFL/saturn.png", // This appears on the layer's node. Default is the id with the first letter capitalized
 branches: ["sun"], 
+resetDescription: "Click me!",
+
 resource: "Helium", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
@@ -1580,7 +1579,6 @@ tabFormat: {
             "blank",
             "blank",
             "blank",
-            ["infobox", "main"],
      ],
     },
     "Milestones": {
@@ -1806,7 +1804,9 @@ startData() { return {
     points: new Decimal(0),
 }},
 image: "https://i.ibb.co/PQd9T2Y/jupiter.png", // This appears on the layer's node. Default is the id with the first letter capitalized
-branches: ["sun"], 
+branches: ["sun"],
+resetDescription: "Click me!",
+
 resource: "Hydrogen", // Name of prestige currency
 requires: new Decimal(54300), // Can be a function that takes requirement increases into account
 baseResource: "Light", // Name of resource prestige is based on
