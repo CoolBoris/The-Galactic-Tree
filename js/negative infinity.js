@@ -25,7 +25,7 @@ addLayer("negativeinf", {
     }},
     layerShown(){
         let visible = false
-        if (hasMilestone("unstablefuel", 14) && inChallenge("real", 11)) visible = true
+        if (hasMilestone("unstablefuel", 23) && inChallenge("real", 11)) visible = true
         if (player.negativeinf.unlocked && inChallenge("real", 11)) visible = true
        return visible
      },
