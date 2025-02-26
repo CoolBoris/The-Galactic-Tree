@@ -59,6 +59,8 @@ addLayer("real", {
             goalDescription: "???",
             rewardDescription: "???",
             onEnter() { player.points = new Decimal(10) },
+            onExit() { player.points = new Decimal(10) },
+            resetsNothing: true,
             style() {
                 return {
                     "width": "450px",

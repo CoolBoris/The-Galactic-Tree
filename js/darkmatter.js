@@ -87,11 +87,6 @@ addLayer("darkmatter", {
         if (hasUpgrade("blackhole", 34)) mult = mult.times(10)
         if (hasUpgrade("blackhole", 43)) mult = mult.times(10)
 
-
-
-
-
-
         return mult
     },
     
@@ -157,7 +152,7 @@ addLayer("darkmatter", {
             title: "Dark Money<br>",
             purchaseLimit: 1000,
             cost(x) { return new Decimal(1).times(Decimal.pow(1.2, x)); },
-            display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Dark Matter" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/1,000<br>" + "<br>Effect: " + "+"+ getBuyableAmount(this.layer, this.id) +" Money/s"},
+            display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Dark Matter" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/1,000<br>" + "<br>Effect: " + "+"+ format(getBuyableAmount(this.layer, this.id)) +" Money/s"},
             canAfford() { return player.darkmatter.points.gte(this.cost()) },
             buy() {
                 if (this.canAfford()) {
@@ -193,7 +188,7 @@ addLayer("darkmatter", {
             title: "Dark Dust<br>",
             purchaseLimit: 1000,
             cost(x) { return new Decimal(1).times(Decimal.pow(1.3, x)); },
-            display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Dark Matter" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/1,000<br>" + "<br>Effect: " + (new Decimal(1).add((getBuyableAmount(this.layer, this.id))/100)) +"x"},
+            display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Dark Matter" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/1,000<br>" + "<br>Effect: " + format((new Decimal(1).add((getBuyableAmount(this.layer, this.id))/100))) +"x"},
             canAfford() { return player.darkmatter.points.gte(this.cost()) },
             buy() {
                 if (this.canAfford()) {

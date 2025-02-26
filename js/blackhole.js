@@ -16,7 +16,7 @@ addLayer("blackhole", {
             winstreak: new Decimal(0),
             losestreak: new Decimal(0),
             winChance: new Decimal(0.4865),
-            greenWinchance: new Decimal(0.0270),
+            greenWinchance: new Decimal(1.0270),
             totalRolls: new Decimal(0),
         }
     },
@@ -74,7 +74,7 @@ addLayer("blackhole", {
 
     calculateGreenWinChance() {
          if (hasUpgrade('blackhole', 52)) {
-            player.blackhole.greenWinchance = new Decimal(0.03);
+            player.blackhole.greenWinchance = new Decimal(0.9);
          }
     },
 
@@ -261,7 +261,7 @@ addLayer("blackhole", {
                     function(){
                         if (hasMilestone("blackhole", 8)) {
                             let txt = ""
-                            txt = txt + `Win Chance: ${Math.round((player.blackhole.winChance)*100)}% | Green Win Chance: ${Math.round((player.blackhole.greenWinchance)*100)}%`
+                            txt = txt + `Win Chance: ${format((player.blackhole.winChance)*100)}% | Green Win Chance: ${format((player.blackhole.greenWinchance)*100)}%`
                             return txt
                         }
                     }
@@ -513,7 +513,7 @@ addLayer("blackhole", {
             },
             55: {
                 title: "Milestone",
-                description: "Unlock Unstable Milestone XXIII",
+                description: "Unlock Unstable Milestone XXII",
                 unlocked() { return hasUpgrade("blackhole", 54)},
                 cost: new Decimal(1e12),
             },
@@ -575,6 +575,7 @@ addLayer("blackhole", {
                                 player.blackhole.points = player.blackhole.points.add(player.blackhole.winAmount);
                                 player.blackhole.winstreak = player.blackhole.winstreak.add(1);
                                 player.blackhole.losestreak = new Decimal(0);
+                                player.blackhole.rolledColor = "GREEN";
                             } else {
                                 let randomcolor = new Decimal(Math.round(Math.random()));
                     

@@ -42,6 +42,10 @@ addLayer("a", {
         },
     },
 
+    ifhasSomeAchievementsbutborisforgotthiscrap() {
+        if (hasAchievement("a", 92) && player.a.points !== 66 && hasAchievement("a", 93)) player.a.points.add(2)
+    },
+
     achievementPopups(){
         let popup = true
         if (options.AchievementPopup == true) popup = true;
@@ -420,7 +424,7 @@ addLayer("a", {
         81: {
             name: "Reality II",
             done() {
-                if (inChallenge("x",11)) {
+                if (inChallenge("real",11)) {
                     return true
                 }
             },
@@ -1383,7 +1387,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.r.points.gte(1) || player.r.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.r.points.gte(1) && ! inChallenge("real", 11) || player.r.unlocked && ! inChallenge("real", 11)}
         },
         "Rockets": {
             content: [
@@ -1392,7 +1396,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.ro.points.gte(1) || player.ro.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.ro.points.gte(1) && ! inChallenge("real", 11) || player.ro.unlocked && ! inChallenge("real", 11)}
         },
         "Astronauts": {
             content: [
@@ -1425,7 +1429,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.as.points.gte(1) || player.as.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.as.points.gte(1) && ! inChallenge("real", 11) || player.as.unlocked && ! inChallenge("real", 11)}
         },
         "Comets": {
             content: [
@@ -1443,7 +1447,7 @@ addLayer("softcaps", {
                 "blank",
 
             ],
-            unlocked() { return player.c.points.gte(1) || player.c.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.c.points.gte(1) && ! inChallenge("real", 11) || player.c.unlocked && ! inChallenge("real", 11)}
         },
         "Asteroids": {
             content: [
@@ -1472,7 +1476,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.ast.points.gte(1) || player.ast.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.ast.points.gte(1) && ! inChallenge("real", 11) || player.ast.unlocked && ! inChallenge("real", 11)}
         },
         "Stars": {
             content: [
@@ -1481,7 +1485,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.stars.points.gte(1) || player.stars.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.stars.points.gte(1) && ! inChallenge("real", 11) || player.stars.unlocked && ! inChallenge("real", 11)}
         },
 
         "Planets": {
@@ -1491,7 +1495,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.planets.points.gte(1) || player.planets.unlocked && ! inChallenge("real", 11)}
+            unlocked() { return player.planets.points.gte(1) && ! inChallenge("real", 11) || player.planets.unlocked && ! inChallenge("real", 11)}
         },
         "X": {
             content: [
@@ -1514,7 +1518,7 @@ addLayer("softcaps", {
                         "blank",
                 "blank",
             ],
-            unlocked() { return player.unstablefuel.points.gte(1) && inChallenge("real", 11)}
+            unlocked() { return player.unstablefuel.points.gte(1) && inChallenge("real", 11) || player.unstablefuel.unlocked && inChallenge("real", 11)}
         },
         "Galaxies": {
             content: [
@@ -1523,7 +1527,7 @@ addLayer("softcaps", {
                     { "color": "white", "font-size": "22px", }],
                 "blank",
             ],
-            unlocked() { return player.galaxy.points.gte(1) && inChallenge("real", 11)}
+            unlocked() { return player.galaxy.points.gte(1) && inChallenge("real", 11) || player.galaxy.unlocked && inChallenge("real", 11)}
         },
     }
 },)

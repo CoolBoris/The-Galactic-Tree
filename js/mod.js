@@ -113,12 +113,6 @@ function getPointGen() {
 	if (hasUpgrade('blackhole', 13)) gain = gain.times(10)
 	if (hasMilestone('unstablefuel', 22)) gain = gain.times(1e12)
 
-
-
-
-
-
-
 	// Inf Reality II
 	if (hasMilestone('negativeinf', 1) && inChallenge("real", 11)) gain = gain.times(3)
 	if (hasMilestone('negativeinf', 6) && inChallenge("real", 11)) gain = gain.times(2)
@@ -167,7 +161,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.1",
+	num: "2.1.2",
 	name: "Darkness",
 }
 
@@ -175,6 +169,9 @@ let changelog =
 `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
+		<h2 style="color:Violet;">v2.1.2</h2><br>
+		- Major Bug Fixes<br>
+		<br>
 		<h2 style="color:Violet;">v2.1.1</h2><br>
 		- Bug Fixes<br>
 		<br>

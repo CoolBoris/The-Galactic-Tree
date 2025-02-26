@@ -26,7 +26,8 @@ addLayer("unstablefuel", {
 
       doReset(reset) {
         let keep = [];
-        if (inChallenge("real", 11)) keep.push("milestones");
+        if (hasMilestone("galaxy", 1)) keep.push("milestones");
+        if (hasMilestone("supernova", 1)) keep.push("milestones");
         if (! inChallenge("real", 11)) keep.push("upgrades")
         if (! inChallenge("real", 11)) keep.push("points")
         if (! inChallenge("real", 11)) keep.push("milestones")
@@ -93,11 +94,6 @@ addLayer("unstablefuel", {
         if (hasUpgrade('blackhole', 53)) mult = mult.times(('blackhole', 53));
         if (hasUpgrade('unstablefuel', 74)) mult = mult.times(upgradeEffect('unstablefuel', 74));
 
-
-
-
-
-    
         // Inf Reality II
         if (hasMilestone('negativeinf', 2)) mult = mult.times(3);
         if (hasMilestone('negativeinf', 7)) mult = mult.times(2);

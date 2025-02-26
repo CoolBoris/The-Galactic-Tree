@@ -29,38 +29,31 @@ addLayer("darkenergy", {
     },
 
     darkenergy() {
-        if ((player.energy.points > 1e6) && (player.darkmatter.points > 1e10) && inChallenge("real", 11) && player.supernova.points.gte(5)) {
-            let baseValue = player.energy.points.pow(0.1);
-            let DMmult = Math.log10(player.darkmatter.points);
-            let totalValue = baseValue*DMmult;
-
-            if (hasUpgrade('galaxy', 62)) {
-                totalValue *= upgradeEffect("galaxy", 62);
-            }
-
-            if (hasUpgrade('galaxy', 63)) {
-                totalValue *= upgradeEffect("galaxy", 63);
-            }
-
-            if (hasUpgrade('blackhole', 23)) {
-                totalValue *= 2;
-            }
-
-            if (hasUpgrade('blackhole', 24)) {
-                totalValue *= 1.5;
-            }
-
-            if (hasUpgrade('blackhole', 42)) {
-                totalValue *= upgradeEffect("blackhole", 42);
-            }
-    
-            player.darkenergy.points = new Decimal(totalValue);
-            return totalValue;
-        } else {
+        if (!(player.energy?.points?.gt(1e6) &&
+              player.darkmatter?.points?.gt(1e10) &&
+              inChallenge("real", 11) &&
+              player.supernova?.points?.gte(5))) {
             player.darkenergy.points = new Decimal(0);
             return 0;
         }
+    
+        // Base calculations with safety checks
+        let baseValue = new Decimal(player.energy.points || 0).pow(0.1);
+        let DMmult = new Decimal(player.darkmatter.points || 0).max(1).log10().add(1);
+        let totalValue = baseValue.times(DMmult);
+    
+        // Apply upgrades safely
+        if (hasUpgrade('galaxy', 62)) totalValue = totalValue.times(upgradeEffect("galaxy", 62) || 1);
+        if (hasUpgrade('galaxy', 63)) totalValue = totalValue.times(upgradeEffect("galaxy", 63) || 1);
+        if (hasUpgrade('blackhole', 23)) totalValue = totalValue.times(2);
+        if (hasUpgrade('blackhole', 24)) totalValue = totalValue.times(1.5);
+        if (hasUpgrade('blackhole', 42)) totalValue = totalValue.times(upgradeEffect("blackhole", 42) || 1);
+        player.darkenergy.points = new Decimal(totalValue || 0);
+    
+        return totalValue;
     },
+    
+    
 
     requires: new Decimal(2), // Can be a function that takes requirement increases into account
     resource: "Dark Energy", // Name of prestige currency

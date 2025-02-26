@@ -57,7 +57,7 @@ addLayer("cosmicdust", {
 
     logCosmicRays() {
         if ((player.cosmicdust.points > 0.99) && inChallenge("real", 11)) {
-            let baseLog = Math.log10(player.cosmicdust.points);
+            let baseLog = Math.log10(player.cosmicdust.points)+1;
             let logarithmicValue = baseLog;
     
             if (hasUpgrade('galaxy', 22)) {
@@ -65,7 +65,7 @@ addLayer("cosmicdust", {
             }
 
             if (hasMilestone('darkmatter', 1)) {
-                logarithmicValue *= Math.log10(player.cosmicdust.points)/2.435;
+                logarithmicValue *= Math.log10(player.cosmicdust.points)/2.435+1;
             }
 
             if (hasUpgrade('galaxy', 43)) {
@@ -127,6 +127,15 @@ addLayer("cosmicrays", {
     gainMult() {
         let mult = new Decimal(1)
         return mult
+    },
+
+    doReset(reset) {
+        let keep = [];
+        if (! inChallenge("real", 11)) keep.push("upgrades")
+        if (! inChallenge("real", 11)) keep.push("points")
+        if (! inChallenge("real", 11)) keep.push("milestones")
+        if (! inChallenge("real", 11)) keep.push("buyables")
+        if (layers[reset].row > this.row) layerDataReset("cosmicrays", keep)
     },
 })
 
