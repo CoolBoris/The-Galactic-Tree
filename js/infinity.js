@@ -88,9 +88,6 @@ infoboxes: {
         if ( inChallenge("real", 11)) keep.push("challenges")
         if (layers[reset].row > this.row) layerDataReset("inf", keep)
     },
-    hotkeys: [
-        {key: "i", description: "I: Press for Infinity Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
-    ],
     milestones: {
         1: {
             requirementDescription: "First Infinity",

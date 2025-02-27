@@ -115,7 +115,7 @@ addLayer("stars", {
        return buyMax
      },
     hotkeys: [
-        {key: "u", description: "U: Press for Star Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "u", description: "U: Press for Star Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

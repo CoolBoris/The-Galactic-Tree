@@ -110,7 +110,7 @@ addLayer("unstablefuel", {
         return exp
     },
     hotkeys: [
-        {key: "n", description: "N: Press for Unstable Rocket Fuel Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "n", description: "N: Press for Unstable Rocket Fuel Reset", onPress(){if (canReset(this.layer) && (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
     "Main": {

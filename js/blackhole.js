@@ -157,7 +157,7 @@ addLayer("blackhole", {
     },
 
     hotkeys: [
-        {key: "b", description: "B: Press for Black Hole Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "b", description: "B: Press for Black Hole Reset", onPress(){if (canReset(this.layer) && (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

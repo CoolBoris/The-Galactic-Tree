@@ -117,7 +117,7 @@ addLayer("r", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "f", description: "F: Press for Rocket Fuel Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "f", description: "F: Press for Rocket Fuel Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
     "Main": {

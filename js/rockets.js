@@ -119,7 +119,7 @@ addLayer("ro", {
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "r", description: "R: Press for Rocket Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "r", description: "R: Press for Rocket Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

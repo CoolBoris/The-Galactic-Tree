@@ -91,7 +91,7 @@ addLayer("ast", {
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "t", description: "T: Press for Asteroid Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "t", description: "T: Press for Asteroid Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

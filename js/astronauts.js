@@ -105,7 +105,7 @@ addLayer("as", {
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "a", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "a", description: "A: Press for Astronaut Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

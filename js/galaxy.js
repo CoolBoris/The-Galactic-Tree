@@ -221,7 +221,7 @@ addLayer("galaxy", {
     },
 
     hotkeys: [
-        {key: "g", description: "G: Press for Galaxy Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "g", description: "G: Press for Galaxy Reset", onPress(){if (canReset(this.layer) && (inChallenge("real", 11))) doReset(this.layer)}},
     ],
 
     effect() {

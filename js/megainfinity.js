@@ -83,9 +83,6 @@ infoboxes: {
     gainExp() { // Calculate the exponent on main currency from bonuses
         return new Decimal(1)
     },
-    hotkeys: [
-        {key: "m", description: "M: Press for Mega Infinity", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
-    ],
     milestones: {
         1: {
             requirementDescription: "First Mega Infinity",

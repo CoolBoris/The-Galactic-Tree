@@ -86,7 +86,7 @@ addLayer("c", {
         return new Decimal(1)
     },
     hotkeys: [
-        {key: "c", description: "C: Press for Comet Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "c", description: "C: Press for Comet Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

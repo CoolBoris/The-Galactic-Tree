@@ -112,7 +112,7 @@ addLayer("planets", {
         if (layers[reset].row > this.row) layerDataReset("planets", keep)
     },
     hotkeys: [
-        {key: "p", description: "P: Press for Planet Reset", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "p", description: "P: Press for Planet Reset", onPress(){if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer)}},
     ],
     tabFormat: {
         "Main": {

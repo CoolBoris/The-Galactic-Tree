@@ -281,7 +281,7 @@ addLayer("x", {
         return visible
     },
     hotkeys: [
-        { key: "x", description: "X: Press for X Reset", onPress() { if (canReset(this.layer)) doReset(this.layer) } },
+        { key: "x", description: "X: Press for X Reset", onPress() { if (canReset(this.layer) && ! (inChallenge("real", 11))) doReset(this.layer) } },
     ],
     branches: ["stars", "planets"],
     color: "#810081",
