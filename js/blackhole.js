@@ -74,7 +74,7 @@ addLayer("blackhole", {
 
     calculateGreenWinChance() {
          if (hasUpgrade('blackhole', 52)) {
-            player.blackhole.greenWinchance = new Decimal(0.9);
+            player.blackhole.greenWinchance = new Decimal(0.03);
          }
     },
 
