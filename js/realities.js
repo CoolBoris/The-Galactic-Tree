@@ -47,7 +47,7 @@ addLayer("real", {
         main: {
             title: "Realities",
             body() {
-                return "Here you can hop to different realities, you unlock realities at some milestones. There are currently 2 Realities"
+                return "Here you can hop to different realities, you unlock realities at some milestones. There are currently 2 Realities<br>You might need to reload after entering/leaving a reality."
             },
         },
     },
@@ -55,11 +55,9 @@ addLayer("real", {
         11: {
             name: "Fracture",
             canComplete: function () { return player.sun.points.gte("1e5000000") },
-            challengeDescription: "Reality cracks, Fractured.<br>",
-            goalDescription: "???",
-            rewardDescription: "???",
-            onEnter() { player.points = new Decimal(10) },
-            onExit() { player.points = new Decimal(10) },
+            fullDisplay() {return "Reality cracks, Fractured."},
+            onEnter() {player.points = new Decimal(10)},
+            onExit() {player.points = new Decimal(10)},
             resetsNothing: true,
             style() {
                 return {
@@ -67,7 +65,7 @@ addLayer("real", {
                     "height": "450px",
                     "color": "#7f05a8", // Bright pink for better pop
                     "text-shadow": "0 0 15px #5c05a8, 0 0 30px #7f05a8, 0 0 45px #24115c", // Multilayer glow effect
-                    "font-size": "30px", // Slightly larger text
+                    "font-size": "2.5em", // Slightly larger text
                     "line-height": "1.2", // Better text spacing
                     "background": "#0F2027",
                     "border": "5px solid #194859", // Border to define the container
@@ -75,7 +73,7 @@ addLayer("real", {
                     "box-shadow": "0px 20px 60px rgba(0, 0, 0, 0.7)", // Subtle shadow for depth
                     "align-items": "center",
                     "justify-content": "center",
-                    "animation": "borderAnimation 3s infinite alternate", // Adding border animation
+                    "animation": "fracture 3s infinite alternate", // Adding border animation
                 }
             }
         },

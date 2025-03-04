@@ -53,7 +53,7 @@ addLayer("unstablefuel", {
     gainMult() {
         let mult = new Decimal(1);
         if ((layers.galaxy.effect()?.gte(1)) ?? false) mult = mult.times(layers.galaxy.effect());
-        if (hasMilestone('unstablefuel', 1)) mult = mult.times(2);
+         if (hasMilestone('unstablefuel', 1)) mult = mult.times(2);
         if (hasUpgrade('unstablefuel', 21)) mult = mult.times(1.5);
         if (hasUpgrade('unstablefuel', 22)) mult = mult.times(1.25);
         if (hasUpgrade('unstablefuel', 23)) mult = mult.times(upgradeEffect('unstablefuel', 23));
@@ -378,7 +378,7 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 33))},
             cost: new Decimal(3333),
             effect() {
-                return player.points.add(1).pow(0.11)
+                return new Decimal(player.points.add(1).pow(0.11))
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
         },
@@ -410,8 +410,9 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 42))},
             cost: new Decimal(2222222),
             effect() {
-                return (Math.log10(player.unstablefuel.points.add(1)))
-            },
+                let fuel = new Decimal(player.unstablefuel?.points || 0);
+                return fuel.add(1).log10().max(0); 
+            },            
             effectDisplay() { return "+"+ format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
         44: {
@@ -420,7 +421,7 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 43))},
             cost: new Decimal(3333333),
             effect() {
-                return (Math.log2(player.galaxy.points)+1)
+                return (Math.log2(player.galaxy.points+1))
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
         },
@@ -436,27 +437,30 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 45)) && hasMilestone("darkmatter", 2)},
             cost: new Decimal(111111111),
             effect() {
-                return (Math.log2(player.unstablefuel.points.add(1)))
-            },
+                let fuel = new Decimal(player.unstablefuel?.points || 0); // Ensure it's defined
+                return fuel.add(1).log2().add(1).max(1); // Prevent NaN and negative values
+            },            
             effectDisplay() { return "+"+ format(upgradeEffect(this.layer, this.id)) }, // Add formatting to the effect
         },
         52: {
             title: "Dark Fuel",
             description: "Unstable Rocket Fuel gain is increased based on your Dark Matter",
-            unlocked() { return (hasUpgrade(this.layer, 51))},
+            unlocked() { return (hasUpgrade(this.layer, 51)) },
             cost: new Decimal(282828282),
             effect() {
-                return (Math.log10(player.darkmatter.points)+1)
+                let darkMatter = new Decimal(player.darkmatter?.points || 0); // Ensure it's defined
+                return darkMatter.add(1).log10().max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
-        },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
+        },        
         53: {
             title: "Dark Money",
             description: "Money gain is increased based on your Dark Matter",
             unlocked() { return (hasUpgrade(this.layer, 52))},
             cost: new Decimal(989898989),
             effect() {
-                return (Math.log2(player.darkmatter.points)+1)
+                let eff = new Decimal(player.darkmatter?.points || 0); // Ensure it's defined
+                return eff.add(1).log2().max(0); // Prevent NaN and negative values
             },
             effectDisplay() { return "+" + format(upgradeEffect(this.layer, this.id))}, // Add formatting to the effect
         },
@@ -466,7 +470,7 @@ addLayer("unstablefuel", {
             unlocked() { return (hasUpgrade(this.layer, 53))},
             cost: new Decimal(2222222222),
             effect() {
-                return (Math.log2(player.sa.points)+1)/1.5
+                return (Math.log2(player.sa.points+1))/1.5
             },
             effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
         },
@@ -479,13 +483,14 @@ addLayer("unstablefuel", {
         61: {
             title: "Dark Fuel II",
             description: "Unstable Rocket Fuel gain is increased based on your Dark Matter",
-            unlocked() { return (hasUpgrade(this.layer, 55) && hasUpgrade("galaxy", 21))},
+            unlocked() { return (hasUpgrade(this.layer, 55) && hasUpgrade("galaxy", 21)) },
             cost: new Decimal(1.1111e11),
             effect() {
-                return ((Math.log10(player.darkmatter.points)+1)*2.32)
+                let darkMatter = new Decimal(player.darkmatter?.points || 0); // Ensure it's defined
+                return darkMatter.add(1).log10().times(2.32).max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
-        },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
+        },        
         62: {
             title: "Unstable Money II",
             description: "Money gain is increased based on Unstable Rocket Fuel",
@@ -527,13 +532,14 @@ addLayer("unstablefuel", {
         64: {
             title: "Dark Fuel III",
             description: "Unstable Rocket Fuel gain is increased based on your Dark Matter",
-            unlocked() { return (hasUpgrade(this.layer, 63))},
+            unlocked() { return (hasUpgrade(this.layer, 63)) },
             cost: new Decimal(2.22222e20),
             effect() {
-                return (Math.log2(player.darkmatter.points)+1)*Math.log10(player.darkmatter.points.add(2))
+                let darkMatter = new Decimal(player.darkmatter?.points || 0); // Ensure it's defined
+                return darkMatter.add(1).log2().add(1).times(darkMatter.add(1).log10()).max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
-        },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
+        },        
         65: {
             title: "Milestone",
             description: "Unlock Unstable Milestone XIV",
@@ -572,13 +578,14 @@ addLayer("unstablefuel", {
         73: {
             title: "Unstable Matter",
             description: "Dark Matter gain is increased based on your Unstable Rocket Fuel",
-            unlocked() { return (hasUpgrade(this.layer, 72))},
+            unlocked() { return (hasUpgrade(this.layer, 72)) },
             cost: new Decimal(5.55e55),
             effect() {
-                return (Math.log10(player.unstablefuel.points.add(1)))
+                let unstableFuel = new Decimal(player.unstablefuel?.points || 0); // Ensure it's defined
+                return unstableFuel.add(1).log10().max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
-        },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
+        },        
         74: {
             title: "Unstable Rolls",
             description: "Unstable Rocket Fuel gain is increased based on your Total rolls",

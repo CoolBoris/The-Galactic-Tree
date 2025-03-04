@@ -114,29 +114,57 @@ h1, h2, h3, b, input {
         color: rgb(255, 0, 0); 
         text-shadow: 0px 0px 20px rgb(255, 0, 0); /* Red shadow */
     }
-    16% { 
+    14% { 
         color: rgb(255, 165, 0); 
         text-shadow: 0px 0px 20px rgb(255, 165, 0); /* Orange shadow */
     }
-    33% { 
+    28% { 
         color: rgb(255, 255, 0); 
         text-shadow: 0px 0px 20px rgb(255, 255, 0); /* Yellow shadow */
     }
-    50% { 
+    42% { 
         color: rgb(0, 128, 0); 
         text-shadow: 0px 0px 20px rgb(0, 128, 0); /* Green shadow */
     }
-    66% { 
+    57% { 
         color: rgb(0, 0, 255); 
         text-shadow: 0px 0px 20px rgb(0, 0, 255); /* Blue shadow */
     }
-    83% { 
+    71% { 
         color: rgb(75, 0, 130); 
         text-shadow: 0px 0px 20px rgb(75, 0, 130); /* Indigo shadow */
     }
-    100% { 
+    85% { 
         color: rgb(238, 130, 238); 
-        text-shadow: 0px 0px 20px rgb(238, 130, 238); /* Violet shadow */
+        text-shadow: 0px 0px 20px rgb(238, 130, 238); /* Pink shadow */
+    }
+    100% { 
+        color: rgb(255, 0, 0); 
+        text-shadow: 0px 0px 20px rgb(255, 0, 0); /* Red shadow */
+    }
+}
+
+
+@keyframes fracture {
+    0% { 
+        color: rgb(75, 0, 130); /* Dark Blue */
+        text-shadow: 0px 0px 20px rgb(75, 0, 130); /* Dark Blue shadow */
+    }
+    25% { 
+        color: rgb(106, 90, 205); /* Slate Blue */
+        text-shadow: 0px 0px 20px rgb(106, 90, 205); /* Slate Blue shadow */
+    }
+    50% { 
+        color: rgb(138, 43, 226); /* Blue Violet */
+        text-shadow: 0px 0px 20px rgb(138, 43, 226); /* Blue Violet shadow */
+    }
+    75% { 
+        color: rgb(147, 112, 219); /* Medium Purple */
+        text-shadow: 0px 0px 20px rgb(147, 112, 219); /* Medium Purple shadow */
+    }
+    100% { 
+        color: rgb(75, 0, 130); /* Dark Blue */
+        text-shadow: 0px 0px 20px rgb(75, 0, 130); /* Dark Blue shadow */
     }
 }
 

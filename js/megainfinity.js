@@ -17,7 +17,7 @@ addLayer("megainf", {
         let visible = false
         if (player.inf.points.gte(10) || player.megainf.unlocked) visible = true
         if (inChallenge('stars', 11) || inChallenge('planets', 11)) visible = false
-        if (inChallenge('x', 11)) visible = false
+        if (inChallenge('real', 11)) visible = false
        return visible
      },
      nodeStyle() {return {

@@ -381,7 +381,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 22)},
                 effect() {
-                    return (Math.log2(player.cosmicrays.points)+1)
+                    return (Math.log2(player.cosmicrays.points+1))
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },

@@ -26,28 +26,15 @@ addLayer("darkmatter", {
 
     automate() {
         if (hasMilestone('unstablefuel', 15)) {
-            if (getBuyableAmount('darkmatter', 11) < layers.darkmatter.buyables[11].purchaseLimit) {
-        if (layers.darkmatter.buyables[11].canAfford()) {
-            layers.darkmatter.buyables[11].buy();
-            };
-        };
-        if (layers.darkmatter.buyables[12].canAfford()) {
-            if (getBuyableAmount('darkmatter', 12) < layers.darkmatter.buyables[12].purchaseLimit) {
-                layers.darkmatter.buyables[12].buy();
-                };
-            };
-        if (layers.darkmatter.buyables[13].canAfford()) {
-            if (getBuyableAmount('darkmatter', 13) < layers.darkmatter.buyables[13].purchaseLimit) {
-            layers.darkmatter.buyables[13].buy();
-                };
-            };
-        if (layers.darkmatter.buyables[21].canAfford()) {
-            if (getBuyableAmount('darkmatter', 21) < layers.darkmatter.buyables[21].purchaseLimit) {
-            layers.darkmatter.buyables[21].buy();
-                };
-        };
-    }
-},
+            const buyables = [11, 12, 13, 21]; // List of buyable IDs
+            buyables.forEach(id => {
+                const buyable = layers.darkmatter.buyables[id];
+                if (buyable && buyable.canAfford() && getBuyableAmount('darkmatter', id) < (buyable.purchaseLimit || Infinity)) {
+                    buyable.buy();
+                }
+            });
+        }
+    },
 
     passiveGeneration() {
         if (! inChallenge("real", 11)) return 0
@@ -55,11 +42,10 @@ addLayer("darkmatter", {
         return 0
     },
 
-    layerShown(){
-        let visible = false
-        if (inChallenge('real', 11) && hasMilestone("galaxy", 3) || inChallenge('real', 11) && player.supernova.points.gte(1)) visible = true
-       return visible
-     },
+    layerShown() {
+        return inChallenge('real', 11) && (hasMilestone("galaxy", 3) || player.supernova.points.gte(1));
+    },
+
     color: "#450080",
     requires: new Decimal(1e8), // Can be a function that takes requirement increases into account
     resource: "Dark Matter", // Name of prestige currency
@@ -167,17 +153,20 @@ addLayer("darkmatter", {
             title: "Dark Fuel<br>",
             cost(x) { return new Decimal(1).times(Decimal.pow(1.5, x)); },
             effect(x) {
-                let base1 = new Decimal(1.1)
-                let base2 = x
-                let expo = new Decimal(0.82)
-                let eff = base1.pow(base2).pow(expo)
-                return eff
+                const base1 = new Decimal(1.1);
+                const base2 = new Decimal(x || 0);
+                const expo = new Decimal(0.82);
+                return base1.pow(base2).pow(expo);
             },
-            display() { return "Cost: " + format(tmp[this.layer].buyables[this.id].cost) + " Dark Matter" + "<br>Bought: " + getBuyableAmount(this.layer, this.id) + "/1,000<br>" + "<br>Effect: " + format(buyableEffect(this.layer, this.id)) + "x"},
-            canAfford() { return player.darkmatter.points.gte(this.cost()) },
+            display() {
+                return `Cost: ${format(tmp[this.layer].buyables[this.id].cost)} Dark Matter<br>` +
+                    `Bought: ${getBuyableAmount(this.layer, this.id)}/1,000<br>` +
+                    `Effect: ${format(buyableEffect(this.layer, this.id))}x`;
+            },
+            canAfford() { return player.darkmatter.points.gte(this.cost()); },
             buy() {
                 if (this.canAfford()) {
-                    if (! hasMilestone("unstablefuel", 20)) {
+                    if (!hasMilestone("unstablefuel", 20)) {
                         player.darkmatter.points = player.darkmatter.points.sub(this.cost());
                     }
                     setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
