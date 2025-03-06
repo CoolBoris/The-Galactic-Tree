@@ -418,13 +418,15 @@ addLayer("unstablefuel", {
         44: {
             title: "Galactic Fuel",
             description: "Unstable Rocket Fuel gain is increased based on your Galaxies",
-            unlocked() { return (hasUpgrade(this.layer, 43))},
+            unlocked() { return (hasUpgrade(this.layer, 43)) },
             cost: new Decimal(3333333),
             effect() {
-                return (Math.log2(player.galaxy.points+1))
+                let galaxies = new Decimal(player.galaxy?.points || 0); // Ensure it's defined
+                return galaxies.add(1).log2().max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
         },
+        
         45: {
             title: "Milestone",
             description: "Unlock Unstable Milestone V",
@@ -467,13 +469,14 @@ addLayer("unstablefuel", {
         54: {
             title: "Secret Fuel",
             description: "Unstable Rocket Fuel gain is increased based on your Secret Achievements",
-            unlocked() { return (hasUpgrade(this.layer, 53))},
+            unlocked() { return (hasUpgrade(this.layer, 53)) },
             cost: new Decimal(2222222222),
             effect() {
-                return (Math.log2(player.sa.points+1))/1.5
+                let secretAchievements = new Decimal(player.sa?.points || 0); // Ensure it's defined
+                return secretAchievements.add(1).log2().div(1.5).max(0); // Prevent NaN and negative values
             },
-            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x"}, // Add formatting to the effect
-        },
+            effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }, // Add formatting to the effect
+        },        
         55: {
             title: "Milestone",
             description: "Unlock Unstable Milestone VIII",

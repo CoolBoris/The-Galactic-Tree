@@ -520,132 +520,172 @@ addLayer("blackhole", {
         },
 
         
-        clickables: {
-            12: {
-                title() {
-                    return player.blackhole.rolledNumber;
-                },
-                style() {
-                    return {
-                        "color": "white",
-                        "background-color": player.blackhole.rolledColor,
-                        "font-size": "1.5em",
-                        "font-weight": "bold",
-                    };
-                },
-            },        
-        
-            22: {
-                title: "Roll",
-                display() {
-                    return "Cooldown: " + formatTime(player.blackhole.cooldown);
-                },
-                cooldown() {
-                    player.blackhole.cooldown = Math.max(0, player.blackhole.cooldown - 0.05);
-                },  
-                onClick() {
-                    let winChance = Math.random();
-                    let betColor = player.blackhole.betColor;
-                    let betAmount = player.blackhole.betAmount;
-        
-                    console.log(winChance + " < " + player.blackhole.winChance);
-        
-                    let win = winChance < player.blackhole.winChance && (betColor === "RED" || betColor === "BLACK");
-        
-                    if (win) {
-                        player.blackhole.rolledColor = betColor;
-                        player.blackhole.rolledNumber = betColor === "BLACK"
-                            ? new Decimal(Math.floor(Math.random() * 18) * 2 + 1)  // Odd numbers
-                            : new Decimal(Math.floor(Math.random() * 18) * 2 + 2); // Even numbers
-                        
-                        player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.mul(betAmount));
-                        player.blackhole.points = player.blackhole.points.add(player.blackhole.winAmount);
-                        player.blackhole.winstreak = player.blackhole.winstreak.add(1);
-                        player.blackhole.losestreak = new Decimal(0);
-                    } else {
-                        let greenWinChance = Math.random();
-                        let greenWin = greenWinChance < player.blackhole.greenWinchance && betColor === "GREEN";
-        
-                        if (greenWin) {
-                            player.blackhole.rolledNumber = new Decimal(0);
-                            player.blackhole.rolledColor = "GREEN";
+         clickables: {
+                12: {
+                    title() {
+                        return player.blackhole.rolledNumber
+                    },
+                    style() {
+                        return {
+                            "color": "white",
+                            "background-color": player.blackhole.rolledColor,
+                            "font-size": "1.5em",
+                            "font-weight": "bold",
+                        };
+                    },
+                },        
+            
+                22: {
+                    title: "Roll",
+                    display() {
+                        return "Cooldown: " + formatTime(player.blackhole.cooldown);
+                    },
+                    cooldown() {
+                        if (player.blackhole.cooldown > 0) player.blackhole.cooldown -= 0.05;
+
+                        if (player.blackhole.cooldown < 0) player.blackhole.cooldown = 0;
+                    },  
+                    onClick() {
+                        let WinChanceCalculator = new Decimal(Math.random());
+                        console.log(WinChanceCalculator + " < " + player.blackhole.winChance)
+                        if (
+                            WinChanceCalculator < player.blackhole.winChance &&
+                            (player.blackhole.betColor == "RED" || player.blackhole.betColor == "BLACK")
+                        ) {
+                            player.blackhole.rolledColor = player.blackhole.betColor;
+                    
+                            if (player.blackhole.rolledColor == "BLACK") {
+                                player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 1);
+                                player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.times(player.blackhole.betAmount));
+                                player.blackhole.points = player.blackhole.points.add(player.blackhole.winAmount);
+                                player.blackhole.winstreak = player.blackhole.winstreak.add(1);
+                                player.blackhole.losestreak = new Decimal(0);
+                            } else if (player.blackhole.rolledColor == "RED") {
+                                player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 2);
+                                player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.times(player.blackhole.betAmount));
+                                player.blackhole.points = player.blackhole.points.add(player.blackhole.winAmount);
+                                player.blackhole.winstreak = player.blackhole.winstreak.add(1);
+                                player.blackhole.losestreak = new Decimal(0);
+                            }
+
+
                         } else {
-                            let randomColor = Math.round(Math.random());
-                            player.blackhole.rolledColor = randomColor === 0 ? "BLACK" : "RED";
-                            player.blackhole.rolledNumber = player.blackhole.rolledColor === "BLACK"
-                                ? new Decimal(Math.floor(Math.random() * 18) * 2 + 1)
-                                : new Decimal(Math.floor(Math.random() * 18) * 2 + 2);
+                            let GreenWinChanceCalculator = new Decimal(Math.random());
+                            if (GreenWinChanceCalculator < player.blackhole.greenWinchance && player.blackhole.betColor == "GREEN") {
+                                player.blackhole.rolledNumber = new Decimal(0);
+                                player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.times(player.blackhole.betAmount));
+                                player.blackhole.points = player.blackhole.points.add(player.blackhole.winAmount);
+                                player.blackhole.winstreak = player.blackhole.winstreak.add(1);
+                                player.blackhole.losestreak = new Decimal(0);
+                                player.blackhole.rolledColor = "GREEN";
+                            } else {
+                                let randomcolor = new Decimal(Math.round(Math.random()));
+                    
+                                if (randomcolor == 0 && player.blackhole.betColor == "GREEN") {
+                                    player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 1);
+                                    player.blackhole.rolledColor = "BLACK";
+                                } else if (player.blackhole.betColor == "GREEN") {
+                                    player.blackhole.rolledColor = "RED";
+                                    player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 2);
+                                } else {
+                                    player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 37));
+                    
+                                    if (player.blackhole.rolledNumber.eq(0) && player.blackhole.betColor !== "GREEN") {
+                                        player.blackhole.rolledColor = "GREEN";
+                                    } 
+                                    
+                                    else if (player.blackhole.betColor == "RED") {
+                                        player.blackhole.rolledColor = "BLACK";
+                                        player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 1);
+                                    } 
+                                    
+                                    else if (player.blackhole.betColor == "BLACK") {
+                                        let newColor = Math.random() > player.blackhole.greenWinchance ? "RED" : "GREEN";
+                                        player.blackhole.rolledColor = newColor;
+                                        if (newColor == "RED") {
+                                            player.blackhole.rolledNumber = new Decimal(Math.floor(Math.random() * 18) * 2 + 2);
+                                        } else {
+                                            player.blackhole.rolledNumber = new Decimal(0);
+                                        }
+                                    }
+                                }
+                    
+                                player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.times(player.blackhole.betAmount));
+                                player.blackhole.winstreak = new Decimal(0);
+                                player.blackhole.losestreak = player.blackhole.losestreak.add(1);
+                            }
                         }
-        
-                        player.blackhole.points = player.blackhole.points.sub(player.blackhole.points.mul(betAmount));
-                        player.blackhole.winstreak = new Decimal(0);
-                        player.blackhole.losestreak = player.blackhole.losestreak.add(1);
-                    }
-        
-                    player.blackhole.totalRolls = player.blackhole.totalRolls.add(1);
-                    player.blackhole.cooldown = player.blackhole.maxCooldown;
+
+                        player.blackhole.totalRolls = player.blackhole.totalRolls.add(1)
+                        player.blackhole.cooldown = player.blackhole.maxCooldown
+                    },
+                                                     
+                    canClick() {
+                        if (player.blackhole.cooldown == 0 && player.blackhole.points >= 1) return true
+                        else return false
+                    },
+                    style() {
+                        return {
+                            "background-color": player.blackhole.cooldown  == 0  && player.blackhole.points >= 1 ? "rgb(0, 29, 73)" : "", // Apply color only if cooldown is 0
+                            "color": "white",
+                        };
+                    },                    
                 },
-                canClick() {
-                    return player.blackhole.cooldown === 0 && player.blackhole.points >= 1;
+
+                31: {
+                    title() {
+                        return "Bet Amount"
+                    },
+                    display() {
+                        return player.blackhole.betAmount*100 + "%"
+                    },
+                    style() {
+                        return {
+                            "background-color": "rgb(0, 29, 73)",
+                            "font-weight": "bold",
+                            color: "white",
+                        };
+                    },
+                    canClick() {
+                        if (hasMilestone("unstablefuel", 23)) return false
+                        else return true
+                    },
+                    onClick() {
+                       if (player.blackhole.betAmount == 1) player.blackhole.betAmount = 0.001
+                       if (player.blackhole.betAmount == 0.5) player.blackhole.betAmount = 1
+                       if (player.blackhole.betAmount == 0.1) player.blackhole.betAmount = 0.5
+                       if (player.blackhole.betAmount == 0.05) player.blackhole.betAmount = 0.1
+                       if (player.blackhole.betAmount == 0.01) player.blackhole.betAmount = 0.05
+                       if (player.blackhole.betAmount == 0.001) player.blackhole.betAmount = 0.01
+                    },
+                    unlocked() {return hasMilestone("blackhole", 4)},
                 },
-                style() {
-                    return {
-                        "background-color": player.blackhole.cooldown === 0 && player.blackhole.points >= 1 ? "rgb(0, 29, 73)" : "",
-                        "color": "white",
-                    };
-                },                    
-            },
-        
-            31: {
-                title() {
-                    return "Bet Amount";
-                },
-                display() {
-                    return player.blackhole.betAmount * 100 + "%";
-                },
-                style() {
-                    return {
-                        "background-color": "rgb(0, 29, 73)",
-                        "font-weight": "bold",
-                        "color": "white",
-                    };
-                },
-                canClick() {
-                    return !hasMilestone("unstablefuel", 23);
-                },
-                onClick() {
-                    let amounts = [0.001, 0.01, 0.05, 0.1, 0.5, 1];
-                    let index = amounts.indexOf(player.blackhole.betAmount);
-                    player.blackhole.betAmount = amounts[(index + 1) % amounts.length];
-                },
-                unlocked() {
-                    return hasMilestone("blackhole", 4);
-                },
-            },
-        
-            32: {
-                title() {
-                    return "Bet Color";
-                },
-                display() {
-                    return player.blackhole.betColor;
-                },
-                style() {
-                    return {
-                        "background-color": player.blackhole.betColor,
-                        "font-weight": "bold",
-                        "color": "white",
-                    };
-                },
-                canClick: true,
-                onClick() {
-                    let colors = ["RED", "BLACK", "GREEN"];
-                    let index = colors.indexOf(player.blackhole.betColor);
-                    player.blackhole.betColor = colors[(index + 1) % colors.length];
-                },   
-                unlocked() {
-                    return hasMilestone("blackhole", 4);
-                },
-            },
-        },        
+
+                32: {
+                    title() {
+                        return "Bet Color"
+                    },
+                    display() {
+                        return player.blackhole.betColor
+                    },
+                    style() {
+                        return {
+                            "background-color": player.blackhole.betColor,
+                            "font-weight": "bold",
+                            "color": "white",
+                        };
+                    },
+                    canClick: true,
+                    onClick() {
+                        if (player.blackhole.betColor === "RED") {
+                            player.blackhole.betColor = "BLACK";
+                        } else if (player.blackhole.betColor === "BLACK") {
+                            player.blackhole.betColor = "GREEN";
+                        } else if (player.blackhole.betColor === "GREEN") {
+                            player.blackhole.betColor = "RED";
+                        }
+                    },   
+                    unlocked() {return hasMilestone("blackhole", 4)},
+                }
+            }   
 })
