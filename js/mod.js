@@ -161,7 +161,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.1.4",
+	num: "2.1.5",
 	name: "Darkness",
 }
 
@@ -169,6 +169,9 @@ let changelog =
 `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
+		<h2 style="color:Violet;">v2.1.5</h2><br>
+		- Removed NaN again<br>
+		- More blobbing<br>
 		<h2 style="color:Violet;">v2.1.4</h2><br>
 		- Void Roulette Fixed<br>
 		<br>

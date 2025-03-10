@@ -57,7 +57,7 @@ addLayer("cosmicdust", {
 
     logCosmicRays() {
         if ((player.cosmicdust.points > 0.99) && inChallenge("real", 11)) {
-            let baseLog = Math.log10(player.cosmicdust.points)+1;
+            let baseLog = (player.cosmicdust.points).log10().add(1);
             let logarithmicValue = baseLog;
     
             if (hasUpgrade('galaxy', 22)) {
@@ -65,12 +65,15 @@ addLayer("cosmicdust", {
             }
 
             if (hasMilestone('darkmatter', 1)) {
-                logarithmicValue *= Math.log10(player.cosmicdust.points)/2.435+1;
+                logarithmicValue *= (player.cosmicdust.points).log10().div(2.435).add(1);
             }
 
             if (hasUpgrade('galaxy', 43)) {
-                logarithmicValue += Math.log2(player.cosmicdust.points)*(Math.log2(player.cosmicdust.points)/6.3);
+                let log2Effect = new Decimal(player.cosmicdust.points).add(1).log(2); // log base 2
+                logarithmicValue = new Decimal(logarithmicValue).add(log2Effect.times(log2Effect.div(6.3)));
             }
+            
+
 
             if (hasUpgrade('supernova', 13)) {
                 logarithmicValue *= upgradeEffect("supernova", 13);
@@ -359,7 +362,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 15)},
                 effect() {
-                    return (Math.log10(player.cosmicdust.points) + 1)
+                    return ((player.cosmicdust.points).add(1).log10())
                 },
                 effectDisplay() { return "/"+ format(upgradeEffect(this.layer, this.id)) }
             },
@@ -381,7 +384,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 22)},
                 effect() {
-                    return (Math.log2(player.cosmicrays.points+1))
+                    return ((player.cosmicrays.points).add(1).log2())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -412,7 +415,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 25)},
                 effect() {
-                    return ((Math.log10(player.cosmicrays.points)/1.5)+1)
+                    return ((player.cosmicrays.points).div(1.5).add(1).log(10))
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -425,7 +428,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 31)},
                 effect() {
-                    return ((Math.log2(player.cosmicrays.points)+1)*0.8)
+                    return ((player.cosmicrays.points).add(1).times(0.8).log2())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -474,7 +477,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 41)},
                 effect() {
-                    return ((Math.log10(player.cosmicrays.points)/1.2)+1)
+                    return ((player.cosmicrays.points).div(1.2).add(1).log10())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -545,7 +548,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 52)},
                 effect() {
-                    return ((Math.log2(player.cosmicrays.points)+1))
+                    return ((player.cosmicrays.points).add(1).log2())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -585,7 +588,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 61)},
                 effect() {
-                    return ((Math.log10(player.cosmicrays.points)/13)+1)
+                    return ((player.cosmicrays.points).div(13).add(1).log10())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
@@ -598,7 +601,7 @@ addLayer("galaxy", {
                 currencyInternalName: "points",
                 unlocked() {return hasUpgrade("galaxy", 62)},
                 effect() {
-                    return ((Math.log10(player.cosmicrays.points)/9)+1)
+                    return ((player.cosmicrays.points).div(9).add(1).log10())
                 },
                 effectDisplay() { return format(upgradeEffect(this.layer, this.id)) + "x" }
             },
