@@ -172,6 +172,7 @@ let changelog =
 		<h2 style="color:Violet;">v2.1.5</h2><br>
 		- Removed NaN again<br>
 		- More blobbing<br>
+		<br>
 		<h2 style="color:Violet;">v2.1.4</h2><br>
 		- Void Roulette Fixed<br>
 		<br>
