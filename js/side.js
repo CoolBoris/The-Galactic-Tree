@@ -1611,7 +1611,7 @@ addLayer("blob", {
                         let txt = ""
                         txt = txt + `You have 
                         <h2><span style="color: Purple; text-shadow: 0px 0px 20px #AD6F69; font-family: Lucida Console, Courier New, monospace">
-                            ${format(player.blob.points)}</span></h2> blobs!!`
+                            ${(player.blob.points)}</span></h2> blobs!!`
                         return txt
                     }
                 ],
