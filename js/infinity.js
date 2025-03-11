@@ -73,6 +73,8 @@ infoboxes: {
         if (hasMilestone('omegainf', 1)) mult = mult.times(2)
         if (hasMilestone('omegainf', 5)) mult = mult.times(1.5)
         if (hasUpgrade('blob', 31)) mult = mult.add(1)
+        if (hasUpgrade('blob', 51)) mult = mult.add(1)
+
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
