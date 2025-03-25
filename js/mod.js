@@ -132,6 +132,7 @@ function addedPlayerData() { return {
 // Display extra things at the top of the page
 var displayThings = [
 	"Endgame: Unstable Milestone XXIII in Reality II",
+	"THIS IS TGT TESTING VERSION",
 ]
 
 
@@ -161,7 +162,7 @@ function fixOldSave(oldVersion){
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.1.5",
+	num: "X.2.1.5",
 	name: "Darkness",
 }
 
