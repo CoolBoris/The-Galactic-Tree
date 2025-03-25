@@ -17,7 +17,7 @@ addLayer("real", {
     },
     layerShown() {
         let visible = false
-        if (hasMilestone('x', 5) || player.inf.points.gte(1)) visible = true
+        if (hasMilestone('x', 5) || player.inf.points.gte(1) || player.megainf.points.gte(1) || player.omegainf.points.gte(1)) visible = true
         return visible
     },
     glow: false,
