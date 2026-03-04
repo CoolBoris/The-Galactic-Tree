@@ -1,5 +1,5 @@
 * {
-	transition-duration: 0.3s;
+	transition-duration: 0.5s;
 	text-align: center;
 	font-family: "Inconsolata", monospace;
 	font-weight: bold;
@@ -7,7 +7,6 @@
 	margin: auto;
 	-webkit-text-size-adjust: none;
 	text-size-adjust: none;
-
 }
 
 *:focus {
@@ -15,13 +14,14 @@
 	webkit-outline: none;
 }
 
-html, body {
+html,
+body {
 	min-height: 100%;
 	height: 100%;
 }
 
 td {
-	padding: 0
+	padding: 0;
 }
 
 .upgTable {
@@ -43,11 +43,11 @@ td {
 }
 
 .upgAlign {
-	vertical-align: 0
+	vertical-align: 0;
 }
 
 .bigUpgAlign {
-	vertical-align: 0
+	vertical-align: 0;
 }
 
 .treeThing {
@@ -56,11 +56,11 @@ td {
 }
 
 .can.upg:hover {
-	z-index: 2
+	z-index: 2;
 }
 
 .can.buyable:hover {
-	z-index: 2
+	z-index: 2;
 }
 
 .back {
@@ -127,15 +127,15 @@ td {
 	position: absolute;
 	overflow-y: auto;
 	overflow-x: auto;
-	transition-duration: 0s
+	transition-duration: 0s;
 }
 
 .instant {
-	transition-duration: 0s !important
+	transition-duration: 0s !important;
 }
 
 .fast {
-	transition:color none
+	transition: color none;
 }
 
 .col.right {
@@ -165,25 +165,24 @@ ul {
 	min-width: 100%;
 	overflow-y: auto;
 	overflow-x: auto;
-	transition-duration: 0s
+	transition-duration: 0s;
 }
 
-.tooltipBox { 
+.tooltipBox {
 	position: relative;
-  }
-  
-  .tooltipBox:hover .tooltip{
-	opacity: 1;
-  }
+}
 
-  .forceTooltip .tooltip{
+.tooltipBox:hover .tooltip {
 	opacity: 1;
-  }
-  
+}
+
+.forceTooltip .tooltip {
+	opacity: 1;
+}
+
 .respecCheckbox {
 	display: inline-block;
 }
-
 
 #loadingSection {
 	display: flex;
@@ -192,38 +191,38 @@ ul {
 }
 
 .treeOverlay {
-	pointer-events:none;
-	overflow:hidden;
+	pointer-events: none;
+	overflow: hidden;
 }
 
 .front {
-	z-index: 30000
+	z-index: 30000;
 }
 
 .overlayThing {
 	z-index: 10000;
-	pointer-events:auto;
+	pointer-events: auto;
 }
 
 .sideLayers {
 	z-index: 10000;
-	pointer-events:auto;
+	pointer-events: auto;
 	position: absolute;
-	right: 55px;
-	top: 65px;
+	top: 180px;
+	left: 4px;
 	background-color: transparent;
 }
 
 button > * {
-	pointer-events:none;
+	pointer-events: none;
 }
 
 .ghost {
-	visibility: hidden
+	visibility: hidden;
 }
 
 #treeTab td button {
-    margin: 0 10px;
+	margin: 0 10px;
 }
 
 .bg {
@@ -232,7 +231,7 @@ button > * {
 	height: 100%;
 	position: absolute;
 	background-color: transparent;
-	top: 0
+	top: 0;
 }
 
 .bg2 {
@@ -240,7 +239,7 @@ button > * {
 	width: 100%;
 	height: 100%;
 	position: absolute;
-	top: 0
+	top: 0;
 }
 
 .noBackground {
