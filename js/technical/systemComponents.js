@@ -1,6 +1,6 @@
 var systemComponents = {
-	"tab-buttons": {
-		props: ["layer", "data", "name"],
+	'tab-buttons': {
+		props: ['layer', 'data', 'name'],
 		template: `
 			<div class="upgRow">
 				<div v-for="tab in Object.keys(data)">
@@ -9,11 +9,11 @@ var systemComponents = {
 						v-on:click="function(){player.subtabs[layer][name] = tab; updateTabFormats(); needCanvasUpdate = true;}">{{tab}}</button>
 				</div>
 			</div>
-		`,
+		`
 	},
 
-	"tree-node": {
-		props: ["layer", "abb", "size", "prev"],
+	'tree-node': {
+		props: ['layer', 'abb', 'size', 'prev'],
 		template: `
 		<button v-if="nodeShown(layer)"
 			v-bind:id="layer"
@@ -60,11 +60,12 @@ var systemComponents = {
 			)"></tooltip>
 			<node-mark :layer='layer' :data='tmp[layer].marked'></node-mark></span>
 		</button>
-		`,
+		`
 	},
 
-	"layer-tab": {
-		props: ["layer", "back", "spacing", "embedded"],
+
+	'layer-tab': {
+		props: ['layer', 'back', 'spacing', 'embedded'],
 		template: `<div v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]" class="noBackground">
 		<div v-if="back"><button v-bind:class="back == 'big' ? 'other-back' : 'back'" v-on:click="goBack(layer)">←</button></div>
 		<div v-if="!tmp[layer].tabFormat">
@@ -79,7 +80,7 @@ var systemComponents = {
 			<div v-if="Array.isArray(tmp[layer].midsection)">
 				<column :layer="layer" :data="tmp[layer].midsection" :key="this.$vnode.key + '-mid'"></column>
 			</div>
-			<clickables v-bind:style="tmp[layer].componentStyles['clickables']" :layer="layer"></clickables>
+			<clickables v-bind:style="tmp[layer].componentStyles.clickables" :layer="layer"></clickables>
 			<buyables v-bind:style="tmp[layer].componentStyles.buyables" :layer="layer"></buyables>
 			<upgrades v-bind:style="tmp[layer].componentStyles['upgrades']" :layer="layer"></upgrades>
 			<challenges v-bind:style="tmp[layer].componentStyles['challenges']" :layer="layer"></challenges>
@@ -98,13 +99,13 @@ var systemComponents = {
 				<column v-else :layer="layer" :data="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].content" :key="this.$vnode.key + '-col'"></column>
 			</div>
 		</div></div>
-			`,
+			`
 	},
 
-	"overlay-head": {
+	'overlay-head': {
 		template: `			
 		<div class="overlayThing" style="padding-bottom:7px; width: 90%; z-index: 1000; position: relative">
-		<span v-if="player.devSpeed && player.devSpeed > 1" class="overlayThing">
+		<span v-if="player.devSpeed && player.devSpeed != 1" class="overlayThing">
 			<br>Dev Speed: {{format(player.devSpeed)}}x<br>
 		</span>
 		<span v-if="player.offTime !== undefined"  class="overlayThing">
@@ -118,10 +119,10 @@ var systemComponents = {
 		<span v-if="canGenPoints()"  class="overlayThing">({{tmp.other.oompsMag != 0 ? format(tmp.other.oomps) + " OOM" + (tmp.other.oompsMag < 0 ? "^OOM" : tmp.other.oompsMag > 1 ? "^" + tmp.other.oompsMag : "") + "s" : formatSmall(getPointGen())}}/sec)</span>
 		<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
 	</div>
-	`,
+	`
 	},
 
-	"info-tab": {
+	'info-tab': {
 		template: `
         <div class = "info-tab">
         <h1>{{modInfo.name}}</h1>
@@ -129,24 +130,26 @@ var systemComponents = {
         <h3>{{VERSION.withName}}</h3>
 		<br>
 		<br>
+		<br>
+		<br>
         Made by {{modInfo.author}}
 		<span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
-		<img src="resources/coolboris.png" alt="CoolBoris" width="200"><br><br>
+		<img src="coolboris.png" alt="CoolBoris" width="200"><br><br>
         </span>
 		The Prestige Tree made by Jacorb and Aarex
-		<a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Jacorb's Games</a><br>
+		<a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
 
-        The Modding Tree made by Acamaeda
-        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree</a><br>
+        The Modding Tree v{{TMT_VERSION.tmtNum}} by Acamaeda
+        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree Discord</a><br>
+		<br>
 		<div class="link" onclick="showTab('changelog-tab')">Changelog</div><br>
         Time Played: {{ formatTime(player.timePlayed) }}<br><br>
-		Current Endgame: e280000000 points<br><br>
 		Thank you for playing!
-    `,
+    `
 	},
 
-	"options-tab": {
-		template: `
+'options-tab': {
+    template: `
         <table class="options-table">
             <tr class="spacer-row"><td colspan="5"></td></tr>
             <tr>
@@ -177,22 +180,22 @@ var systemComponents = {
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('hqTree')">
-                        High Quality Tree:<br> <span :class="options.hqTree ? 'on' : 'off'">{{ options.hqTree ? "ON" : "OFF" }}</span>
+                        High-Quality Tree: <span :class="options.hqTree ? 'on' : 'off'">{{ options.hqTree ? "ON" : "OFF" }}</span>
                     </button>
                 </td>
                 <td>
 				<button class="opt" onclick="toggleOpt('emojisEnabled')">
-                       Layer Emojis:<br> <span :class="options.emojisEnabled ? 'on' : 'off'">{{ options.emojisEnabled ? "ON" : "OFF" }}</span>
+                       Layer Emojis: <span :class="options.emojisEnabled ? 'on' : 'off'">{{ options.emojisEnabled ? "ON" : "OFF" }}</span>
                     </button>
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('hideChallenges')">
-                        Completed Challenges:<br> <span :class="options.hideChallenges ? 'off' : 'on'">{{ options.hideChallenges ? "HIDDEN" : "SHOWN" }}</span>
+                        Completed Challenges: <span :class="options.hideChallenges ? 'off' : 'on'">{{ options.hideChallenges ? "HIDDEN" : "SHOWN" }}</span>
                     </button>
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">
-                        Single-Tab Mode:<br> <span :class="options.forceOneTab ? 'off' : 'on'">{{ options.forceOneTab ? "ALWAYS" : "AUTO" }}</span>
+                        Single-Tab Mode: <span :class="options.forceOneTab ? 'off' : 'on'">{{ options.forceOneTab ? "ALWAYS" : "AUTO" }}</span>
                     </button>
                 </td>
             </tr>
@@ -255,39 +258,41 @@ var systemComponents = {
             </tr>
             <tr class="spacer-row"><td colspan="5" style="height: 50px;"></td></tr> <!-- Extra space at bottom -->
         </table>
-    `,
-	},
+    `
+},
 
-	"back-button": {
+
+
+
+
+
+
+	'back-button': {
 		template: `
         <button v-bind:class="back" onclick="goBack()">←</button>
-        `,
+        `
 	},
 
-	tooltip: {
-		props: ["text"],
+
+	'tooltip': {
+		props: ['text'],
 		template: `<div class="tooltip" v-html="text"></div>
-		`,
+		`
 	},
 
-	"node-mark": {
-		props: {
-			layer: {},
-			data: {},
-			offset: { default: 0 },
-			scale: { default: 1 },
-		},
+	'node-mark': {
+		props: { 'layer': {}, data: {}, offset: { default: 0 }, scale: { default: 1 } },
 		template: `<div v-if='data'>
 			<div v-if='data === true' class='star' v-bind:style='{position: "absolute", left: (offset-10) + "px", top: (offset-10) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}'></div>
 			<img v-else class='mark' v-bind:style='{position: "absolute", left: (offset-22) + "px", top: (offset-15) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}' v-bind:src="data"></div>
 		</div>
-		`,
+		`
 	},
 
-	particle: {
-		props: ["data", "index"],
+	'particle': {
+		props: ['data', 'index'],
 		template: `<div><div class='particle instant' v-bind:style="[constructParticleStyle(data), data.style]" 
-			v-on:click="run(data.onClick, data)"  v-on:mouseenter="run(data.onMouseEnter, data)" v-on:mouseleave="run(data.onMouseLeave, data)" ><span v-html="data.text"></span>
+			v-on:click="run(data.onClick, data)"  v-on:mouseenter="run(data.onMouseOver, data)" v-on:mouseleave="run(data.onMouseLeave, data)" ><span v-html="data.text"></span>
 		</div>
 		<svg version="2" v-if="data.color">
 		<mask v-bind:id="'pmask' + data.id">
@@ -295,12 +300,13 @@ var systemComponents = {
     	</mask>
     	</svg>
 		</div>
-		`,
+		`
 	},
 
-	bg: {
-		props: ["layer"],
+	'bg': {
+		props: ['layer'],
 		template: `<div class ="bg" v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]"></div>
-		`,
-	},
-};
+		`
+	}
+
+}

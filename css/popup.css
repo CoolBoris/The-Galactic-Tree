@@ -1,54 +1,42 @@
 .popup {
 	border: 4px solid;
-	border-radius: 8px;
-	width: 200px;
-	min-height: 50px;
-	color: #000000;
+	border-radius: 15px;
+	width: 300px;
+	min-height: 60px;
+	color: #161616;
 	display: block;
 	margin-top: 30px;
-	padding: 10px;
-	border-color: rgba(0, 0, 0, 0.125);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-color: rgba(0, 0, 0, 0.25);
 }
 
-.popup:hover {
-	transform: scale(1.1, 1.1);
-}
 
 .popup-container {
 	position: absolute;
-	right: -10px;
-	width: 300px;
-	pointer-events: auto;
 	z-index: 9999999999999999999999999999999999;
-}
-
-.popup-container h3 {
-	font-size: 18px;
-}
-
-.popup-container h2 {
-	font-size: 15px;
+	right: 30px;
+	width: 300px;
 }
 
 .achievement-popup {
-	background: #7182bc;
+	background: #7182BC;
 }
 
 .milestone-popup {
-	background: #d1c23c;
+	background: #cabf5c;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-	transition: opacity 0.3s;
+.fade-enter-active, .fade-leave-active {
+	transition: opacity .2s
 }
 
 .fade-transition {
-	transition: opacity 0.3s;
+	transition: opacity .2s
 }
 
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-	opacity: 0;
+	opacity: 0
 }
 
 .redtext {
@@ -58,7 +46,7 @@
 .particle {
 	background-color: transparent;
 	display: block;
-	position: absolute;
+	position:absolute;
 	z-index: 99999;
-	background-size: contain;
+	background-size:contain;
 }

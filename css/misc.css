@@ -1,11 +1,11 @@
+
 /* Prestige button */
 .reset {
-	height: 130px;
-	width: 200px;
-	border-radius: 12px;
-	font-size: 15px;
+	height: 120px;
+	width: 180px;
+	border-radius: 15px;
 	border: 4px solid;
-	border-color: rgba(0, 0, 0, 0.25);
+	border-color: rgba(0, 0, 0, 0.125);
 }
 
 .tabButton {
@@ -18,6 +18,7 @@
 	border-radius: 10px;
 	border: 2px solid;
 	color: var(--color);
+
 }
 
 .tabButton:hover {
@@ -25,45 +26,46 @@
 	text-shadow: 0 0 7px var(--color);
 }
 
-.tooltip {
-	pointer-events: none;
-	text-align: center;
-	width: 150px;
-	font-size: 16px;
-	line-height: 1.2;
-	bottom: 100%;
-	left: 50%;
-	margin-bottom: 5px;
-	transform: translateX(-50%);
-	padding: 7px;
-	font-family: "Lucida Console", "Courier New", monospace;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	opacity: 0;
-	transition: opacity 0.5s;
+.tooltip { 
+    pointer-events: none;
+    text-align: center;
+    width: 150px;
+    font-size: 16px;
+    line-height: 1.2;
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: 5px;
+    transform: translateX(-50%);
+    padding: 7px;
+    font-family: "Geist";
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.5s;
+  
+    position: absolute;
+    z-index: 20000;
+  
+    background-color: var(--background_tooltip);
+    color: var(--points);
+    content: attr(tooltip);
+    font-size:14px;
 
-	position: absolute;
-	z-index: 20000;
-
-	background-color: var(--background_tooltip);
-	color: var(--points);
-	content: attr(tooltip);
-	font-size: 14px;
 }
 
 .tooltip::after {
-	content: " ";
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
+    content: " ";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
 
-	top: 100%;
-	left: 50%;
-	margin-left: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: var(--background_tooltip) transparent transparent transparent;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--background_tooltip) transparent transparent transparent;
 }
 
 /* Horizontal/vertical lines */
@@ -73,7 +75,7 @@
 	position: absolute;
 	left: 50%;
 	margin-left: -3px;
-	top: 0;
+	top: 0
 }
 
 .hl {

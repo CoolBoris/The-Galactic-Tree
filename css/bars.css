@@ -1,7 +1,7 @@
 .barBase {
 	overflow: hidden;
 	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-	display: table;
+	display:table
 }
 
 .barBorder {
@@ -10,7 +10,7 @@
 	border-color: var(--color);
 	overflow: hidden;
 	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-	margin: 0;
+	margin:0
 }
 
 .overlayTextContainer {
@@ -25,11 +25,12 @@
 
 .fill {
 	background-color: var(--color);
-	z-index: 2;
-	position: absolute;
+	z-index:2;
+    position: absolute;
 	overflow: hidden;
 	margin-left: -0.5px;
 	transition-duration: 0.2s;
+
 }
 
 .overlayText {
