@@ -14,6 +14,46 @@
 	margin: 0 10px 0 10px;
 }
 
+@keyframes rainbow {
+	100%,
+	0% {
+		background-color: rgb(255, 0, 0);
+	}
+	8% {
+		background-color: rgb(255, 127, 0);
+	}
+	16% {
+		background-color: rgb(255, 255, 0);
+	}
+	25% {
+		background-color: rgb(127, 255, 0);
+	}
+	33% {
+		background-color: rgb(0, 255, 0);
+	}
+	41% {
+		background-color: rgb(0, 255, 127);
+	}
+	50% {
+		background-color: rgb(0, 255, 255);
+	}
+	58% {
+		background-color: rgb(0, 127, 255);
+	}
+	66% {
+		background-color: rgb(0, 0, 255);
+	}
+	75% {
+		background-color: rgb(127, 0, 255);
+	}
+	83% {
+		background-color: rgb(255, 0, 255);
+	}
+	91% {
+		background-color: rgb(255, 0, 127);
+	}
+}
+
 .nodeLabel {
 	font: inherit;
 	font-family: inherit;
@@ -34,9 +74,10 @@
 }
 
 .smallNode {
-	height: 60px;
-	width: 60px;
-	font-size: 30px;
+	height: 50px;
+	width: 50px;
+	font-size: 25px;
+	margin-bottom: 5px;
 }
 
 .resetNotify {
@@ -54,8 +95,6 @@
 	box-shadow: var(--hqProperty2a), 0 0 20px #ff0000;
 }
 
-
-
 .mark {
 	position: relative;
 	display: inline-block;
@@ -69,7 +108,7 @@
 	border-bottom: 0.7em solid transparent;
 	border-left: 0.3em solid transparent;
 	font-size: 10px;
-	overflow:auto;
+	overflow: auto;
 	pointer-events: none;
 }
 
@@ -87,19 +126,19 @@
 	border-left: 0.3em solid transparent;
 	font-size: 10px;
 	pointer-events: none;
-
 }
 
-.star:before, .star:after {
+.star:before,
+.star:after {
 	content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: .6em;
-    left: -1em;
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 0.6em;
+	left: -1em;
 	border-right: 1em solid transparent;
-    border-bottom: 0.7em solid #ffcc00;
-    border-left: 1em solid transparent;
+	border-bottom: 0.7em solid #ffcc00;
+	border-left: 1em solid transparent;
 	transform: rotate(-35deg);
 }
 
