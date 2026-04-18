@@ -1,0 +1,91 @@
+Date : 2026-03-18 11:00:14
+Directory : c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree
+Total : 53 files,  23739 codes, 332 comments, 1691 blanks, all 25762 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         43 |     22,671 |        322 |      1,544 |     24,537 |
+| PostCSS    |          8 |        852 |         10 |        129 |        991 |
+| HTML       |          1 |        214 |          0 |         17 |        231 |
+| Ini        |          1 |          2 |          0 |          1 |          3 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                    | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                       |         53 |     23,739 |        332 |      1,691 |     25,762 |
+| . (Files)                                                                                                                               |          2 |        216 |          0 |         18 |        234 |
+| css                                                                                                                                     |          8 |        852 |         10 |        129 |        991 |
+| js                                                                                                                                      |         43 |     22,671 |        322 |      1,544 |     24,537 |
+| js (Files)                                                                                                                              |          1 |        395 |         20 |         27 |        442 |
+| js\layers                                                                                                                               |         25 |     15,147 |         19 |        817 |     15,983 |
+| js\layers\r1                                                                                                                            |         12 |      8,216 |         16 |        452 |      8,684 |
+| js\layers\r2                                                                                                                            |          7 |      4,513 |          3 |        231 |      4,747 |
+| js\layers\r2 (Files)                                                                                                                    |          6 |      4,380 |          3 |        225 |      4,608 |
+| js\layers\r2\infinity                                                                                                                   |          1 |        133 |          0 |          6 |        139 |
+| js\layers\side                                                                                                                          |          6 |      2,418 |          0 |        134 |      2,552 |
+| js\technical                                                                                                                            |         17 |      7,129 |        283 |        700 |      8,112 |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\bars.css                               | PostCSS    |         33 |          0 |          5 |         38 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\components.css                         | PostCSS    |        193 |          3 |         22 |        218 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\general-style.css                      | PostCSS    |         35 |          4 |          7 |         46 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\misc.css                               | PostCSS    |         70 |          2 |         10 |         82 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\other-tabs.css                         | PostCSS    |        105 |          0 |         17 |        122 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\popup.css                              | PostCSS    |         53 |          0 |         12 |         65 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\system-style.css                       | PostCSS    |        208 |          0 |         42 |        250 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\css\tree-node.css                          | PostCSS    |        155 |          1 |         14 |        170 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\desktop.ini                                | Ini        |          2 |          0 |          1 |          3 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\index.html                                 | HTML       |        214 |          0 |         17 |        231 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\asteroids.js                  | JavaScript |        393 |          1 |         28 |        422 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\astronauts.js                 | JavaScript |        344 |          3 |         34 |        381 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\clickergame.js                | JavaScript |      2,354 |          0 |          9 |      2,363 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\comets.js                     | JavaScript |        370 |          0 |         24 |        394 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\infinity.js                   | JavaScript |        629 |          0 |         30 |        659 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\oldinfinity.js                | JavaScript |        177 |          3 |         17 |        197 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\planets.js                    | JavaScript |        621 |          0 |         52 |        673 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\rocketfuel.js                 | JavaScript |        557 |          7 |         61 |        625 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\rockets.js                    | JavaScript |        594 |          2 |         45 |        641 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\space.js                      | JavaScript |        628 |          0 |         28 |        656 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\stars.js                      | JavaScript |        604 |          0 |         49 |        653 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r1\x.js                          | JavaScript |        945 |          0 |         75 |      1,020 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\blackhole.js                  | JavaScript |        654 |          2 |         68 |        724 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\darkmatter.js                 | JavaScript |        344 |          0 |         20 |        364 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\galaxy.js                     | JavaScript |        999 |          1 |         55 |      1,055 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\infinity\negative infinity.js | JavaScript |        133 |          0 |          6 |        139 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\supernova.js                  | JavaScript |      1,205 |          0 |         47 |      1,252 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\universe.js                   | JavaScript |        194 |          0 |         12 |        206 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\r2\unstablerocketfuel.js         | JavaScript |        984 |          0 |         23 |      1,007 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\achievements.js             | JavaScript |        880 |          0 |         71 |        951 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\blob.js                     | JavaScript |        526 |          0 |          4 |        530 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\extra.js                    | JavaScript |        109 |          0 |         12 |        121 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\realities.js                | JavaScript |         83 |          0 |         11 |         94 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\savebank.js                 | JavaScript |        404 |          0 |         22 |        426 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\layers\side\secretachievements.js       | JavaScript |        416 |          0 |         14 |        430 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\mod.js                                  | JavaScript |        395 |         20 |         27 |        442 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\NumberFormating.js            | JavaScript |        171 |          1 |         15 |        187 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\break_eternity.js             | JavaScript |      3,320 |        224 |        374 |      3,918 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\canvas.js                     | JavaScript |         75 |          1 |         10 |         86 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\components.js                 | JavaScript |        803 |         28 |         42 |        873 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\displays.js                   | JavaScript |        247 |          0 |          0 |        247 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\easyAccess.js                 | JavaScript |         78 |          0 |         21 |         99 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\game.js                       | JavaScript |        444 |          4 |         55 |        503 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\layerSupport.js               | JavaScript |        270 |          4 |         31 |        305 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\loader.js                     | JavaScript |         13 |          1 |          3 |         17 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\options.js                    | JavaScript |         92 |          1 |         10 |        103 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\particleSystem.js             | JavaScript |        168 |          2 |         21 |        191 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\save.js                       | JavaScript |        305 |          4 |         22 |        331 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\systemComponents.js           | JavaScript |        325 |          0 |         11 |        336 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\temp.js                       | JavaScript |        192 |          3 |         23 |        218 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\themes.js                     | JavaScript |        205 |          1 |          3 |        209 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\tree.js                       | JavaScript |         21 |          1 |          4 |         26 |
+| c:\Users\coolboris\OneDrive - Scholengroep Sint-Rembert vzw\Bureaublad\dev\The-Galactic-Tree\js\technical\utils.js                      | JavaScript |        400 |          8 |         55 |        463 |
+| Total                                                                                                                                   |            |     23,739 |        332 |      1,691 |     25,762 |
++-----------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

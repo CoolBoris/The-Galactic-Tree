@@ -1,6 +1,6 @@
 var systemComponents = {
-	'tab-buttons': {
-		props: ['layer', 'data', 'name'],
+	"tab-buttons": {
+		props: ["layer", "data", "name"],
 		template: `
 			<div class="upgRow">
 				<div v-for="tab in Object.keys(data)">
@@ -9,63 +9,69 @@ var systemComponents = {
 						v-on:click="function(){player.subtabs[layer][name] = tab; updateTabFormats(); needCanvasUpdate = true;}">{{tab}}</button>
 				</div>
 			</div>
-		`
+		`,
 	},
 
-	'tree-node': {
-		props: ['layer', 'abb', 'size', 'prev'],
+	"tree-node": {
+		props: ["layer", "abb", "size", "prev"],
 		template: `
-		<button v-if="nodeShown(layer)"
-			v-bind:id="layer"
-			v-on:click="function() {
-				if (shiftDown && options.forceTooltips) player[layer].forceTooltip = !player[layer].forceTooltip
-				else if(tmp[layer].isLayer) {
-					if (tmp[layer].leftTab) {
-						showNavTab(layer, prev)
-						showTab('none')
-					}
-					else
-						showTab(layer, prev)
+	<button v-if="nodeShown(layer)"
+		v-bind:id="layer"
+		v-on:click="function() {
+			if (shiftDown && options.forceTooltips) player[layer].forceTooltip = !player[layer].forceTooltip
+			else if(tmp[layer].isLayer) {
+				if (tmp[layer].leftTab) {
+					showNavTab(layer, prev)
+					showTab('none')
 				}
-				else {run(layers[layer].onClick, layers[layer])}
-			}"
+				else
+					showTab(layer, prev)
+			}
+			else {run(layers[layer].onClick, layers[layer])}
+		}"
+		v-bind:class="{
+			treeNode: tmp[layer].isLayer,
+			treeButton: !tmp[layer].isLayer,
+			smallNode: size == 'small',
+			[layer]: true,
+			tooltipBox: true,
+			forceTooltip: player[layer].forceTooltip,
+			ghost: tmp[layer].layerShown == 'ghost',
+			hidden: !tmp[layer].layerShown,
+			locked: tmp[layer].isLayer ? !(player[layer].unlocked || tmp[layer].canReset) : !(tmp[layer].canClick),
+			notify: tmp[layer].notify && player[layer].unlocked,
+			resetNotify: tmp[layer].prestigeNotify,
+			can: ((player[layer].unlocked || tmp[layer].canReset) && tmp[layer].isLayer) || (!tmp[layer].isLayer && tmp[layer].canClick),
+			front: !tmp.scrolled,
+		}"
+		v-bind:style="constructNodeStyle(layer)">
 
+		<span class="nodeLabel" v-html="(abb !== '' && tmp[layer].image === undefined) ? abb : '&nbsp;'"></span>
 
-			v-bind:class="{
-				treeNode: tmp[layer].isLayer,
-				treeButton: !tmp[layer].isLayer,
-				smallNode: size == 'small',
-				[layer]: true,
-				tooltipBox: true,
-				forceTooltip: player[layer].forceTooltip,
-				ghost: tmp[layer].layerShown == 'ghost',
-				hidden: !tmp[layer].layerShown,
-				locked: tmp[layer].isLayer ? !(player[layer].unlocked || tmp[layer].canReset) : !(tmp[layer].canClick),
-				notify: tmp[layer].notify && player[layer].unlocked,
-				resetNotify: tmp[layer].prestigeNotify,
-				can: ((player[layer].unlocked || tmp[layer].canReset) && tmp[layer].isLayer) || (!tmp[layer].isLayer && tmp[layer].canClick),
-				front: !tmp.scrolled,
-			}"
-			v-bind:style="constructNodeStyle(layer)">
-			<span class="nodeLabel" v-html="(abb !== '' && tmp[layer].image === undefined) ? abb : '&nbsp;'"></span>
-			<tooltip
-      v-if="tmp[layer].tooltip != ''"
+		<!-- HOTKEY: only show for main layers -->
+		<span v-if="layers[layer].hotkeys && layers[layer].hotkeys.length && tmp[layer].row !== 'side'"
+			class="node-hotkey">
+			{{ layers[layer].hotkeys[0].key.toUpperCase() }}
+		</span>
+
+		<tooltip
+			v-if="tmp[layer].tooltip != ''"
 			:text="(tmp[layer].isLayer) ? (
 				player[layer].unlocked ? (tmp[layer].tooltip ? tmp[layer].tooltip : formatWhole(player[layer].points) + ' ' + tmp[layer].resource)
-				: (tmp[layer].tooltipLocked ? tmp[layer].tooltipLocked : 'Reach ' + formatWhole(tmp[layer].requires) + ' ' + tmp[layer].baseResource + ' to unlock (You have ' + formatWhole(tmp[layer].baseAmount) + ' ' + tmp[layer].baseResource + ')')
+				: (tmp[layer].tooltipLocked ? tmp[layer].tooltipLocked : 'Reach ' + formatWhole(tmp[layer].requires) + ' ' + tmp[layer].baseResource + ' to unlock')
 			)
 			: (
 				tmp[layer].canClick ? (tmp[layer].tooltip ? tmp[layer].tooltip : 'I am a button!')
 				: (tmp[layer].tooltipLocked ? tmp[layer].tooltipLocked : 'I am a button!')
 			)"></tooltip>
-			<node-mark :layer='layer' :data='tmp[layer].marked'></node-mark></span>
-		</button>
-		`
+
+		<node-mark :layer='layer' :data='tmp[layer].marked'></node-mark>
+	</button>
+	`,
 	},
 
-
-	'layer-tab': {
-		props: ['layer', 'back', 'spacing', 'embedded'],
+	"layer-tab": {
+		props: ["layer", "back", "spacing", "embedded"],
 		template: `<div v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]" class="noBackground">
 		<div v-if="back"><button v-bind:class="back == 'big' ? 'other-back' : 'back'" v-on:click="goBack(layer)">←</button></div>
 		<div v-if="!tmp[layer].tabFormat">
@@ -80,7 +86,7 @@ var systemComponents = {
 			<div v-if="Array.isArray(tmp[layer].midsection)">
 				<column :layer="layer" :data="tmp[layer].midsection" :key="this.$vnode.key + '-mid'"></column>
 			</div>
-			<clickables v-bind:style="tmp[layer].componentStyles.clickables" :layer="layer"></clickables>
+			<clickables v-bind:style="tmp[layer].componentStyles['clickables']" :layer="layer"></clickables>
 			<buyables v-bind:style="tmp[layer].componentStyles.buyables" :layer="layer"></buyables>
 			<upgrades v-bind:style="tmp[layer].componentStyles['upgrades']" :layer="layer"></upgrades>
 			<challenges v-bind:style="tmp[layer].componentStyles['challenges']" :layer="layer"></challenges>
@@ -99,13 +105,13 @@ var systemComponents = {
 				<column v-else :layer="layer" :data="tmp[layer].tabFormat[player.subtabs[layer].mainTabs].content" :key="this.$vnode.key + '-col'"></column>
 			</div>
 		</div></div>
-			`
+			`,
 	},
 
-	'overlay-head': {
+	"overlay-head": {
 		template: `			
 		<div class="overlayThing" style="padding-bottom:7px; width: 90%; z-index: 1000; position: relative">
-		<span v-if="player.devSpeed && player.devSpeed != 1" class="overlayThing">
+		<span v-if="player.devSpeed && player.devSpeed > 1" class="overlayThing">
 			<br>Dev Speed: {{format(player.devSpeed)}}x<br>
 		</span>
 		<span v-if="player.offTime !== undefined"  class="overlayThing">
@@ -119,10 +125,10 @@ var systemComponents = {
 		<span v-if="canGenPoints()"  class="overlayThing">({{tmp.other.oompsMag != 0 ? format(tmp.other.oomps) + " OOM" + (tmp.other.oompsMag < 0 ? "^OOM" : tmp.other.oompsMag > 1 ? "^" + tmp.other.oompsMag : "") + "s" : formatSmall(getPointGen())}}/sec)</span>
 		<div v-for="thing in tmp.displayThings" class="overlayThing"><span v-if="thing" v-html="thing"></span></div>
 	</div>
-	`
+	`,
 	},
 
-	'info-tab': {
+	"info-tab": {
 		template: `
         <div class = "info-tab">
         <h1>{{modInfo.name}}</h1>
@@ -130,26 +136,22 @@ var systemComponents = {
         <h3>{{VERSION.withName}}</h3>
 		<br>
 		<br>
-		<br>
-		<br>
         Made by {{modInfo.author}}
 		<span v-if="modInfo.discordLink"><a class="link" v-bind:href="modInfo.discordLink" target="_blank">{{modInfo.discordName}}</a><br></span>
-		<img src="coolboris.png" alt="CoolBoris" width="200"><br><br>
+		<img src="resources/coolboris.png" alt="CoolBoris" width="200"><br><br>
         </span>
 		The Prestige Tree made by Jacorb and Aarex
-		<a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Main Prestige Tree server</a><br>
+		<a class="link" href="http://discord.gg/wwQfgPa" target="_blank" v-bind:style="{'font-size': '16px'}">Jacorb's Games</a><br>
 
-        The Modding Tree v{{TMT_VERSION.tmtNum}} by Acamaeda
-        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree Discord</a><br>
-		<br>
+        The Modding Tree made by Acamaeda
+        <a class="link" href="https://discord.gg/F3xveHV" target="_blank" v-bind:style="modInfo.discordLink ? {'font-size': '16px'} : {}">The Modding Tree</a><br>
 		<div class="link" onclick="showTab('changelog-tab')">Changelog</div><br>
-        Time Played: {{ formatTime(player.timePlayed) }}<br><br>
 		Thank you for playing!
-    `
+    `,
 	},
 
-'options-tab': {
-    template: `
+	"options-tab": {
+		template: `
         <table class="options-table">
             <tr class="spacer-row"><td colspan="5"></td></tr>
             <tr>
@@ -180,22 +182,22 @@ var systemComponents = {
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('hqTree')">
-                        High-Quality Tree: <span :class="options.hqTree ? 'on' : 'off'">{{ options.hqTree ? "ON" : "OFF" }}</span>
+                        High Quality Tree:<br> <span :class="options.hqTree ? 'on' : 'off'">{{ options.hqTree ? "ON" : "OFF" }}</span>
                     </button>
                 </td>
                 <td>
 				<button class="opt" onclick="toggleOpt('emojisEnabled')">
-                       Layer Emojis: <span :class="options.emojisEnabled ? 'on' : 'off'">{{ options.emojisEnabled ? "ON" : "OFF" }}</span>
+                       Layer Emojis:<br> <span :class="options.emojisEnabled ? 'on' : 'off'">{{ options.emojisEnabled ? "ON" : "OFF" }}</span>
                     </button>
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('hideChallenges')">
-                        Completed Challenges: <span :class="options.hideChallenges ? 'off' : 'on'">{{ options.hideChallenges ? "HIDDEN" : "SHOWN" }}</span>
+                        Completed Challenges:<br> <span :class="options.hideChallenges ? 'off' : 'on'">{{ options.hideChallenges ? "HIDDEN" : "SHOWN" }}</span>
                     </button>
                 </td>
                 <td>
                     <button class="opt" onclick="toggleOpt('forceOneTab'); needsCanvasUpdate = true">
-                        Single-Tab Mode: <span :class="options.forceOneTab ? 'off' : 'on'">{{ options.forceOneTab ? "ALWAYS" : "AUTO" }}</span>
+                        Single-Tab Mode:<br> <span :class="options.forceOneTab ? 'off' : 'on'">{{ options.forceOneTab ? "ALWAYS" : "AUTO" }}</span>
                     </button>
                 </td>
             </tr>
@@ -226,24 +228,57 @@ var systemComponents = {
                     </button>
                 </td>
                 <td>
-                    <button class="opt" onclick="toggleOpt('AchievementPopup'); needsCanvasUpdate = true">
-                        Achievement Popups: <span :class="options.AchievementPopup ? 'on' : 'off'">{{ options.AchievementPopup ? "ENABLED" : "DISABLED" }}</span>
+                    <button class="opt" onclick="toggleOpt('StarsPlanetsMilestonePopups'); needsCanvasUpdate = true">
+                        Stars & Planets Milestone Popups: <span :class="options.StarsPlanetsMilestonePopups ? 'on' : 'off'">{{ options.StarsPlanetsMilestonePopups ? "ENABLED" : "DISABLED" }}</span>
                     </button>
                 </td>
             </tr>
+			<tr>
+				<td colspan="5" style="text-align: center">
+					<div style="display: inline-flex; gap: 10px;">
+						<button class="opt" onclick="toggleOpt('UnstableFuelMilestonePopup'); needsCanvasUpdate = true">
+							Unstable Rocket Fuel Milestone Popups: <span :class="options.UnstableFuelMilestonePopup ? 'on' : 'off'">{{ options.UnstableFuelMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+						<button class="opt" onclick="toggleOpt('GalaxyMilestonePopup'); needsCanvasUpdate = true">
+							Galaxy Milestone Popups: <span :class="options.GalaxyMilestonePopup ? 'on' : 'off'">{{ options.GalaxyMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+						<button class="opt" onclick="toggleOpt('DarkmatterMilestonePopup'); needsCanvasUpdate = true">
+							Dark Matter Milestone Popups: <span :class="options.DarkmatterMilestonePopup ? 'on' : 'off'">{{ options.DarkmatterMilestonePopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+							<button class="opt" onclick="toggleOpt('SupernovaPopup'); needsCanvasUpdate = true">
+							Supernova Popups: <span :class="options.SupernovaPopup ? 'on' : 'off'">{{ options.SupernovaPopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+						<button class="opt" onclick="toggleOpt('BlackHolePopup'); needsCanvasUpdate = true">
+							Black Hole Popups: <span :class="options.BlackHolePopup ? 'on' : 'off'">{{ options.BlackHolePopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="text-align: center">
+						<button class="opt" onclick="toggleOpt('AchievementPopup'); needsCanvasUpdate = true">
+							Achievement Popups: <span :class="options.AchievementPopup ? 'on' : 'off'">{{ options.AchievementPopup ? "ENABLED" : "DISABLED" }}</span>
+						</button>
+					</div>
+				</td>
+			</tr>
             <tr class="spacer-row"><td colspan="5"></td></tr>
-            <tr>
-                <td colspan="5" class="options-header">Extra Settings</td>
-            </tr>
-            <tr class="spacer-row"><td colspan="5"></td></tr>
-            <tr>
-                <td colspan="5">
-                    <button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">
-                        Shift-Click to Toggle Tooltips: <span :class="options.forceTooltips ? 'on' : 'off'">{{ options.forceTooltips ? "ON" : "OFF" }}</span>
-                    </button>
-                </td>
-            </tr>
-            <tr></tr>
+           <tr>
+				<td colspan="5" class="options-header">Extra Settings</td>
+			</tr>
+			<tr class="spacer-row"><td colspan="5"></td></tr>
+			<tr>
+				<td colspan="5" style="text-align: center;">
+					<button class="opt" onclick="toggleOpt('forceTooltips'); needsCanvasUpdate = true">
+						Shift-Click Tooltips: <span :class="options.forceTooltips ? 'on' : 'off'">{{ options.forceTooltips ? "ON" : "OFF" }}</span>
+					</button>
+					&nbsp;
+					<button class="opt" onclick="toggleOpt('ScientificNotation'); needsCanvasUpdate = true">
+						Scientific Notation: <span :class="options.ScientificNotation ? 'on' : 'off'">{{ options.ScientificNotation ? "ON" : "OFF" }}</span>
+					</button>
+				</td>
+			</tr>
+			<tr></tr>
             <tr>
                 <td colspan="5" class="options-header">Hotkeys</td>
             </tr>
@@ -258,41 +293,39 @@ var systemComponents = {
             </tr>
             <tr class="spacer-row"><td colspan="5" style="height: 50px;"></td></tr> <!-- Extra space at bottom -->
         </table>
-    `
-},
+    `,
+	},
 
-
-
-
-
-
-
-	'back-button': {
+	"back-button": {
 		template: `
         <button v-bind:class="back" onclick="goBack()">←</button>
-        `
+        `,
 	},
 
-
-	'tooltip': {
-		props: ['text'],
+	tooltip: {
+		props: ["text"],
 		template: `<div class="tooltip" v-html="text"></div>
-		`
+		`,
 	},
 
-	'node-mark': {
-		props: { 'layer': {}, data: {}, offset: { default: 0 }, scale: { default: 1 } },
+	"node-mark": {
+		props: {
+			layer: {},
+			data: {},
+			offset: { default: 0 },
+			scale: { default: 1 },
+		},
 		template: `<div v-if='data'>
 			<div v-if='data === true' class='star' v-bind:style='{position: "absolute", left: (offset-10) + "px", top: (offset-10) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}'></div>
 			<img v-else class='mark' v-bind:style='{position: "absolute", left: (offset-22) + "px", top: (offset-15) + "px", transform: "scale( " + scale||1 + ", " + scale||1 + ")"}' v-bind:src="data"></div>
 		</div>
-		`
+		`,
 	},
 
-	'particle': {
-		props: ['data', 'index'],
+	particle: {
+		props: ["data", "index"],
 		template: `<div><div class='particle instant' v-bind:style="[constructParticleStyle(data), data.style]" 
-			v-on:click="run(data.onClick, data)"  v-on:mouseenter="run(data.onMouseOver, data)" v-on:mouseleave="run(data.onMouseLeave, data)" ><span v-html="data.text"></span>
+			v-on:click="run(data.onClick, data)"  v-on:mouseenter="run(data.onMouseEnter, data)" v-on:mouseleave="run(data.onMouseLeave, data)" ><span v-html="data.text"></span>
 		</div>
 		<svg version="2" v-if="data.color">
 		<mask v-bind:id="'pmask' + data.id">
@@ -300,13 +333,12 @@ var systemComponents = {
     	</mask>
     	</svg>
 		</div>
-		`
+		`,
 	},
 
-	'bg': {
-		props: ['layer'],
+	bg: {
+		props: ["layer"],
 		template: `<div class ="bg" v-bind:style="[tmp[layer].style ? tmp[layer].style : {}, (tmp[layer].tabFormat && !Array.isArray(tmp[layer].tabFormat)) ? tmp[layer].tabFormat[player.subtabs[layer].mainTabs].style : {}]"></div>
-		`
-	}
-
-}
+		`,
+	},
+};

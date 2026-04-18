@@ -1,4 +1,3 @@
-/* Tree nodes, button nodes, and side layers */
 .treeNode {
 	height: 100px;
 	width: 100px;
@@ -12,6 +11,71 @@
 	text-shadow: var(--hqProperty3);
 	padding: 0;
 	margin: 0 10px 0 10px;
+}
+
+@keyframes rainbow {
+	100%,
+	0% {
+		background-color: rgb(255, 0, 0);
+	}
+	8% {
+		background-color: rgb(255, 127, 0);
+	}
+	16% {
+		background-color: rgb(255, 255, 0);
+	}
+	25% {
+		background-color: rgb(127, 255, 0);
+	}
+	33% {
+		background-color: rgb(0, 255, 0);
+	}
+	41% {
+		background-color: rgb(0, 255, 127);
+	}
+	50% {
+		background-color: rgb(0, 255, 255);
+	}
+	58% {
+		background-color: rgb(0, 127, 255);
+	}
+	66% {
+		background-color: rgb(0, 0, 255);
+	}
+	75% {
+		background-color: rgb(127, 0, 255);
+	}
+	83% {
+		background-color: rgb(255, 0, 255);
+	}
+	91% {
+		background-color: rgb(255, 0, 127);
+	}
+}
+
+@keyframes negativeinfinity {
+	0% {
+		background-color: #0d0d1a;
+	}
+	20% {
+		background-color: #0f1f4a;
+	}
+	40% {
+		background-color: #1a2a7a;
+		color: #a0b0f0;
+	}
+	55% {
+		background-color: #2a1a5e;
+	}
+	70% {
+		background-color: #1a0d3a;
+	}
+	85% {
+		background-color: #0d0d1a;
+	}
+	100% {
+		background-color: #0d0d1a;
+	}
 }
 
 .nodeLabel {
@@ -34,27 +98,32 @@
 }
 
 .smallNode {
-	height: 60px;
-	width: 60px;
-	font-size: 30px;
+	height: 50px;
+	width: 50px;
+	font-size: 25px;
+	margin-bottom: 5px;
 }
 
 .resetNotify {
-	box-shadow: var(--hqProperty2a), 0 0 8px #ffffff;
+	box-shadow:
+		var(--hqProperty2a),
+		0 0 8px #ffffff;
 }
 
 .treeNode.can:hover {
 	transform: scale(1.15, 1.15);
-	box-shadow: var(--hqProperty2a), 0 0 20px var(--points);
+	box-shadow:
+		var(--hqProperty2a),
+		0 0 20px var(--points);
 }
 
 .notify {
 	transform: scale(1.05, 1.05);
 	border-color: rgba(0, 0, 0, 0.125);
-	box-shadow: var(--hqProperty2a), 0 0 20px #ff0000;
+	box-shadow:
+		var(--hqProperty2a),
+		0 0 20px #ff0000;
 }
-
-
 
 .mark {
 	position: relative;
@@ -68,8 +137,8 @@
 	border-right: 0.3em solid transparent;
 	border-bottom: 0.7em solid transparent;
 	border-left: 0.3em solid transparent;
-	font-size: 10px;
-	overflow:auto;
+	font-size: 30px;
+	overflow: auto;
 	pointer-events: none;
 }
 
@@ -87,22 +156,44 @@
 	border-left: 0.3em solid transparent;
 	font-size: 10px;
 	pointer-events: none;
-
 }
 
-.star:before, .star:after {
+.star:before,
+.star:after {
 	content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: .6em;
-    left: -1em;
+	width: 0;
+	height: 0;
+	position: absolute;
+	top: 0.6em;
+	left: -1em;
 	border-right: 1em solid transparent;
-    border-bottom: 0.7em solid #ffcc00;
-    border-left: 1em solid transparent;
+	border-bottom: 0.7em solid #ffcc00;
+	border-left: 1em solid transparent;
 	transform: rotate(-35deg);
 }
 
 .star:after {
 	transform: rotate(35deg);
+}
+
+.node-hotkey {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	min-width: 24px;
+	color: rgb(255, 255, 255);
+	height: 24px;
+	background: rgba(0, 0, 0, 0.6);
+	font-weight: bold;
+	font-size: 25px;
+	line-height: 24px;
+	text-align: center;
+	border-radius: 50%;
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+	pointer-events: none;
+	z-index: 10;
+}
+
+.layer-node {
+	position: relative;
 }

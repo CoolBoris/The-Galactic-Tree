@@ -3,172 +3,254 @@ let modInfo = {
 	id: "galactictree11",
 	author: "CoolBoris",
 	pointsName: "Money",
-	modFiles: [
 
-		"tree.js", "rocketfuel.js", "rockets.js", "side.js", "astronauts.js",
-		"space.js", "comets.js", "asteroids.js", "stars.js", "planets.js",
-		"clickergame.js", "x.js",
-		"infinity.js", "megainfinity.js", "omegainfinity.js",
-		"unstablerocketfuel.js", "galaxy.js", "darkmatter.js", 
-		"supernova.js", "blackhole.js",
-		"negative infinity.js", "realities.js",
+	modFiles: [
+		// Technical
+		"technical/tree.js",
+
+		// Side
+		"layers/side/achievements.js",
+		"layers/side/secretachievements.js",
+		"layers/side/blob.js",
+		"layers/side/realities.js",
+		"layers/side/savebank.js",
+		"layers/side/extra.js",
+		"layers/side/statistics.js",
+		"layers/side/spacefishing.js",
+		"layers/side/minigames.js",
+
+		// r1
+		"layers/r1/rocketfuel.js", // r
+		"layers/r1/rockets.js", // ro
+		"layers/r1/astronauts.js", // a
+		"layers/r1/space.js", // s
+		"layers/r1/comets.js", // c
+		"layers/r1/asteroids.js", // as
+		"layers/r1/stars.js", // stars
+		"layers/r1/planets.js", // planets
+		"layers/r1/clickergame.js",
+		"layers/r1/x.js", // x
+		"layers/r1/infinity.js", // infinity
+
+		"layers/r1/oldinfinity.js",
+
+		// r2
+		"layers/r2/unstablerocketfuel.js", // unstablefuel
+		"layers/r2/galaxy.js", // galaxy
+		"layers/r2/darkmatter.js", // darkmatter
+		"layers/r2/supernova.js", // supernova
+		"layers/r2/blackhole.js", // blackhole
+		"layers/r2/universe.js", // universe
+		"layers/r2/negativeinfinity.js", // negative infinity
+
+		"layers/r2/oldnegativeinfinity.js",
 	],
+
 	pointsName: "Money",
 	discordName: "CoolBoris Studio",
 	discordLink: "https://discord.gg/Rs5cKF75WB",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 0.0000001,  // In hours
-}
+	initialStartPoints: new Decimal(10), // Used for hard resets and new players
+	offlineLimit: 0.0000001, // In hours
+};
 
 // If you add new functions anywhere inside of a layer, and those functions have an effect when called, add them here.
 // (The ones here are examples, all official functions are already taken care of)
-var doNotCallTheseFunctionsEveryTick = ["blowUpEverything"]
+var doNotCallTheseFunctionsEveryTick = ["blowUpEverything"];
 
-function getStartPoints(){
-    return new Decimal(modInfo.initialStartPoints)
+function getStartPoints() {
+	return new Decimal(modInfo.initialStartPoints);
 }
 
 // Determines if it should show points/sec
-function canGenPoints(){
-	return true
+function canGenPoints() {
+	return true;
 }
 
 // Calculate points/sec!
 function getPointGen() {
-	if(!canGenPoints())
-		return new Decimal(0)
+	if (!canGenPoints()) return new Decimal(0);
 
-	let gain = new Decimal(0)
+	let gain = new Decimal(0);
 
 	// Reality I
-	if (hasUpgrade('r', 11)) gain = gain.add(1)
-	if (hasUpgrade('r', 12)) gain = gain.times(2)
-	if (hasUpgrade('r', 13)) gain = gain.times(upgradeEffect('r', 13))
-	if (hasUpgrade('r', 21)) gain = gain.times(2)
-	if (hasUpgrade('r', 24)) gain = gain.pow(1.05)
-	if (hasUpgrade('r', 25)) gain = gain.times(3)
-	if (hasUpgrade('r', 31)) gain = gain.times(5)
-	if (hasMilestone('ro', 1)) gain = gain.times(3)
-	if (hasUpgrade('r', 33)) gain = gain.times(10)
-	if (hasMilestone('ro', 5)) gain = gain.times(3)
-	if (hasUpgrade('ro', 12)) gain = gain.times(upgradeEffect('ro', 12))
-	if (hasUpgrade('ro', 15)) gain = gain.times(upgradeEffect('ro', 15))
-	if (hasMilestone('ro', 10)) gain = gain.times(2)
-	if (hasMilestone('ro', 11)) gain = gain.times(2)
-	if (hasMilestone('s', 1)) gain = gain.times(3)
-	if (hasUpgrade('s', 43)) gain = gain.times(100)
-	if (hasUpgrade('as', 11)) gain = gain.times(5)
-	if (hasUpgrade('as', 12)) gain = gain.times(10)
-	if (hasUpgrade('as', 21)) gain = gain.times(upgradeEffect('as', 21))
-	if (hasUpgrade('as', 25)) gain = gain.times(100)
-	if (hasUpgrade('s', 51)) gain = gain.times(500)
-	if (hasUpgrade('ast', 21)) gain = gain.times(upgradeEffect('ast', 21))
-	if (hasUpgrade('c', 21)) gain = gain.times(1000)
-	if (hasUpgrade('ast', 22)) gain = gain.times(1000)
-	if (hasUpgrade('c', 23)) gain = gain.times(upgradeEffect('c', 23))
-	if (hasUpgrade('ast', 25)) gain = gain.times(100)
-	if (hasUpgrade('c', 25)) gain = gain.times(100)
-	if (hasUpgrade('stars', 11)) gain = gain.times(upgradeEffect('stars', 11))
-	if (hasUpgrade('planets', 11)) gain = gain.times(upgradeEffect('planets', 11))
-	if (hasUpgrade('r', 51)) gain = gain.times(1e9)
-	if (hasUpgrade('x', 21)) gain = gain.times(upgradeEffect('x', 21))
-	if (hasUpgrade('ro', 22)) gain = gain.times(upgradeEffect('ro', 22))
-	if (hasMilestone('ro', 21)) gain = gain.times(1e20)
-	
+	if (hasUpgrade("r", 11)) gain = gain.add(1);
+	if (hasUpgrade("r", 12)) gain = gain.times(2);
+	if (hasUpgrade("r", 13)) gain = gain.times(upgradeEffect("r", 13));
+	if (hasUpgrade("r", 21)) gain = gain.times(2);
+	if (hasUpgrade("r", 24)) gain = gain.pow(1.05);
+	if (hasUpgrade("r", 25)) gain = gain.times(3);
+	if (hasUpgrade("r", 31)) gain = gain.times(5);
+	if (hasMilestone("ro", 1)) gain = gain.times(3);
+	if (hasUpgrade("r", 33)) gain = gain.times(10);
+	if (hasMilestone("ro", 5)) gain = gain.times(3);
+	if (hasUpgrade("ro", 12)) gain = gain.times(upgradeEffect("ro", 12));
+	if (hasUpgrade("ro", 15)) gain = gain.times(upgradeEffect("ro", 15));
+	if (hasMilestone("ro", 10)) gain = gain.times(2);
+	if (hasMilestone("ro", 11)) gain = gain.times(2);
+	if (hasMilestone("s", 1)) gain = gain.times(3);
+	if (hasUpgrade("s", 43)) gain = gain.times(100);
+	if (hasUpgrade("as", 11)) gain = gain.times(5);
+	if (hasUpgrade("as", 12)) gain = gain.times(10);
+	if (hasUpgrade("as", 21)) gain = gain.times(upgradeEffect("as", 21));
+	if (hasUpgrade("as", 25)) gain = gain.times(100);
+	if (hasUpgrade("s", 51)) gain = gain.times(500);
+	if (hasUpgrade("ast", 21)) gain = gain.times(upgradeEffect("ast", 21));
+	if (hasUpgrade("c", 21)) gain = gain.times(1000);
+	if (hasUpgrade("ast", 22)) gain = gain.times(1000);
+	if (hasUpgrade("c", 23)) gain = gain.times(upgradeEffect("c", 23));
+	if (hasUpgrade("ast", 25)) gain = gain.times(100);
+	if (hasUpgrade("c", 25)) gain = gain.times(100);
+	if (hasUpgrade("stars", 11)) gain = gain.times(upgradeEffect("stars", 11));
+	if (hasUpgrade("planets", 11))
+		gain = gain.times(upgradeEffect("planets", 11));
+	if (hasUpgrade("r", 51)) gain = gain.times(1e9);
+	if (hasUpgrade("x", 21)) gain = gain.times(upgradeEffect("x", 21));
+	if (hasUpgrade("ro", 22)) gain = gain.times(upgradeEffect("ro", 22));
+	if (hasMilestone("ro", 21)) gain = gain.times(1e20);
+
+	gain = gain.times(player.infinity.points.add(1));
 
 	// Challenges Reality I
-	if (inChallenge('c', 11)) gain = gain.pow(0.5)
-	if (inChallenge('c', 14)) gain = gain.pow(0.12)
-	if (inChallenge('ast', 11)) gain = gain.pow(0.25)
-	if (inChallenge('ast', 14)) gain = gain.pow(0.108)
+	if (inChallenge("c", 11)) gain = gain.pow(0.5);
+	if (inChallenge("c", 14)) gain = gain.pow(0.175);
+	if (inChallenge("ast", 11)) gain = gain.pow(0.25);
+	if (inChallenge("ast", 14)) gain = gain.pow(0.108);
 
-	// Inf Reality I
-	if (hasMilestone('inf', 1)) gain = gain.times(3)
-	if (hasMilestone('megainf', 1)) gain = gain.times(5)
-	if (hasMilestone('megainf', 7)) gain = gain.times(5)
+	if (inChallenge("real", 11)) gain = new Decimal(0);
 
-
-	if (inChallenge('real', 11)) gain = new Decimal(0)
 	// Reality II
-	if (hasUpgrade('unstablefuel', 11) && (inChallenge("real", 11))) gain = gain.add(1)
-	if (hasUpgrade('unstablefuel', 12) && (inChallenge("real", 11))) gain = gain.add(2)
-	if (hasUpgrade('unstablefuel', 13) && (inChallenge("real", 11))) gain = gain.add(3)
-	if (hasUpgrade('unstablefuel', 14) && (inChallenge("real", 11))) gain = gain.add(4)
-	if (hasUpgrade('unstablefuel', 24) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 24))
-	if (hasUpgrade('galaxy', 11) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('galaxy', 11))
-	if (hasUpgrade('unstablefuel', 42) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 42))
-	if (hasUpgrade('unstablefuel', 43) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 43))
-	if (hasMilestone('unstablefuel', 1) && (inChallenge("real", 11))) gain = gain.add(getBuyableAmount('darkmatter', 11))
-	if (hasUpgrade('unstablefuel', 51) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 51))
-	if (hasUpgrade('unstablefuel', 53) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 53))
-	if (hasUpgrade('galaxy', 44 && (inChallenge("real", 11)))) gain = gain.add(upgradeEffect('galaxy', 44))
-	if (hasUpgrade('supernova', 12) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('supernova', 12))
-	if (hasUpgrade('unstablefuel', 62) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 62))
-	if (hasUpgrade('unstablefuel', 63) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 63))
-	if (hasUpgrade('supernova', 22) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('supernova', 22))
-	if (hasUpgrade('supernova', 32) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('supernova', 32))
-	if (hasUpgrade('supernova', 42) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('supernova', 42))
-	if (hasUpgrade('supernova', 52) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('supernova', 52))
-	if (hasUpgrade('unstablefuel', 72) && (inChallenge("real", 11))) gain = gain.add(upgradeEffect('unstablefuel', 72))
-	if (hasUpgrade('blackhole', 13) && (inChallenge("real", 11))) gain = gain.times(10)
-	if (hasMilestone('unstablefuel', 22) && (inChallenge("real", 11))) gain = gain.times(1e12)
+	if (hasUpgrade("unstablefuel", 11) && inChallenge("real", 11))
+		gain = gain.add(1);
+	if (hasUpgrade("unstablefuel", 12) && inChallenge("real", 11))
+		gain = gain.add(2);
+	if (hasUpgrade("unstablefuel", 13) && inChallenge("real", 11))
+		gain = gain.add(3);
+	if (hasUpgrade("unstablefuel", 14) && inChallenge("real", 11))
+		gain = gain.add(4);
+	if (hasUpgrade("unstablefuel", 24) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 24));
+	if (hasUpgrade("galaxy", 11) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("galaxy", 11));
+	if (hasUpgrade("unstablefuel", 42) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 42));
+	if (hasUpgrade("unstablefuel", 43) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 43));
+	if (hasMilestone("unstablefuel", 1) && inChallenge("real", 11))
+		gain = gain.add(getBuyableAmount("darkmatter", 11));
+	if (hasUpgrade("unstablefuel", 51) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 51));
+	if (hasUpgrade("unstablefuel", 53) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 53));
+	if (hasUpgrade("galaxy", 44) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("galaxy", 44));
+	if (hasUpgrade("supernova", 12) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("supernova", 12));
+	if (hasUpgrade("unstablefuel", 62) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 62));
+	if (hasUpgrade("unstablefuel", 63) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 63));
+	if (hasUpgrade("supernova", 22) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("supernova", 22));
+	if (hasUpgrade("supernova", 32) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("supernova", 32));
+	if (hasUpgrade("supernova", 42) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("supernova", 42));
+	if (hasUpgrade("supernova", 52) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("supernova", 52));
+	if (hasUpgrade("unstablefuel", 72) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("unstablefuel", 72));
+	if (hasUpgrade("blackhole", 13) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("blackhole", 13));
+	if (hasUpgrade("universe", 33) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("universe", 33));
+	if (hasUpgrade("universe", 72) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("universe", 72));
+	if (hasUpgrade("universe", 73) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("universe", 73));
+	if (hasUpgrade("universe", 122) && inChallenge("real", 11))
+		gain = gain.add(upgradeEffect("universe", 122));
 
-	// Inf Reality II
-	if (hasMilestone('negativeinf', 1) && inChallenge("real", 11)) gain = gain.times(3)
-	if (hasMilestone('negativeinf', 6) && inChallenge("real", 11)) gain = gain.times(2)
+	if (inChallenge("real", 11))
+		gain = gain.times(player.negativeinfinity.points.add(1));
 
-
-	return gain
-
-
+	return gain;
 }
 
-
-
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
-function addedPlayerData() { return {
-}}
-
-// Display extra things at the top of the page
-var displayThings = [
-	"Endgame: Unstable Milestone XXIII in Reality II",
-]
-
+function addedPlayerData() {
+	return { isPaused: false };
+}
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.omegainf.points.gte(new Decimal(50))
-	
+	return player.points.gte("e280000000");
 }
 
-let winText = `Congratulations! You have completed The Galactic Tree!`
+var displayThings = [() => (player.isPaused ? "Game Paused" : null)];
+let winText = `Congratulations! You have completed The Galactic Tree!`;
 // Less important things beyond this point!
 
 // Style for the background, can be a function
-var backgroundStyle = {
-
-}
+var backgroundStyle = {};
 
 // You can change this if you have things that can be messed up by long tick lengths
 function maxTickLength() {
-	return(3600) // Default is 1 hour which is just arbitrarily large
+	return 3600; // Default is 1 hour which is just arbitrarily large
 }
 
 // Use this if you need to undo inflation from an older version. If the version is older than the version that fixed the issue,
 // you can cap their current resources with this.
-function fixOldSave(oldVersion){
-}
+function fixOldSave(oldVersion) {}
 
 // Set your version in num and name
 let VERSION = {
-	num: "2.1.5",
-	name: "Darkness",
-}
+	num: "3.0",
+	name: "Universal",
+};
 
-let changelog =
-`<changelog>
+let changelog = `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
+		<h2 style="color:#ff3200;">v3.0 - Universal</h2><br>
+		- Universes<br>
+		- Wormholes<br>
+		- Stars<br>
+		- Plasma<br>
+		- Antimatter<br>
+		- Space Fishing<br>
+		- More Supernova Tiers<br>
+		- Black Hole Stages<br>
+		- Black Hole Rework<br>
+		- Infinity Rework<br>
+		- Negative Infinity Rework<br>
+		- Reality I & II Rebalanced<br>
+		- Major Reality I & II Changes<br>
+		- Better Side Layers<br>
+		- New Design<br>
+		- Improved most formulas<br>
+		- Better Softcaps<br>
+		- Removed Void Roulette<br>
+		- Improved number formatting<br>
+		- Hotkeys are shown on the node<br>
+		- QOL Changes<br>
+		- Statistics<br>
+		- Better Loading Screen<br>
+		- Better Tooltips<br>
+		- Better Milestones<br>
+		- More Settings<br>
+		- More Achievements<br>
+		- More Secret Achievements<br>
+		- Better Hotkeys<br>
+		- Better Savebank<br>
+		- Pause Game Button<br>
+		- New Secret<br>
+		- Better Info Menu<br>
+		- Better Winscreen<br>
+		- Better Themes<br>
+		- Changelog Changes<br>
+		- blobbing changes<br>
+		- Bug Fixes<br>
+		<br>
 		<h2 style="color:Violet;">v2.1.5</h2><br>
 		- Removed NaN again<br>
 		- More blobbing<br>
@@ -186,7 +268,7 @@ let changelog =
 		<h2 style="color:Violet;">v2.1.1</h2><br>
 		- Bug Fixes<br>
 		<br>
-		<h2 style="color:DeepPink;">v2.1</h2><br>
+		<h2 style="color:DeepPink;">v2.1 - Darkness</h2><br>
 		- Void Roulette<br>
 		- Black Hole<br>
 		- Dark Energy<br>
@@ -205,7 +287,7 @@ let changelog =
 		- Bug Fixes<br>
 		- Minor Reality II Changes<br>
 		<br>
-		<h2 style="color:#ff3200;">v2.0</h2><br>
+		<h2 style="color:#ff3200;">v2.0 - Fractured</h2><br>
 		- Fracture<br>
 		- Second Reality<br>
 		- Unstable Rocket Fuel<br>
@@ -220,7 +302,6 @@ let changelog =
 		- Chapters changed to Realities<br>
 		- Hardcaps<br>
 		- Reality I Changes<br>
-
 		- QOL Reality I Changes<br>
 		- Better Settings Menu<br>
 		- Better Info Menu<br>
@@ -248,7 +329,7 @@ let changelog =
 		<h2 style="color:Violet;">v1.0.1</h2><br>
 		- Bug Fixes<br>
 		<br>
-		<h2 style="color:#ff3200;">v1.0 [Release]</h2><br>
+		<h2 style="color:#ff3200;">v1.0 - Release</h2><br>
 		- Chapter 2<br>
 		- Stars<br>
 		- Planets<br>
@@ -280,7 +361,7 @@ let changelog =
 		- Endgame changes<br>
 		- Minor bug fixes<br>
 		<br>
-		<h2 style="color:DeepPink;">v0.2</h2><br>
+		<h2 style="color:DeepPink;">v0.2 - Comets & Asteroids</h2><br>
 		- Secret Achievements<br>
 		- Savebank<br>
 		- Softcaps<br>
@@ -299,7 +380,7 @@ let changelog =
 		- More Space Content<br>
 		- Big Balance Changes<br>
 		<br>
-		<h2 style="color:DeepPink;">v0.1 [Beta Release]</h2><br>
+		<h2 style="color:DeepPink;">v0.1 - Beta Release</h2><br>
 		- Space Layer<br>
 		- ~20 New Upgrades<br>
 		- ~10 New Milestones<br>
@@ -337,7 +418,8 @@ let changelog =
 		- Balanced Astronaut stuff <br>
 		- Space Theme<br>
 		 <br>
-		<h2 style="color:Violet;">v0.0.8 [Alpha Release]</h2><br>
+		<h2 style="color:Violet;">v0.0.8</h2><br>
+		- Alpha Release<br>
 		- Astronaut Upgrades <br>
 		- Astronaut Milestones<br>
 		- More Rocket Milestones<br>
@@ -377,4 +459,4 @@ let changelog =
 	<h2 style="color:Violet;">v0.0.1</h2><br>
 		- Added Rocket Fuel<br>
 		<br>
-</changelog>`
+</changelog>`;
