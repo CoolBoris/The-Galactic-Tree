@@ -284,7 +284,7 @@ addLayer("s", {
 			requirementDescription() {
 				return `${formatWhole(
 					new Decimal(150000)
-				)} Space Distance (100km) & ${formatWhole(
+				)} Space Distance (150km) & ${formatWhole(
 					new Decimal(1e28)
 				)} Astronauts`;
 			},
