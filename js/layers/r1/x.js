@@ -268,6 +268,7 @@ addLayer("x", {
 
 	layerShown() {
 		let visible = false;
+		if (player.x.unlocked) visible = true;
 		if (player.infinity.points.gte(1)) visible = true;
 		if (hasChallenge("planets", 11)) visible = true;
 		if (inChallenge("stars", 11) || inChallenge("planets", 11)) visible = false;
@@ -284,7 +285,7 @@ addLayer("x", {
 		if (canResetNow) return `+<b>1</b> X`;
 
 		return `Requires ${format(
-			getNextAt(this.layer, (canMax = false), "static")
+			getNextAt(this.layer, (canMax = false), "static"),
 		)} Planets`;
 	},
 
@@ -430,7 +431,7 @@ addLayer("x", {
 	canReset() {
 		if (!hasChallenge("planets", 11)) return false;
 		return player.planets.points.gte(
-			getNextAt(this.layer, (canMax = false), "static")
+			getNextAt(this.layer, (canMax = false), "static"),
 		);
 	},
 
@@ -905,7 +906,7 @@ addLayer("x", {
 				setBuyableAmount(
 					this.layer,
 					this.id,
-					getBuyableAmount(this.layer, this.id).add(1)
+					getBuyableAmount(this.layer, this.id).add(1),
 				);
 			},
 		},
@@ -952,7 +953,7 @@ addLayer("x", {
 				setBuyableAmount(
 					this.layer,
 					this.id,
-					getBuyableAmount(this.layer, this.id).add(1)
+					getBuyableAmount(this.layer, this.id).add(1),
 				);
 			},
 		},
@@ -999,7 +1000,7 @@ addLayer("x", {
 				setBuyableAmount(
 					this.layer,
 					this.id,
-					getBuyableAmount(this.layer, this.id).add(1)
+					getBuyableAmount(this.layer, this.id).add(1),
 				);
 			},
 		},

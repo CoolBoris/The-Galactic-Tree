@@ -94,6 +94,7 @@ addLayer("planets", {
 
 	layerShown() {
 		let visible = false;
+		if (player.planets.unlocked) visible = true;
 		if (player.infinity.points.gte(1)) visible = true;
 
 		if (hasChallenge("stars", 11)) visible = true;
@@ -110,22 +111,22 @@ addLayer("planets", {
 		if (player.planets.bulkBuy && canResetNow)
 			return `+<b>${getResetGain(
 				this.layer,
-				"static"
+				"static",
 			)}</b> Planets<br><br>Next at ${format(
-				getNextAt(this.layer, (canMax = true), "static")
+				getNextAt(this.layer, (canMax = true), "static"),
 			)} Asteroids`;
 
 		if (canResetNow) return `+<b>1</b> Planet`;
 
 		return `Requires ${format(
-			getNextAt(this.layer, (canMax = false), "static")
+			getNextAt(this.layer, (canMax = false), "static"),
 		)} Asteroids`;
 	},
 
 	canReset() {
 		if (!hasChallenge("stars", 11)) return false;
 		return player.ast.points.gte(
-			getNextAt(this.layer, (canMax = false), "static")
+			getNextAt(this.layer, (canMax = false), "static"),
 		);
 	},
 
@@ -154,7 +155,7 @@ addLayer("planets", {
 					"display-text",
 					function () {
 						return `You have ${format(
-							player.ast.points
+							player.ast.points,
 						)}</span></h2> Asteroids`;
 					},
 				],
@@ -166,7 +167,7 @@ addLayer("planets", {
 						txt =
 							txt +
 							`You are gaining ${format(
-								resetgain
+								resetgain,
 							)}</span></h2> Planetoids per second`;
 						return txt;
 					},
@@ -428,7 +429,7 @@ addLayer("planets", {
 			requirementDescription: "6 Planets",
 			effectDescription() {
 				return `Each Planet doubles Planetoid gain (Begins at 6 Planets)<br>Effect: ${format(
-					this.effect()
+					this.effect(),
 				)}x Planetoids`;
 			},
 			effect() {
@@ -593,7 +594,7 @@ addLayer("planets", {
 				setBuyableAmount(
 					this.layer,
 					this.id,
-					getBuyableAmount(this.layer, this.id).add(1)
+					getBuyableAmount(this.layer, this.id).add(1),
 				);
 			},
 		},
@@ -633,7 +634,7 @@ addLayer("planets", {
 				setBuyableAmount(
 					this.layer,
 					this.id,
-					getBuyableAmount(this.layer, this.id).add(1)
+					getBuyableAmount(this.layer, this.id).add(1),
 				);
 			},
 		},
