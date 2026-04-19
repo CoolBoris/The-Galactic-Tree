@@ -50,7 +50,7 @@ addLayer("darkenergy", {
 			inChallenge("real", 11) &&
 			player.supernova.points.gte(5)
 		) {
-			let baseValue = player.energy.points.pow(0.1);
+			let baseValue = player.energy.points.add(1).pow(0.1);
 			let DMmult = player.darkmatter.points.add(1).log10();
 			let totalValue = baseValue.times(DMmult);
 
@@ -64,11 +64,15 @@ addLayer("darkenergy", {
 				totalValue = totalValue.times(upgradeEffect("blackhole", 54));
 			if (hasUpgrade("universe", 163))
 				totalValue = totalValue.times(upgradeEffect("universe", 163));
-			player[this.layer].points = new Decimal(totalValue);
+			if (totalValue.isNan()) {
+				player.darkenergy.points = new Decimal(0);
+			} else {
+				player.darkenergy.points = new Decimal(totalValue);
+			}
 			return totalValue;
 		} else {
-			player[this.layer].points = new Decimal(0);
-			return 0;
+			player.darkenergy.points = new Decimal(0);
+			return new Decimal(0);
 		}
 	},
 

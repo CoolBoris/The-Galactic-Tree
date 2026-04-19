@@ -248,7 +248,7 @@ let changelog = `<changelog>
 		- Better Winscreen<br>
 		- Better Themes<br>
 		- Changelog Changes<br>
-		- blobbing changes<br>
+		- Blobbing changes<br>
 		- Bug Fixes<br>
 		<br>
 		<h2 style="color:Violet;">v2.1.5</h2><br>

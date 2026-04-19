@@ -76,13 +76,16 @@ addLayer("cosmicdust", {
 	},
 
 	logCosmicRays() {
-		if (player[this.layer].points > 0.01 && inChallenge("real", 11)) {
-			let baseLog = player[this.layer].points.log10().add(1);
+		if (player[this.layer].points.gte(0.01) && inChallenge("real", 11)) {
+			let baseLog = player[this.layer].points.add(1).log10().add(1);
 			let logarithmicValue = baseLog;
 
-			if (hasUpgrade("galaxy", 22)) logarithmicValue *= baseLog;
+			if (hasUpgrade("galaxy", 22))
+				logarithmicValue = logarithmicValue.times(baseLog);
 			if (hasMilestone("darkmatter", 1))
-				logarithmicValue *= player[this.layer].points.log10().div(2.435).add(1);
+				logarithmicValue = logarithmicValue.times(
+					player[this.layer].points.log10().div(2.435).add(1),
+				);
 			if (hasUpgrade("galaxy", 43)) {
 				let log2Effect = new Decimal(player[this.layer].points).add(1).log(2);
 				logarithmicValue = new Decimal(logarithmicValue).add(
@@ -124,7 +127,12 @@ addLayer("cosmicdust", {
 					player.points.log2().pow(0.01).add(1),
 				);
 
-			player.cosmicrays.points = new Decimal(logarithmicValue);
+			if (logarithmicValue.isNan()) {
+				player.cosmicrays.points = new Decimal(0);
+			} else {
+				player.cosmicrays.points = new Decimal(logarithmicValue);
+			}
+
 			return logarithmicValue;
 		} else {
 			player.cosmicrays.points = new Decimal(0);
@@ -497,7 +505,7 @@ addLayer("galaxy", {
 			title: "Unstable Cosmos",
 			description: "Unlock 5 Unstable Rocket Fuel Upgrades",
 			cost: new Decimal(1),
-			currencyDisplayName: "Cosmic Rays",
+			currencyDisplayName: "Cosmic Ray",
 			currencyLocation() {
 				return player.cosmicrays;
 			},
