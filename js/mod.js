@@ -204,13 +204,18 @@ function fixOldSave(oldVersion) {}
 
 // Set your version in num and name
 let VERSION = {
-	num: "3.0",
+	num: "3.0.1",
 	name: "Universal",
 };
 
 let changelog = `<changelog>
 <h1 style="color:Aquamarine;">CHANGELOG</h1><br>
 	<br>
+		<h2 style="color:Violet;">v3.0.1</h2><br>
+		- Rebirths (Space Fishing)<br>
+		- Fish Tiers (Space Fishing)<br>
+		- Bug Fixes<br>
+		<br>
 		<h2 style="color:#ff3200;">v3.0 - Universal</h2><br>
 		- Universes<br>
 		- Wormholes<br>

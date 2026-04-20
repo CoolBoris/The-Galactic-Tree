@@ -252,6 +252,26 @@ const FISHING_RODS = [
 	},
 ];
 
+const FISH_TIERS = [
+	{
+		name: "Normal",
+		upgradeId: null,
+		chance: 0.845,
+		mult: 1,
+		color: "#ffffff",
+	},
+	{ name: "Gold", upgradeId: 11, chance: 0.1, mult: 2, color: "#FFD700" },
+	{ name: "Shiny", upgradeId: 21, chance: 0.04, mult: 5, color: "#00ffea" },
+	{ name: "Rainbow", upgradeId: 31, chance: 0.01, mult: 25, color: "#ff69b4" },
+	{
+		name: "Corrupt",
+		upgradeId: 41,
+		chance: 0.005,
+		mult: 100,
+		color: "#9b00ff",
+	},
+];
+
 addLayer("fishing", {
 	color: "#9213dc",
 
@@ -270,6 +290,8 @@ addLayer("fishing", {
 			totalFishes: new Decimal(0),
 			totalAstroCredits: new Decimal(0),
 			rebirthPoints: new Decimal(0),
+			autoFishEnabled: true,
+			autoFishCooldown: 0,
 		};
 	},
 
@@ -280,7 +302,13 @@ addLayer("fishing", {
 
 	tabFormat: {
 		Info: {
-			content: [["infobox", "main"], "blank", ["infobox", "rarityInfo"]],
+			content: [
+				["infobox", "main"],
+				"blank",
+				["infobox", "rarityInfo"],
+				"blank",
+				["infobox", "tierInfo"],
+			],
 			buttonStyle() {
 				return { "border-color": "#7c7c7c" };
 			},
@@ -318,6 +346,8 @@ addLayer("fishing", {
 				"blank",
 				["bar", "fishingProgress"],
 				"blank",
+				["bar", "autoFishProgress"],
+				"blank",
 				[
 					"display-text",
 					function () {
@@ -327,11 +357,19 @@ addLayer("fishing", {
 						}
 
 						const catchText = lastCatches
-							.map((catchName) => {
-								const fish = FISHING_FISHES.find((f) => f.name === catchName);
+							.map((entry) => {
+								// Guard against old string-format save data
+								if (typeof entry === "string")
+									entry = { name: entry, tier: FISH_TIERS[0] };
+								const fish = FISHING_FISHES.find((f) => f.name === entry.name);
 								const rarity = RARITIES.find((r) => r.name === fish.rarity);
-								const color = rarity.color;
-								return `<span style="color: ${color}; text-shadow: 0px 0px 20px ${color}; font-family: 'Lucida Console', 'Courier New', monospace">${catchName}</span>`;
+								const rarityColor = rarity.color;
+								const tier = entry.tier;
+								const displayName =
+									tier.name !== "Normal"
+										? `<span style="color: ${tier.color}; text-shadow: 0px 0px 12px ${tier.color}">[${tier.name}]</span> <span style="color: ${rarityColor}; text-shadow: 0px 0px 20px ${rarityColor}; font-family: 'Lucida Console', 'Courier New', monospace">${entry.name}</span>`
+										: `<span style="color: ${rarityColor}; text-shadow: 0px 0px 20px ${rarityColor}; font-family: 'Lucida Console', 'Courier New', monospace">${entry.name}</span>`;
+								return displayName;
 							})
 							.join(" + ");
 
@@ -345,7 +383,10 @@ addLayer("fishing", {
 				"blank",
 				["clickable", 11],
 				"blank",
-				["clickables", [15, 16]],
+				"blank",
+				["clickable", 15],
+				["clickable", 16],
+				["clickable", 18],
 			],
 			buttonStyle() {
 				return player.fishing.cooldownNotify &&
@@ -439,7 +480,6 @@ addLayer("fishing", {
 				}
 				return { "border-color": "#414141" };
 			},
-			unlocked: false,
 		},
 	},
 
@@ -496,6 +536,46 @@ addLayer("fishing", {
 		if (player.fishing.currentCooldown < 0) {
 			player.fishing.currentCooldown = 0;
 		}
+
+		// Auto-fish
+		if (hasUpgrade("fishing", 13) && player.fishing.autoFishEnabled) {
+			let autoInterval = 60;
+			if (hasUpgrade("fishing", 23)) autoInterval = 30;
+			if (hasUpgrade("fishing", 33)) autoInterval = 15;
+			if (hasUpgrade("fishing", 43)) autoInterval = 7.5;
+
+			player.fishing.autoFishCooldown -= diff;
+			if (player.fishing.autoFishCooldown < 0) {
+				player.fishing.autoFishCooldown = 0;
+			}
+
+			if (player.fishing.autoFishCooldown <= 0) {
+				const sackStorage = SACKS[player.fishing.sackLevel].capacity;
+				let inventoryCount = 0;
+				for (let k in player.fishing.inventory) {
+					inventoryCount += player.fishing.inventory[k];
+				}
+
+				layers.fishing.clickables[11].onClick();
+				player.fishing.autoFishCooldown = autoInterval;
+			}
+		} else {
+			player.fishing.autoFishCooldown = 0;
+		}
+	},
+
+	rollTier() {
+		const unlocked = FISH_TIERS.filter(
+			(t) => t.upgradeId === null || hasUpgrade("fishing", t.upgradeId),
+		);
+
+		const rareTiers = [...unlocked]
+			.reverse()
+			.filter((t) => t.upgradeId !== null);
+		for (const tier of rareTiers) {
+			if (Math.random() < tier.chance) return tier;
+		}
+		return FISH_TIERS[0];
 	},
 
 	rollFish() {
@@ -528,14 +608,29 @@ addLayer("fishing", {
 	calculateSellValue() {
 		let total = new Decimal(0);
 
-		for (let fishName in player.fishing.inventory) {
-			if (fishName === "__ob__") continue;
+		for (let key in player.fishing.inventory) {
+			if (key === "__ob__") continue;
+			let fishName, tierMult;
+
+			if (key.includes("|")) {
+				const [tierName, fName] = key.split("|");
+				const tier = FISH_TIERS.find((t) => t.name === tierName);
+				fishName = fName;
+				tierMult = tier ? tier.mult : 1;
+			} else {
+				fishName = key;
+				tierMult = 1;
+			}
+
 			const fish = FISHING_FISHES.find((f) => f.name === fishName);
 			if (!fish) continue;
-			const count = player.fishing.inventory[fishName];
+			const count = player.fishing.inventory[key];
 			const value = RARITY_MAP[fish.rarity].value;
-			total = total.plus(new Decimal(value).times(count));
+			total = total.plus(new Decimal(value).times(tierMult).times(count));
 		}
+
+		if (hasUpgrade("fishing", 22)) total = total.times(1.5);
+		if (hasUpgrade("fishing", 42)) total = total.times(2);
 
 		return total
 			.times(buyableEffect("fishing", 11))
@@ -552,6 +647,7 @@ addLayer("fishing", {
 		let luck = new Decimal(0);
 		luck = luck.add(getBuyableAmount("fishing", 13));
 		if (hasUpgrade("fishing", 12)) luck = luck.add(5);
+		if (hasUpgrade("fishing", 32)) luck = luck.add(10);
 
 		return luck;
 	},
@@ -580,10 +676,21 @@ addLayer("fishing", {
 			body() {
 				const rod = FISHING_RODS[player.fishing.fishingRodLevel];
 				const sack = SACKS[player.fishing.sackLevel];
-				const indexMult = format(layers.fishing.getIndexMult());
-				const boostMult = format(buyableEffect("fishing", 11));
 				const doubleHook = getBuyableAmount("fishing", 12).toNumber();
 				const luckLevel = layers.fishing.calculateFishingLuck().toNumber();
+
+				let effectiveSellValue = new Decimal(1);
+				effectiveSellValue = effectiveSellValue.times(
+					buyableEffect("fishing", 11),
+				);
+				effectiveSellValue = effectiveSellValue.times(
+					layers.fishing.getIndexMult(),
+				);
+
+				if (hasUpgrade("fishing", 22))
+					effectiveSellValue = effectiveSellValue.times(1.5);
+				if (hasUpgrade("fishing", 42))
+					effectiveSellValue = effectiveSellValue.times(2);
 
 				return `
 
@@ -600,8 +707,7 @@ addLayer("fishing", {
 				<br>
                 <h3 style="margin-top: 12px; margin-bottom: 4px;">💰 Selling</h3>
                 <p>Sell your fish in the Sell tab for Astrocredits. Each rarity has a base sell value, multiplied by your
-                Astrocredits Boost Buyable (<b style="color: #e1bf5f">${boostMult}x</b>) and your
-                Index Multiplier (<b style="color: #9213dc">${indexMult}x</b>).</p>
+                Astrocredits Multiplier (<b style="color: #e1bf5f">${format(effectiveSellValue)}x</b>).</p>
 				<br>
                 <h3 style="margin-top: 12px; margin-bottom: 4px;">⬆️ Upgrades</h3>
                 <p>Spend Astrocredits in the Upgrade tab on:</p>
@@ -613,12 +719,16 @@ addLayer("fishing", {
                     <li>- Fishing Luck: ${luckLevel > -1 ? `currently <b style="color: #74e36a">${luckLevel}%</b>, makes it more likely to catch rarer fish` : "makes it more likely to catch rarer fish"}</li>
                 </ul>
 				<br>
-                <h3 style="margin-top: 12px; margin-bottom: 4px;">⭐ Rarities</h3>
-                <p>Fish come in 7 different rarities. Check the Rarity Info box below for exact details.
-                </p>
+               <h3 style="margin-top: 12px; margin-bottom: 4px;">⭐ Rarities</h3>
+                <p>Fish come in 7 different rarities. Check the Rarity infobox below for exact details.</p>
 				<br>
-                <p>Be sure to give feedback and suggestions, expect more space fishing content to be added in the future!
-                </p>
+				 <h3 style="margin-top: 12px; margin-bottom: 4px;">🔁 Rebirth</h3>
+                <p>Once you've earned at least 1,000 Astrocredits, you can Rebirth. This resets your Astrocredits, fishing rod, sack, buyables, and inventory, but awards Rebirth Points based on how many Astrocredits you had. Rebirth Points can be spent on different upgrades</p>
+				<br>
+                <h3 style="margin-top: 12px; margin-bottom: 4px;">✨ Tiers</h3>
+                <p>Each fish you catch can roll a tier, which multiplies its sell value. Tiers are unlocked via Rebirth Upgrades Higher tiers are rarer but much more valuable and they stack on top of rarity. Check the Tier infobox below for exact details.</p>
+				<br>
+                <p style="opacity: 0.6; font-size: 13px;">Be sure to give feedback and suggestions, more space fishing content coming in the future!</p>
         `;
 			},
 		},
@@ -650,9 +760,19 @@ addLayer("fishing", {
 					).toFixed(4);
 					const chanceChanged = luckLevel > 0 && effChance !== baseChance;
 
-					const effectiveSellValue = new Decimal(r.value)
-						.times(buyableEffect("fishing", 11))
-						.times(layers.fishing.getIndexMult());
+					let effectiveSellValue = new Decimal(r.value);
+					effectiveSellValue = effectiveSellValue.times(
+						buyableEffect("fishing", 11),
+					);
+					effectiveSellValue = effectiveSellValue.times(
+						layers.fishing.getIndexMult(),
+					);
+
+					if (hasUpgrade("fishing", 22))
+						effectiveSellValue = effectiveSellValue.times(1.5);
+					if (hasUpgrade("fishing", 42))
+						effectiveSellValue = effectiveSellValue.times(2);
+
 					const baseValue = formatWhole(r.value);
 					const effValue = formatWhole(effectiveSellValue);
 					const valueChanged = effectiveSellValue.gt(r.value);
@@ -698,15 +818,73 @@ addLayer("fishing", {
 			title: "Fish Inventory",
 			body() {
 				let txt = "";
-				for (let fishName in player.fishing.inventory) {
-					const color = RARITIES.find(
-						(r) =>
-							r.name === FISHING_FISHES.find((f) => f.name === fishName).rarity,
+				for (let key in player.fishing.inventory) {
+					if (key === "__ob__") continue;
+					let fishName, tierName, tierColor;
+
+					if (key.includes("|")) {
+						[tierName, fishName] = key.split("|");
+						const tier = FISH_TIERS.find((t) => t.name === tierName);
+						tierColor = tier ? tier.color : "#ffffff";
+					} else {
+						fishName = key;
+						tierName = "Normal";
+						tierColor = "#ffffff";
+					}
+
+					const fish = FISHING_FISHES.find((f) => f.name === fishName);
+					if (!fish) continue;
+					const rarityColor = RARITIES.find(
+						(r) => r.name === fish.rarity,
 					).color;
-					const count = player.fishing.inventory[fishName];
-					txt += `<span style="color: ${color}">${fishName}</span>: ${count}<br>`;
+					const count = player.fishing.inventory[key];
+
+					const tierBadge =
+						tierName !== "Normal"
+							? `<span style="color: ${tierColor}; font-weight: bold">[${tierName}]</span> `
+							: "";
+
+					txt += `${tierBadge}<span style="color: ${rarityColor}">${fishName}</span>: ${count}<br>`;
 				}
 				return txt || "Your sack is empty!";
+			},
+		},
+		tierInfo: {
+			title: "Fish Tiers",
+			body() {
+				const rows = FISH_TIERS.filter((tier) => {
+					return (
+						tier.upgradeId === null || hasUpgrade("fishing", tier.upgradeId)
+					);
+				})
+					.map((tier) => {
+						const chanceText =
+							tier.upgradeId === null
+								? "84.5%"
+								: `${(tier.chance * 100).toFixed(1)}%`;
+						const multText = `${tier.mult}x Sell Value`;
+
+						return `
+                <tr>
+                    <td style="color: ${tier.color}; padding: 6px 16px; font-weight: bold;">${tier.name}</td>
+                    <td style="padding: 1px 10px;">${chanceText}</td>
+                    <td style="padding: 1px 10px;">${multText}</td>
+                </tr>
+            `;
+					})
+					.join("");
+
+				return `
+            <table style="border-collapse: collapse; margin: 8px auto; text-align: left;">
+                <tr style="opacity: 0.6; font-size: 14px;">
+                    <th style="padding: 4px 16px;">Tier</th>
+                    <th style="padding: 4px 16px;">Chance</th>
+                    <th style="padding: 4px 16px;">Sell Value</th>
+                </tr>
+                ${rows}
+            </table>
+            <p style="opacity: 0.5; font-size: 12px; margin-top: 8px;">Higher tiers are rolled first, only 1 tier applies per catch.</p>
+        `;
 			},
 		},
 	},
@@ -815,11 +993,13 @@ addLayer("fishing", {
 					inventoryCount += player.fishing.inventory[fishName];
 				}
 
-				const addFish = (fish) => {
-					if (player.fishing.inventory[fish.name] === undefined) {
-						Vue.set(player.fishing.inventory, fish.name, 1);
+				const addFish = (fish, tier) => {
+					const key =
+						tier.name === "Normal" ? fish.name : `${tier.name}|${fish.name}`;
+					if (player.fishing.inventory[key] === undefined) {
+						Vue.set(player.fishing.inventory, key, 1);
 					} else {
-						player.fishing.inventory[fish.name]++;
+						player.fishing.inventory[key]++;
 					}
 				};
 
@@ -828,8 +1008,9 @@ addLayer("fishing", {
 				// First catch
 				if (inventoryCount < sackStorage) {
 					const fish = layers.fishing.rollFish();
-					addFish(fish);
-					catches.push(fish.name);
+					const tier = layers.fishing.rollTier();
+					addFish(fish, tier);
+					catches.push({ name: fish.name, tier });
 					inventoryCount++;
 					player.fishing.totalFishes = player.fishing.totalFishes.add(1);
 				}
@@ -839,8 +1020,9 @@ addLayer("fishing", {
 					getBuyableAmount("fishing", 12).toNumber() / 100;
 				if (Math.random() < doubleHookChance && inventoryCount < sackStorage) {
 					const fish = layers.fishing.rollFish();
-					addFish(fish);
-					catches.push(fish.name);
+					const tier = layers.fishing.rollTier();
+					addFish(fish, tier);
+					catches.push({ name: fish.name, tier });
 					player.fishing.totalFishes = player.fishing.totalFishes.add(1);
 				}
 
@@ -1080,6 +1262,35 @@ addLayer("fishing", {
 				return style;
 			},
 		},
+
+		18: {
+			display() {
+				return `Auto-Fish: <b>${player.fishing.autoFishEnabled ? "ON" : "OFF"}</b>`;
+			},
+			canClick() {
+				return hasUpgrade("fishing", 13);
+			},
+			onClick() {
+				player.fishing.autoFishEnabled = !player.fishing.autoFishEnabled;
+			},
+			style() {
+				if (!hasUpgrade("fishing", 13)) {
+					return {
+						"min-height": "50px",
+						width: "150px",
+						"font-size": "15px",
+						background: "#414141",
+						opacity: "0.5",
+					};
+				}
+				return {
+					"min-height": "50px",
+					width: "150px",
+					"font-size": "15px",
+					background: player.fishing.autoFishEnabled ? "#74e36a" : "#e15f5f",
+				};
+			},
+		},
 	},
 
 	bars: {
@@ -1102,6 +1313,43 @@ addLayer("fishing", {
 				return {
 					background: "#9213dc",
 					"box-shadow": "0px 0px 8px #9213dc",
+				};
+			},
+			baseStyle: {
+				"border-radius": "4px",
+				border: "2px solid #444",
+				background: "#111",
+			},
+			textStyle: {
+				color: "white",
+				"text-shadow": "1px 1px 2px black",
+				"font-size": "13px",
+			},
+		},
+		autoFishProgress: {
+			direction: RIGHT,
+			height: 30,
+			width: 300,
+			progress() {
+				if (!hasUpgrade("fishing", 13)) return 0;
+				let autoInterval = 60;
+				if (hasUpgrade("fishing", 23)) autoInterval = 30;
+				if (hasUpgrade("fishing", 33)) autoInterval = 15;
+				if (hasUpgrade("fishing", 43)) autoInterval = 7.5;
+				if (autoInterval <= 0) return 1;
+				return 1 - player.fishing.autoFishCooldown / autoInterval;
+			},
+			display() {
+				if (!hasUpgrade("fishing", 13)) return "Auto-Fish: Locked";
+				if (!player.fishing.autoFishEnabled) return "Auto-Fish: DISABLED";
+				return player.fishing.autoFishCooldown <= 0
+					? "Auto-Fish: READY!"
+					: `Auto-Fish: ${format(player.fishing.autoFishCooldown)}s`;
+			},
+			fillStyle() {
+				return {
+					background: "#8ae15f",
+					"box-shadow": "0px 0px 8px #8ae15f",
 				};
 			},
 			baseStyle: {
@@ -1314,6 +1562,107 @@ addLayer("fishing", {
 			currencyDisplayName: "Rebirth Points",
 			currencyInternalName: "rebirthPoints",
 			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 12);
+			},
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		32: {
+			title: "R3-2",
+			description: "+10% Fishing Luck",
+			cost: new Decimal(7),
+			branches: [22],
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 22);
+			},
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		42: {
+			title: "R4-2",
+			description: "2x Astrocredits",
+			cost: new Decimal(12),
+			branches: [32],
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 32);
+			},
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		13: {
+			title: "R1-3",
+			description: "Unlock Auto-Fish (1 Catch / 60s)",
+			cost: new Decimal(5),
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		23: {
+			title: "R2-3",
+			description: "/2 Auto-Fish Cooldown<br>(1 Catch / 30s)",
+			cost: new Decimal(5),
+			branches: [13],
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 13);
+			},
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		33: {
+			title: "R3-3",
+			description: "/2 Auto-Fish Cooldown<br>(1 Catch / 15s)",
+			cost: new Decimal(5),
+			branches: [23],
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 23);
+			},
+			style() {
+				return {
+					margin: "12px",
+				};
+			},
+		},
+		43: {
+			title: "R4-3",
+			description: "/2 Auto-Fish Cooldown<br>(1 Catch / 7.5s)",
+			cost: new Decimal(10),
+			branches: [33],
+			currencyDisplayName: "Rebirth Points",
+			currencyInternalName: "rebirthPoints",
+			currencyLayer: "fishing",
+			unlocked() {
+				return hasUpgrade("fishing", 33);
+			},
 			style() {
 				return {
 					margin: "12px",
