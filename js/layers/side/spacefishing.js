@@ -541,29 +541,29 @@ addLayer("fishing", {
 		}
 
 		// Auto-fish
-		if (hasUpgrade("fishing", 13) && player.fishing.autoFishEnabled) {
+		if (hasUpgrade("fishing", 13)) {
 			let autoInterval = 60;
 			if (hasUpgrade("fishing", 23)) autoInterval = 30;
 			if (hasUpgrade("fishing", 33)) autoInterval = 15;
 			if (hasUpgrade("fishing", 43)) autoInterval = 7.5;
 
-			player.fishing.autoFishCooldown -= diff;
-			if (player.fishing.autoFishCooldown < 0) {
-				player.fishing.autoFishCooldown = 0;
-			}
-
-			if (player.fishing.autoFishCooldown <= 0) {
-				const sackStorage = SACKS[player.fishing.sackLevel].capacity;
-				let inventoryCount = 0;
-				for (let k in player.fishing.inventory) {
-					inventoryCount += player.fishing.inventory[k];
+			if (player.fishing.autoFishEnabled) {
+				player.fishing.autoFishCooldown -= diff;
+				if (player.fishing.autoFishCooldown < 0) {
+					player.fishing.autoFishCooldown = 0;
 				}
 
-				layers.fishing.clickables[11].onClick();
-				player.fishing.autoFishCooldown = autoInterval;
+				if (player.fishing.autoFishCooldown <= 0) {
+					const sackStorage = SACKS[player.fishing.sackLevel].capacity;
+					let inventoryCount = 0;
+					for (let k in player.fishing.inventory) {
+						inventoryCount += player.fishing.inventory[k];
+					}
+
+					layers.fishing.clickables[11].onClick();
+					player.fishing.autoFishCooldown = autoInterval;
+				}
 			}
-		} else {
-			player.fishing.autoFishCooldown = 0;
 		}
 	},
 
