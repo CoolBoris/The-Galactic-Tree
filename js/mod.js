@@ -214,6 +214,7 @@ let changelog = `<changelog>
 		<h2 style="color:Violet;">v3.0.1</h2><br>
 		- Rebirths (Space Fishing)<br>
 		- Fish Tiers (Space Fishing)<br>
+		- Auto Fish (Space Fishing)<br>
 		- Bug Fixes<br>
 		<br>
 		<h2 style="color:#ff3200;">v3.0 - Universal</h2><br>
