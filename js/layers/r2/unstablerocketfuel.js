@@ -863,7 +863,7 @@ addLayer("unstablefuel", {
 				"Unstable Rocket Fuel gain is increased based on your Dark Matter",
 			cost: new Decimal(282828282),
 			effect() {
-				return player.darkmatter.points.add(1).log10().max(0);
+				return player.darkmatter.points.add(1).log10().max(0).add(1);
 			},
 			effectDisplay() {
 				return format(upgradeEffect(this.layer, this.id)) + "x";
@@ -927,7 +927,12 @@ addLayer("unstablefuel", {
 				"Unstable Rocket Fuel gain is increased based on your Dark Matter",
 			cost: new Decimal(1.1111e11),
 			effect() {
-				return player.darkmatter.points.add(1).log10().times(2.32).max(0);
+				return player.darkmatter.points
+					.add(1)
+					.log10()
+					.times(2.32)
+					.max(0)
+					.add(1);
 			},
 			effectDisplay() {
 				return format(upgradeEffect(this.layer, this.id)) + "x";
@@ -994,7 +999,7 @@ addLayer("unstablefuel", {
 				"Unstable Rocket Fuel gain is increased based on your Dark Matter",
 			cost: new Decimal(2.22222e20),
 			effect() {
-				return player.darkmatter.points.add(1).log2().pow(1.15);
+				return player.darkmatter.points.add(1).log2().pow(1.15).add(1);
 			},
 			effectDisplay() {
 				return format(upgradeEffect(this.layer, this.id)) + "x";
@@ -1084,7 +1089,7 @@ addLayer("unstablefuel", {
 				"Unstable Rocket Fuel gain is increased based on your Dark Matter",
 			cost: new Decimal(1e100),
 			effect() {
-				return player.darkmatter.points.add(1).log2().pow(1.5);
+				return player.darkmatter.points.add(1).log2().pow(1.5).add(1);
 			},
 			effectDisplay() {
 				return format(upgradeEffect(this.layer, this.id)) + "x";
