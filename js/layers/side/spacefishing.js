@@ -474,7 +474,10 @@ addLayer("fishing", {
 			buttonStyle() {
 				if (
 					player.fishing.astroCredits.gte(1000) ||
-					player.fishing.rebirthPoints.gte(1)
+					player.fishing.rebirthPoints.gte(1) ||
+					hasUpgrade("fishing", 11) ||
+					hasUpgrade("fishing", 12) ||
+					hasUpgrade("fishing", 13)
 				) {
 					return { "border-color": "#e13b3b" };
 				}
