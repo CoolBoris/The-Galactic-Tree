@@ -68,7 +68,13 @@ addLayer("ast", {
 		Asteroids: {
 			content: ["main-display", "prestige-button", "blank", "challenges"],
 			unlocked() {
-				return hasChallenge("c", 14);
+				return (
+					hasChallenge("c", 14) ||
+					inChallenge("ast", 11) ||
+					inChallenge("ast", 12) ||
+					inChallenge("ast", 13) ||
+					inChallenge("ast", 14)
+				);
 			},
 		},
 	},
@@ -265,7 +271,7 @@ addLayer("ast", {
 			cost: new Decimal(1500),
 			effect() {
 				let base = new Decimal(1.2).add(
-					player.ast.points.add(1).log(10).pow(2.5)
+					player.ast.points.add(1).log(10).pow(2.5),
 				);
 				let result = base;
 

@@ -38,6 +38,8 @@ addLayer("negativeinfinity", {
 
 	layerShown() {
 		if (player.negativeinfinity.points.gte(1)) return true;
+		if (player.negativeinfinity.unlocked) return true;
+
 		if (!inChallenge("real", 11)) return false;
 		if (player.universe.points.gte(5)) return true;
 		return false;
@@ -125,6 +127,11 @@ addLayer("negativeinfinity", {
 		player.negativeinfinity.shards = player.negativeinfinity.shards.add(
 			getResetGain("negativeinfinity", "normal"),
 		);
+	},
+
+	unlocked() {
+		if (player.negativeinf.points.gte(1))
+			player.negativeinfinity.unlocked = true;
 	},
 
 	startData() {

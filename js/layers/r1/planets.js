@@ -31,6 +31,8 @@ addLayer("planetoid", {
 		if (hasUpgrade("r", 53)) mult = mult.times(100);
 		if (hasMilestone("planets", 6))
 			mult = mult.times(tmp.planets.milestones[6].effect);
+		mult = mult.times(player.infinity.points.add(1));
+
 		return mult;
 	},
 

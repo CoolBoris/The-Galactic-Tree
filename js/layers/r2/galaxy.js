@@ -999,7 +999,7 @@ addLayer("galaxy", {
 		},
 		65: {
 			title: "Milestone",
-			description: "Unlock Unstable Milestone XVII",
+			description: "Unlock Unstable Milestone XVI",
 			cost: new Decimal(50000),
 			currencyDisplayName: "Cosmic Rays",
 			currencyLocation() {

@@ -33,6 +33,8 @@ addLayer("stardust", {
 
 		if (hasMilestone("stars", 6))
 			mult = mult.times(tmp.stars.milestones[6].effect);
+		mult = mult.times(player.infinity.points.add(1));
+
 		return mult;
 	},
 

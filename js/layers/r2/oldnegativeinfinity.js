@@ -5,10 +5,9 @@ addLayer("negativeinf", {
 
 	doReset(reset) {
 		let keep = [];
-		if (!inChallenge("real", 11)) keep.push("upgrades");
-		if (!inChallenge("real", 11)) keep.push("points");
-		if (!inChallenge("real", 11)) keep.push("milestones");
-		if (!inChallenge("real", 11)) keep.push("buyables");
+		keep.push("points");
+		keep.push("milestones");
+		keep.push("buyables");
 		if (layers[reset].row > this.row) {
 			layerDataReset("negativeinf", keep);
 		}

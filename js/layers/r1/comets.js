@@ -67,7 +67,13 @@ addLayer("c", {
 		},
 		Comets: {
 			unlocked() {
-				return hasMilestone("c", 5);
+				return (
+					hasMilestone("c", 5) ||
+					inChallenge("c", 11) ||
+					inChallenge("c", 12) ||
+					inChallenge("c", 13) ||
+					inChallenge("c", 14)
+				);
 			},
 			content: ["main-display", "prestige-button", "blank", "challenges"],
 		},
@@ -249,7 +255,7 @@ addLayer("c", {
 			cost: new Decimal(150),
 			effect() {
 				let base = new Decimal(1.2).add(
-					player.c.points.add(1).log(10).pow(2.5)
+					player.c.points.add(1).log(10).pow(2.5),
 				);
 				let result = base;
 

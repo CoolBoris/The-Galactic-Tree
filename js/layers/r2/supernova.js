@@ -526,7 +526,7 @@ addLayer("supernova", {
 					"display-text",
 					function () {
 						if (!hasMilestone("supernova", 15)) return "";
-						return `<div style="font-size: 1.3em;">II: ${format(
+						return `<div style="font-size: 1.3em;">VIII: ${format(
 							player.darkenergy.points.pow(0.2).add(1),
 						)}% of Void/s</div>`;
 					},

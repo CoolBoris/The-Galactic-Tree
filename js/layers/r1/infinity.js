@@ -40,10 +40,20 @@ addLayer("infinity", {
 		let visible = false;
 		if (hasMilestone("x", 6)) visible = true;
 		if (player.infinity.points.gte(1)) visible = true;
+		if (player.infinity.unlocked) visible = true;
 		if (inChallenge("stars", 11) || inChallenge("planets", 11)) visible = false;
 		if (inChallenge("real", 11)) visible = false;
 
 		return visible;
+	},
+
+	unlocked() {
+		if (
+			player.inf.points.gte(1) ||
+			player.megainf.points.gte(1) ||
+			player.omegainf.points.gte(1)
+		)
+			player.infinity.unlocked = true;
 	},
 
 	componentStyles: {
