@@ -202,6 +202,16 @@ addLayer("c", {
 				return player.c.points.gte(2.5e6);
 			},
 		},
+		6: {
+			requirementDescription: "100,000,000 Comets",
+			effectDescription: "Automatically get Rockets & Rockets reset nothing",
+			unlocked() {
+				return hasMilestone(this.layer, previousMilestoneID(this.id));
+			},
+			done() {
+				return player.c.points.gte(1e8);
+			},
+		},
 	},
 
 	upgrades: {

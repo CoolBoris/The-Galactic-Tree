@@ -260,7 +260,7 @@ const FISH_TIERS = [
 		mult: 1,
 		color: "#ffffff",
 	},
-	{ name: "Gold", upgradeId: 11, chance: 0.1, mult: 2, color: "#FFD700" },
+	{ name: "Gold", upgradeId: 11, chance: 11, mult: 2, color: "#FFD700" },
 	{ name: "Shiny", upgradeId: 21, chance: 0.04, mult: 5, color: "#00ffea" },
 	{ name: "Rainbow", upgradeId: 31, chance: 0.01, mult: 25, color: "#ff69b4" },
 	{
@@ -340,7 +340,7 @@ addLayer("fishing", {
 
 						return `You have
             <h2 style="color: #9213dc; text-shadow: 0px 0px 20px #9213dc; font-family: 'Lucida Console', 'Courier New', monospace">
-            ${inventoryCount}/${formatWhole(sackStorage)}</h2> Space Fishes in your sack!`;
+            ${formatWhole(inventoryCount)}/${formatWhole(sackStorage)}</h2> Space Fishes in your sack!`;
 					},
 				],
 				"blank",
@@ -942,7 +942,13 @@ addLayer("fishing", {
 						: `❌ ${fish.rarity} ???`;
 				},
 				done() {
-					return player.fishing.inventory[fish.name] > 0;
+					if (player.fishing.inventory[fish.name] > 0) return true;
+					for (const tier of FISH_TIERS) {
+						if (tier.name === "Normal") continue;
+						if (player.fishing.inventory[`${tier.name}|${fish.name}`] > 0)
+							return true;
+					}
+					return false;
 				},
 			};
 		}

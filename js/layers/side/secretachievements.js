@@ -471,8 +471,9 @@ addLayer("sa", {
 				let total = 0;
 				for (let fishName in player.fishing.inventory) {
 					if (fishName === "__ob__") continue;
-					if (!FISHING_FISHES.find((f) => f.name === fishName)) continue;
-					total += player.fishing.inventory[fishName];
+					const count = player.fishing.inventory[fishName];
+					if (typeof count !== "number") continue;
+					total += count;
 				}
 				return total >= 5000;
 			},

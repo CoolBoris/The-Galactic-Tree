@@ -37,10 +37,9 @@ addLayer("negativeinfinity", {
 	},
 
 	layerShown() {
+		if (!inChallenge("real", 11)) return false;
 		if (player.negativeinfinity.points.gte(1)) return true;
 		if (player.negativeinfinity.unlocked) return true;
-
-		if (!inChallenge("real", 11)) return false;
 		if (player.universe.points.gte(5)) return true;
 		return false;
 	},
@@ -143,7 +142,7 @@ addLayer("negativeinfinity", {
 	},
 
 	requires: new Decimal(5),
-	resource: "Infinities",
+	resource: "Negative Infinities",
 	baseResource: "Universes",
 	baseAmount() {
 		return player.universe.points;

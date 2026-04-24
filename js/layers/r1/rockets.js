@@ -55,15 +55,15 @@ addLayer("ro", {
 		if (player.ro.bulkBuy && canResetNow)
 			return `+<b>${getResetGain(
 				this.layer,
-				"static"
+				"static",
 			)}</b> Rockets<br><br>Next at ${format(
-				getNextAt(this.layer, (canMax = true), "static")
+				getNextAt(this.layer, (canMax = true), "static"),
 			)} Rocket Fuel`;
 
 		if (canResetNow) return `+<b>1</b> Rocket`;
 
 		return `Requires ${format(
-			getNextAt(this.layer, (canMax = false), "static")
+			getNextAt(this.layer, (canMax = false), "static"),
 		)} Rocket Fuel`;
 	},
 
@@ -132,6 +132,8 @@ addLayer("ro", {
 	resetsNothing() {
 		let nothing = false;
 		if (hasUpgrade("infinity", 23)) nothing = true;
+		if (hasMilestone("c", 6)) nothing = true;
+
 		return nothing;
 	},
 
@@ -205,6 +207,7 @@ addLayer("ro", {
 
 	autoPrestige() {
 		let auto = false;
+		if (hasMilestone("c", 6)) auto = true;
 		if (hasUpgrade("infinity", 24)) auto = true;
 		return auto;
 	},
