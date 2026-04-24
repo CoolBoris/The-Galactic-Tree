@@ -204,7 +204,7 @@ function fixOldSave(oldVersion) {}
 
 // Set your version in num and name
 let VERSION = {
-	num: "3.0.1",
+	num: "3.0.2",
 	name: "Universal",
 };
 
