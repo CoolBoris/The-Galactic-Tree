@@ -214,6 +214,7 @@ let changelog = `<changelog>
 	<h2 style="color:Violet;">v3.0.2</h2><br>
 		- Better Automation<br>
 		- Bug Fixes<br>
+		<br>
 		<h2 style="color:Violet;">v3.0.1</h2><br>
 		- Rebirths (Space Fishing)<br>
 		- Fish Tiers (Space Fishing)<br>
