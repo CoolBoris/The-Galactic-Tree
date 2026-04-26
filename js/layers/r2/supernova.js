@@ -825,7 +825,7 @@ addLayer("supernova", {
 				let baseEffect = player.energy.points.add(1).pow(0.2);
 				if (baseEffect.gt(10))
 					baseEffect = new Decimal(10).plus(baseEffect.minus(10).log2());
-				return baseEffect;
+				return baseEffect.max(1);
 			},
 			effectDisplay() {
 				let effectValue = upgradeEffect(this.layer, this.id);
@@ -936,7 +936,7 @@ addLayer("supernova", {
 				let baseEffect = player.energy.points.add(1).pow(0.3);
 				if (baseEffect.gt(25))
 					baseEffect = new Decimal(25).plus(baseEffect.minus(25).log2());
-				return baseEffect;
+				return baseEffect.max(1);
 			},
 			effectDisplay() {
 				let effectValue = upgradeEffect(this.layer, this.id);
@@ -1047,7 +1047,7 @@ addLayer("supernova", {
 				let baseEffect = player.energy.points.add(1).pow(0.34);
 				if (baseEffect.gt(50))
 					baseEffect = new Decimal(50).plus(baseEffect.minus(50).log2());
-				return baseEffect;
+				return baseEffect.max(1);
 			},
 			effectDisplay() {
 				let effectValue = upgradeEffect(this.layer, this.id);
@@ -1158,7 +1158,7 @@ addLayer("supernova", {
 				let baseEffect = player.energy.points.add(1).pow(0.25);
 				if (baseEffect.gt(100))
 					baseEffect = new Decimal(100).plus(baseEffect.minus(100).log2());
-				return baseEffect;
+				return baseEffect.max(1);
 			},
 			effectDisplay() {
 				let effectValue = upgradeEffect(this.layer, this.id);
@@ -1269,7 +1269,7 @@ addLayer("supernova", {
 				let baseEffect = player.energy.points.add(1).pow(0.21);
 				if (baseEffect.gt(250))
 					baseEffect = new Decimal(250).plus(baseEffect.minus(250).log2());
-				return baseEffect;
+				return baseEffect.max(1);
 			},
 			effectDisplay() {
 				let effectValue = upgradeEffect(this.layer, this.id);
