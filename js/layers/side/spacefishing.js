@@ -260,7 +260,7 @@ const FISH_TIERS = [
 		mult: 1,
 		color: "#ffffff",
 	},
-	{ name: "Gold", upgradeId: 11, chance: 11, mult: 2, color: "#FFD700" },
+	{ name: "Gold", upgradeId: 11, chance: 0.1, mult: 2, color: "#FFD700" },
 	{ name: "Shiny", upgradeId: 21, chance: 0.04, mult: 5, color: "#00ffea" },
 	{ name: "Rainbow", upgradeId: 31, chance: 0.01, mult: 25, color: "#ff69b4" },
 	{

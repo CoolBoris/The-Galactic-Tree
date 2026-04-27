@@ -77,6 +77,7 @@ addLayer("blackhole", {
 		if (!inChallenge("real", 11)) keep.push("points");
 		if (!inChallenge("real", 11)) keep.push("milestones");
 		if (!inChallenge("real", 11)) keep.push("buyables");
+		if (!inChallenge("real", 11)) keep.push("challenges");
 
 		if (layers[reset].row > this.row) {
 			layerDataReset(this.layer, keep);
