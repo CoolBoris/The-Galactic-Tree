@@ -249,7 +249,7 @@ addLayer("stars", {
 		"The Sun": {
 			content: [["infobox", "sun"], "blank", "challenges"],
 			unlocked() {
-				return hasMilestone("s", 13) || hasChallenge("stars", 11);
+				return hasMilestone("s", 13) || inChallenge("stars", 11);
 			},
 			buttonStyle() {
 				return { "border-color": "#FFB50B" };

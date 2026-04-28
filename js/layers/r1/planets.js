@@ -257,7 +257,7 @@ addLayer("planets", {
 		"The Solar System": {
 			content: [["infobox", "solarsystem"], "blank", "challenges"],
 			unlocked() {
-				return hasMilestone("planets", 7) || hasChallenge("planets", 11);
+				return hasMilestone("planets", 7) || inChallenge("planets", 11);
 			},
 			buttonStyle() {
 				return { "border-color": "#620A8A" };
